@@ -99,6 +99,22 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
                 <DownloadButton
                   elementRef={highResRef}
                   fileName={`hh-goa-profile-frame-${activeThemeId}.png`}
+                  onDownloadCompleted={async () => {
+                    try {
+                      await fetch('/api/save', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          name: 'N/A (Profile Frame)',
+                          role: 'N/A',
+                          title: 'N/A',
+                          theme: activeThemeId,
+                        }),
+                      });
+                    } catch (err) {
+                      console.error('Failed to log client data:', err);
+                    }
+                  }}
                 />
                 <ShareButton mode="frame" />
               </div>

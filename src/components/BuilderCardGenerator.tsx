@@ -218,6 +218,22 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 <DownloadButton
                   elementRef={highResRef}
                   fileName={`hh-goa-builder-card-${activeThemeId}.png`}
+                  onDownloadCompleted={async () => {
+                    try {
+                      await fetch('/api/save', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          name,
+                          role,
+                          title: builderTitle,
+                          theme: activeThemeId,
+                        }),
+                      });
+                    } catch (err) {
+                      console.error('Failed to log client data:', err);
+                    }
+                  }}
                 />
                 <ShareButton mode="card" />
               </div>
