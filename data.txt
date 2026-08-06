@@ -1,0 +1,114 @@
+========================================================================
+HH GOA 2026 BUILDER STUDIO - CONFIGURATION DATABASE Preset
+========================================================================
+
+This file acts as a static database of all configuration datasets,
+colors, scripts, and values used throughout the client application.
+
+------------------------------------------------------------------------
+1. APPLICATION GENERAL METADATA
+------------------------------------------------------------------------
+Application Name : HH Goa 2026 Builder Studio
+Target Resolution: 1080 x 1350 pixels (Aspect Ratio 4:5)
+Export Format    : PNG (High Resolution, Client-Side generated)
+Processing Type  : 100% Client-Side local browser sandbox
+Primary Hashtag  : #FrameInGoa
+
+------------------------------------------------------------------------
+2. EVENT GEOGRAPHY AND SYSTEM LABELS
+------------------------------------------------------------------------
+Event Name       : HH Goa 2026 (Hacker House Goa)
+Port Location    : Goa, India
+GPS Coordinates  : 15.4967° N, 73.8278° E
+Event Month      : February 2026
+System ID Format : #GOA-2026-BUILD / #GOA-2026-BND
+
+------------------------------------------------------------------------
+3. TROPICAL DESIGN THEMES (HEX & STYLING CODES)
+------------------------------------------------------------------------
+[THEME 1: Sunset Orange]
+  - ID             : sunset
+  - Display Name   : Sunset Orange
+  - Hex Start (From): #ff5e62
+  - Hex End (To)   : #ff9966
+  - Card Bg (Hex)  : #1e1111
+  - CSS Classes    : from-sunset-start to-sunset-end
+  - Glow Shadow    : shadow-[0_0_30px_rgba(255,94,98,0.35)]
+
+[THEME 2: Ocean Blue]
+  - ID             : ocean
+  - Display Name   : Ocean Blue
+  - Hex Start (From): #00c6ff
+  - Hex End (To)   : #0072ff
+  - Card Bg (Hex)  : #111a2e
+  - CSS Classes    : from-ocean-start to-ocean-end
+  - Glow Shadow    : shadow-[0_0_30px_rgba(0,198,255,0.35)]
+
+[THEME 3: Neon Purple]
+  - ID             : purple
+  - Display Name   : Neon Purple
+  - Hex Start (From): #d946ef
+  - Hex End (To)   : #8b5cf6
+  - Card Bg (Hex)  : #1b112e
+  - CSS Classes    : from-purple-start to-purple-end
+  - Glow Shadow    : shadow-[0_0_30px_rgba(217,70,239,0.35)]
+
+[THEME 4: Tropical Green]
+  - ID             : green
+  - Display Name   : Tropical Green
+  - Hex Start (From): #11998e
+  - Hex End (To)   : #38ef7d
+  - Card Bg (Hex)  : #11221a
+  - CSS Classes    : from-green-start to-green-end
+  - Glow Shadow    : shadow-[0_0_30px_rgba(17,153,142,0.35)]
+
+------------------------------------------------------------------------
+4. DEVELOPER STACK & ROLES PRESETS
+------------------------------------------------------------------------
+List of selectable stacks:
+  [01] Frontend
+  [02] Backend
+  [03] AI Engineer
+  [04] ML Engineer
+  [05] Designer
+  [06] Founder
+  [07] Student
+  [08] Product Builder
+
+------------------------------------------------------------------------
+5. FUN BUILDER TITLE POOL
+------------------------------------------------------------------------
+Titles generated and cycled randomly:
+  [01] Prompt Pirate
+  [02] Pixel Alchemist
+  [03] API Whisperer
+  [04] Bug Hunter
+  [05] Stack Overflow Survivor
+  [06] Code Ninja
+  [07] Late Night Hacker
+  [08] Ship-It Specialist
+  [09] AI Explorer
+  [10] Innovation Machine
+
+------------------------------------------------------------------------
+6. SOCIAL WEB INTENT TEMPLATES (X / TWITTER)
+------------------------------------------------------------------------
+Endpoint         : https://twitter.com/intent/tweet
+Text Script (Card):
+  "Ready for HH Goa 2026 🌴🚀
+  
+  Just generated my official Builder Card.
+  
+  Can't wait to build with everyone!
+  
+  #FrameInGoa"
+
+Text Script (Frame):
+  "Ready for HH Goa 2026 🌴🚀
+  
+  Just generated my official Profile Frame.
+  
+  Can't wait to build with everyone!
+  
+  #FrameInGoa"
+========================================================================
