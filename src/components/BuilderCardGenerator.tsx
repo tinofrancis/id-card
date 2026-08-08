@@ -81,6 +81,8 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
   const [role, setRole] = useState('AI Engineer');
   const [builderTitle, setBuilderTitle] = useState('Late Night Hacker');
   const [showCropModal, setShowCropModal] = useState(false);
+  const [cardId, setCardId] = useState('');
+  const [domain, setDomain] = useState('');
 
   const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({
     transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
@@ -134,9 +136,13 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
     }
   }, [croppedImage]);
 
-  // Initialize random builder title
+  // Initialize random builder title and unique card serial ID
   useEffect(() => {
     handleRegenerateTitle();
+    setCardId(Math.random().toString(36).substring(2, 10).toUpperCase());
+    if (typeof window !== 'undefined') {
+      setDomain(window.location.origin);
+    }
   }, []);
 
   const handleRegenerateTitle = () => {
@@ -162,6 +168,9 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
     setImageSrc(null);
     setCroppedImage(null);
   };
+
+  const verifyUrl = `${domain}/verify?id=${cardId}&name=${encodeURIComponent(name)}&role=${encodeURIComponent(role)}&title=${encodeURIComponent(builderTitle)}&theme=${activeThemeId}`;
+  const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=ffffff&bgcolor=020617&data=${encodeURIComponent(verifyUrl)}`;
 
   return (
     <div className="flex flex-col lg:flex-row gap-8 items-start justify-center w-full max-w-5xl mx-auto px-4">
@@ -275,10 +284,12 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
+                          id: cardId,
                           name,
                           role,
                           title: builderTitle,
                           theme: activeThemeId,
+                          image: croppedImage,
                         }),
                       });
                     } catch (err) {
@@ -423,13 +434,22 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             <div className="relative z-10 flex justify-between items-end border-t border-white/5 pt-3.5">
               {/* QR representation */}
               <div className="flex items-center gap-2">
-                <QRCodeSVG className={`h-8 w-8 text-white`} />
+                {cardId ? (
+                  <img
+                    src={qrImageUrl}
+                    alt="QR Verification Link"
+                    crossOrigin="anonymous"
+                    className="h-8 w-8 object-contain rounded border border-white/10"
+                  />
+                ) : (
+                  <QRCodeSVG className="h-8 w-8 text-white" />
+                )}
                 <div className="flex flex-col text-left">
                   <span className="text-[6px] font-mono text-slate-500 uppercase flex items-center gap-0.5">
                     <span className="h-1 w-1 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_4px_#10b981]" />
                     SYS ID
                   </span>
-                  <span className="text-[8px] font-mono text-slate-300 leading-none mt-0.5">#GOA-2026-BND</span>
+                  <span className="text-[8px] font-mono text-slate-300 leading-none mt-0.5">#GOA-${cardId || '2026-BND'}</span>
                 </div>
               </div>
 
@@ -553,13 +573,22 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           <div className="relative z-10 flex justify-between items-end border-t-2 border-white/5 pt-10">
             {/* QR block */}
             <div className="flex items-center gap-6">
-              <QRCodeSVG className={`h-24 w-24 text-white`} />
+              {cardId ? (
+                <img
+                  src={qrImageUrl}
+                  alt="QR Verification Link"
+                  crossOrigin="anonymous"
+                  className="h-24 w-24 object-contain rounded-md border-2 border-white/10"
+                />
+              ) : (
+                <QRCodeSVG className={`h-24 w-24 text-white`} />
+              )}
               <div className="flex flex-col text-left gap-1">
                 <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
                   SYS ID
                 </span>
-                <span className="text-sm font-mono text-white leading-none tracking-widest">#GOA-2026-BUILD</span>
+                <span className="text-sm font-mono text-white leading-none tracking-widest">#GOA-${cardId || '2026-BUILD'}</span>
                 <span className="text-[10px] font-mono text-slate-400 mt-1 uppercase tracking-widest">VERIFIED SYSTEM REG</span>
               </div>
             </div>
