@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import dbConnect from '@/lib/db';
+import Submission from '@/models/Submission';
 
 export async function GET(request: Request) {
   try {
@@ -11,7 +13,29 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Missing profile ID' }, { status: 400 });
     }
 
-    // 1. Try local JSON first (for local environment lookup)
+    // 1. Try MongoDB first
+    try {
+      await dbConnect();
+      const submission = await Submission.findOne({ id });
+      if (submission) {
+        return NextResponse.json({
+          success: true,
+          data: {
+            id: submission.id,
+            name: submission.name,
+            role: submission.role,
+            title: submission.title,
+            theme: submission.theme,
+            image: submission.imageUrl,
+            timestamp: submission.createdAt.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+          }
+        });
+      }
+    } catch (err) {
+      console.error('Error fetching from MongoDB:', err);
+    }
+
+    // 2. Try local JSON fallback (for local environment lookup)
     try {
       const localPath = path.join(process.cwd(), 'submissions.json');
       if (fs.existsSync(localPath)) {
@@ -24,7 +48,7 @@ export async function GET(request: Request) {
       console.log('Skipped local JSON reading or file not present');
     }
 
-    // 2. Try Vercel KV if connected
+    // 3. Try Vercel KV if connected
     const kvUrl = process.env.KV_REST_API_URL;
     const kvToken = process.env.KV_REST_API_TOKEN;
     if (kvUrl && kvToken) {

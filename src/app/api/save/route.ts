@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import dbConnect from '@/lib/db';
+import Submission from '@/models/Submission';
 
 export async function POST(request: Request) {
   try {
@@ -23,7 +25,28 @@ export async function POST(request: Request) {
     // 1. Log to server console (Visible in Vercel Logs Dashboard)
     console.log(`DATABASE_LOG: ${logLine.trim()}`);
 
-    // 2. Persist to Vercel KV if connected
+    // 2. Persist to MongoDB
+    if (id) {
+      try {
+        await dbConnect();
+        await Submission.findOneAndUpdate(
+          { id },
+          {
+            id,
+            name: name || 'N/A',
+            role: role || 'N/A',
+            title: title || 'N/A',
+            theme: theme || 'N/A',
+            imageUrl: image || null,
+          },
+          { upsert: true, new: true }
+        );
+      } catch (err) {
+        console.error('Error saving to MongoDB:', err);
+      }
+    }
+
+    // 3. Persist to Vercel KV if connected
     const kvUrl = process.env.KV_REST_API_URL;
     const kvToken = process.env.KV_REST_API_TOKEN;
     if (kvUrl && kvToken) {
