@@ -11,28 +11,26 @@ interface HeaderProps {
 export default function Header({ darkMode, setDarkMode }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-white/5 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md transition-colors duration-300">
-      <div className="mx-auto flex max-w-7xl h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto flex max-w-7xl h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         
-        {/* Logo and Brand */}
-        <div className="flex items-center gap-2.5 group">
-          <div className="relative flex h-10 w-16 items-center justify-center transition-transform duration-300 group-hover:scale-105">
+        {/* Left Side: 2:47PM Studio Logo */}
+        <div className="flex items-center gap-2.5">
+          <div className="relative flex h-8 w-14 items-center justify-center transition-transform duration-300 hover:scale-105">
             <img
               src="/studio-logo.png"
               alt="2:47PM Studio Logo"
               className="h-full w-full object-contain"
             />
           </div>
-          <div className="h-6 w-[1px] bg-slate-200 dark:bg-white/10 mx-1" />
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-display font-black tracking-tight text-base text-slate-900 dark:text-white">
-                HH GOA <span className="text-transparent bg-clip-text bg-gradient-to-r from-sunset-start to-sunset-end">2026</span>
-              </span>
-            </div>
-            <p className="text-[9px] font-semibold uppercase tracking-widest text-slate-400 mt-0.5">
-              Builder Studio
-            </p>
-          </div>
+        </div>
+
+        {/* Center: Hacker House Logo */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-8 w-32 sm:h-9 sm:w-36 md:h-10 md:w-44 flex items-center justify-center pointer-events-none">
+          <img
+            src="/hacker-house-logo.png"
+            alt="Hacker House Logo"
+            className="h-full w-full object-contain"
+          />
         </div>
 
         {/* Info Badge */}
