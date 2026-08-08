@@ -10,7 +10,7 @@ interface HeaderProps {
 
 export default function Header({ darkMode, setDarkMode }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-white/5 bg-slate-950/80 backdrop-blur-md transition-colors duration-300">
+    <header className="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-white/5 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md transition-colors duration-300">
       <div className="mx-auto flex max-w-7xl h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         
         {/* Logo and Brand */}
@@ -22,10 +22,10 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
               className="h-full w-full object-contain"
             />
           </div>
-          <div className="h-6 w-[1px] bg-white/10 mx-1" />
+          <div className="h-6 w-[1px] bg-slate-200 dark:bg-white/10 mx-1" />
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-display font-black tracking-tight text-base text-white">
+              <span className="font-display font-black tracking-tight text-base text-slate-900 dark:text-white">
                 HH GOA <span className="text-transparent bg-clip-text bg-gradient-to-r from-sunset-start to-sunset-end">2026</span>
               </span>
             </div>
@@ -45,7 +45,7 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
           {/* Theme Switcher Button */}
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-200"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200"
             aria-label="Toggle dark mode"
           >
             {darkMode ? (

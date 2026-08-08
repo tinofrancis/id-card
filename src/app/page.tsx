@@ -29,7 +29,7 @@ export default function Home() {
   }, [darkMode]);
 
   return (
-    <div className="min-h-screen flex flex-col justify-between overflow-x-hidden bg-slate-950 text-slate-50 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-50 light:bg-slate-50 light:text-slate-900">
+    <div className="min-h-screen flex flex-col justify-between overflow-x-hidden bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300">
       
       {/* Dynamic Background Elements */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
@@ -102,7 +102,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.1] mb-6"
+            className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-6"
           >
             Become an HH Goa <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-sunset-start via-[#ff7a50] to-sunset-end">
@@ -115,7 +115,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-sm sm:text-base md:text-lg text-slate-300 max-w-xl mx-auto leading-relaxed"
+            className="text-sm sm:text-base md:text-lg text-slate-700 dark:text-slate-300 max-w-xl mx-auto leading-relaxed"
           >
             Generate your official event Profile Frame and digital Builder Card in under 10 seconds. Show the world you are building in Goa!
           </motion.p>
@@ -123,19 +123,19 @@ export default function Home() {
 
         {/* Tab Selector */}
         <section className="w-full max-w-md px-4 mb-10">
-          <div className="relative flex p-1.5 rounded-2xl border border-white/5 bg-slate-900/60 backdrop-blur-md">
+          <div className="relative flex p-1.5 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md">
             
             {/* Tab 1: Profile Frame */}
             <button
               onClick={() => setActiveTab('frame')}
               className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-xs font-semibold tracking-wide transition-colors duration-300 ${
-                activeTab === 'frame' ? 'text-white' : 'text-slate-400 hover:text-slate-200'
+                activeTab === 'frame' ? 'text-slate-900 dark:text-white' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
               }`}
             >
               {activeTab === 'frame' && (
                 <motion.div
                   layoutId="activeTabIndicator"
-                  className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-r from-slate-800 to-slate-800/80 shadow"
+                  className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-r from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-800/80 shadow"
                   transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                 />
               )}
@@ -147,13 +147,13 @@ export default function Home() {
             <button
               onClick={() => setActiveTab('card')}
               className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-xs font-semibold tracking-wide transition-colors duration-300 ${
-                activeTab === 'card' ? 'text-white' : 'text-slate-400 hover:text-slate-200'
+                activeTab === 'card' ? 'text-slate-900 dark:text-white' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
               }`}
             >
               {activeTab === 'card' && (
                 <motion.div
                   layoutId="activeTabIndicator"
-                  className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-r from-slate-800 to-slate-800/80 shadow"
+                  className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-r from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-800/80 shadow"
                   transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                 />
               )}
