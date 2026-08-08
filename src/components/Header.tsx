@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Palmtree, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 interface HeaderProps {
   darkMode: boolean;
@@ -15,17 +15,21 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
         
         {/* Logo and Brand */}
         <div className="flex items-center gap-2.5 group">
-          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-sunset-start to-sunset-end shadow-md transition-transform duration-300 group-hover:scale-105">
-            <Palmtree className="h-5.5 w-5.5 text-white animate-pulse-glow" />
-            <div className="absolute inset-0 rounded-xl bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="relative flex h-10 w-16 items-center justify-center transition-transform duration-300 group-hover:scale-105">
+            <img
+              src="/studio-logo.png"
+              alt="2:47PM Studio Logo"
+              className="h-full w-full object-contain"
+            />
           </div>
+          <div className="h-6 w-[1px] bg-white/10 mx-1" />
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-display font-black tracking-tight text-lg text-white">
+              <span className="font-display font-black tracking-tight text-base text-white">
                 HH GOA <span className="text-transparent bg-clip-text bg-gradient-to-r from-sunset-start to-sunset-end">2026</span>
               </span>
             </div>
-            <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">
+            <p className="text-[9px] font-semibold uppercase tracking-widest text-slate-400 mt-0.5">
               Builder Studio
             </p>
           </div>
