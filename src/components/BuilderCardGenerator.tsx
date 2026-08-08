@@ -275,12 +275,15 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
             {/* Header info */}
             <div className="relative z-10 flex justify-between items-center border-b border-white/5 pb-2.5">
-              <div className="flex items-center gap-1.5">
-                <span className="font-display font-black text-xs text-white tracking-wider">
+              <div className="flex items-center gap-2">
+                <img
+                  src="/studio-logo.png"
+                  alt="2:47PM Studio"
+                  className="h-5 w-8 object-contain"
+                />
+                <div className="h-3 w-[1px] bg-white/20" />
+                <span className="font-display font-black text-[10px] text-white tracking-wider">
                   HH GOA <span className={activeTheme.accentText}>2026</span>
-                </span>
-                <span className="text-[8px] border border-white/20 px-1 py-0.5 rounded text-slate-400 scale-90 font-mono">
-                  STUDIO
                 </span>
               </div>
               <div className="flex items-center gap-1 text-[8px] font-mono text-slate-500 uppercase tracking-widest">
@@ -400,12 +403,15 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
           {/* Header */}
           <div className="relative z-10 flex justify-between items-center border-b-2 border-white/5 pb-8">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
+              <img
+                src="/studio-logo.png"
+                alt="2:47PM Studio"
+                className="h-14 w-24 object-contain"
+              />
+              <div className="h-8 w-[2px] bg-white/20" />
               <span className="font-display font-black text-3xl text-white tracking-widest">
                 HH GOA <span className={activeTheme.accentText}>2026</span>
-              </span>
-              <span className="text-xs border-2 border-white/20 px-3 py-1 rounded-md text-slate-400 font-mono tracking-widest">
-                STUDIO
               </span>
             </div>
             <div className="flex items-center gap-2 text-sm font-mono text-slate-400 uppercase tracking-[0.2em]">
