@@ -32,16 +32,14 @@ export default function Home() {
     <div className="min-h-screen flex flex-col justify-between overflow-x-hidden bg-slate-950 text-slate-50 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-50 light:bg-slate-50 light:text-slate-900">
       
       {/* Dynamic Background Elements */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Beautiful Branded Tropical Hackathon Illustration Background */}
         <div 
-          className="fixed top-0 left-0 right-0 h-[480px] sm:h-[600px] z-0 opacity-20 dark:opacity-25 pointer-events-none transition-all duration-500"
+          className="absolute inset-0 z-0 opacity-15 dark:opacity-[0.22] pointer-events-none transition-all duration-500"
           style={{
             backgroundImage: "url('/hero-bg.jpg')",
             backgroundSize: 'cover',
-            backgroundPosition: 'center bottom',
-            maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0.1) 85%, rgba(0,0,0,0) 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0.1) 85%, rgba(0,0,0,0) 100%)',
+            backgroundPosition: 'center',
           }}
         />
 
