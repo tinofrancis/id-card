@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import UploadBox from './UploadBox';
 import CropModal from './CropModal';
 import ThemeSelector from './ThemeSelector';
@@ -9,6 +9,8 @@ import ShareButton from './ShareButton';
 import PalmLeafSVG from './PalmLeafSVG';
 import { THEMES, Theme } from '@/utils/constants';
 import { Edit2, RefreshCw, AlertCircle, Compass } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import confetti from 'canvas-confetti';
 
 interface FrameGeneratorProps {
   activeThemeId: Theme['id'];
@@ -20,8 +22,57 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
   const [showCropModal, setShowCropModal] = useState(false);
 
+  const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({
+    transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+  });
+  const [glareStyle, setGlareStyle] = useState<React.CSSProperties>({
+    background: 'transparent',
+  });
+
   const highResRef = useRef<HTMLDivElement | null>(null);
   const activeTheme = THEMES.find((t) => t.id === activeThemeId) || THEMES[0];
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Max tilt angle ~8 degrees for subtle, high-end look
+    const rotateX = -(y - rect.height / 2) / (rect.height / 16);
+    const rotateY = (x - rect.width / 2) / (rect.width / 16);
+    
+    setTiltStyle({
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`,
+    });
+
+    const percentX = (x / rect.width) * 100;
+    const percentY = (y / rect.height) * 100;
+    setGlareStyle({
+      background: `radial-gradient(circle 120px at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.12), transparent)`,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTiltStyle({
+      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+    });
+    setGlareStyle({
+      background: 'transparent',
+    });
+  };
+
+  // Celebration Confetti on Successful Image Generation
+  useEffect(() => {
+    if (croppedImage) {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.75 },
+        colors: ['#ff5e62', '#ff9966', '#00c6ff', '#8b5cf6', '#38ef7d'],
+      });
+    }
+  }, [croppedImage]);
 
   const handleImageSelected = (src: string) => {
     setImageSrc(src);
@@ -131,7 +182,17 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
           </span>
 
           {/* Visible Interactive Preview (fluid sizing mirroring 1080x1350) */}
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-white/10 bg-[#020617] shadow-2xl flex flex-col justify-between p-6 sm:p-8">
+          <div
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={tiltStyle}
+            className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-white/10 bg-[#020617] shadow-2xl flex flex-col justify-between p-6 sm:p-8 transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
+          >
+            {/* 3D Reflection Glare Overlay */}
+            <div
+              style={glareStyle}
+              className="absolute inset-0 z-20 pointer-events-none opacity-60 transition-opacity duration-300"
+            />
             
             {/* Grid Pattern */}
             <div className="absolute inset-0 opacity-20 digital-grid pointer-events-none" />
@@ -194,27 +255,41 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
               <div className={`relative flex h-[230px] w-[230px] items-center justify-center rounded-full p-[5px] bg-gradient-to-r ${activeTheme.gradient} ${activeTheme.glow}`}>
                 {/* User Image or Empty State */}
                 <div className="relative h-full w-full rounded-full overflow-hidden bg-slate-900 border border-slate-950 flex items-center justify-center">
-                  {croppedImage ? (
-                    <img
-                      src={croppedImage}
-                      alt="Cropped face avatar"
-                      className="h-full w-full object-cover rounded-full"
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center justify-center p-4 text-center">
-                      <div className="h-10 w-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-2">
-                        <svg className="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                      </div>
-                      <p className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
-                        Upload Image
-                      </p>
-                      <p className="text-[8px] text-slate-500 max-w-[120px] mt-0.5">
-                        Choose photo to preview frame
-                      </p>
-                    </div>
-                  )}
+                  <AnimatePresence mode="wait">
+                    {croppedImage ? (
+                      <motion.img
+                        key="cropped"
+                        initial={{ opacity: 0, scale: 0.92 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.92 }}
+                        transition={{ duration: 0.25, ease: 'easeOut' }}
+                        src={croppedImage}
+                        alt="Cropped face avatar"
+                        className="h-full w-full object-cover rounded-full"
+                      />
+                    ) : (
+                      <motion.div
+                        key="placeholder"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.25, ease: 'easeOut' }}
+                        className="flex flex-col items-center justify-center p-4 text-center"
+                      >
+                        <div className="h-10 w-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-2">
+                          <svg className="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                        </div>
+                        <p className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+                          Upload Image
+                        </p>
+                        <p className="text-[8px] text-slate-500 max-w-[120px] mt-0.5">
+                          Choose photo to preview frame
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
 
                 {/* Overlaid Badges on circular frame */}

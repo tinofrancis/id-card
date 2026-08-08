@@ -10,6 +10,8 @@ import ShareButton from './ShareButton';
 import PalmLeafSVG from './PalmLeafSVG';
 import { THEMES, ROLES, BUILDER_TITLES, Theme } from '@/utils/constants';
 import { Edit2, RefreshCw, Star, Compass } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import confetti from 'canvas-confetti';
 
 const QRCodeSVG = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 100 100" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
@@ -80,8 +82,57 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
   const [builderTitle, setBuilderTitle] = useState('Late Night Hacker');
   const [showCropModal, setShowCropModal] = useState(false);
 
+  const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({
+    transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+  });
+  const [glareStyle, setGlareStyle] = useState<React.CSSProperties>({
+    background: 'transparent',
+  });
+
   const highResRef = useRef<HTMLDivElement | null>(null);
   const activeTheme = THEMES.find((t) => t.id === activeThemeId) || THEMES[0];
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Subtle premium 3D feel
+    const rotateX = -(y - rect.height / 2) / (rect.height / 16);
+    const rotateY = (x - rect.width / 2) / (rect.width / 16);
+    
+    setTiltStyle({
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`,
+    });
+
+    const percentX = (x / rect.width) * 100;
+    const percentY = (y / rect.height) * 100;
+    setGlareStyle({
+      background: `radial-gradient(circle 120px at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.12), transparent)`,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTiltStyle({
+      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+    });
+    setGlareStyle({
+      background: 'transparent',
+    });
+  };
+
+  // Celebration Confetti on Successful Image Generation
+  useEffect(() => {
+    if (croppedImage) {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.75 },
+        colors: ['#ff5e62', '#ff9966', '#00c6ff', '#8b5cf6', '#38ef7d'],
+      });
+    }
+  }, [croppedImage]);
 
   // Initialize random builder title
   useEffect(() => {
@@ -250,7 +301,17 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           </span>
 
           {/* Visible badge card (scaled equivalent to 1080x1350) */}
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-white/10 bg-[#020617] shadow-2xl flex flex-col justify-between p-6 sm:p-8">
+          <div
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={tiltStyle}
+            className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-white/10 bg-[#020617] shadow-2xl flex flex-col justify-between p-6 sm:p-8 transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
+          >
+            {/* 3D Reflection Glare Overlay */}
+            <div
+              style={glareStyle}
+              className="absolute inset-0 z-20 pointer-events-none opacity-60 transition-opacity duration-300"
+            />
             
             {/* Grid background */}
             <div className="absolute inset-0 opacity-20 digital-grid pointer-events-none" />
@@ -300,22 +361,36 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               {/* Photo Area with holographic frame */}
               <div className={`relative p-[3px] rounded-xl bg-gradient-to-tr ${activeTheme.gradient} ${activeTheme.glow}`}>
                 <div className="relative h-[150px] w-[150px] overflow-hidden rounded-lg bg-slate-900 border border-slate-950 flex items-center justify-center">
-                  {croppedImage ? (
-                    <img
-                      src={croppedImage}
-                      alt="Cropped profile avatar"
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center justify-center p-3 text-center">
-                      <svg className="h-6 w-6 text-slate-500 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      <p className="text-[8px] font-bold text-slate-400 uppercase tracking-wide">
-                        Upload Image
-                      </p>
-                    </div>
-                  )}
+                  <AnimatePresence mode="wait">
+                    {croppedImage ? (
+                      <motion.img
+                        key="cropped"
+                        initial={{ opacity: 0, scale: 0.92 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.92 }}
+                        transition={{ duration: 0.25, ease: 'easeOut' }}
+                        src={croppedImage}
+                        alt="Cropped profile avatar"
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <motion.div
+                        key="placeholder"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.25, ease: 'easeOut' }}
+                        className="flex flex-col items-center justify-center p-3 text-center"
+                      >
+                        <svg className="h-6 w-6 text-slate-500 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p className="text-[8px] font-bold text-slate-400 uppercase tracking-wide">
+                          Upload Image
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
 

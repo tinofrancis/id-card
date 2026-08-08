@@ -122,7 +122,12 @@ export default function Home() {
         </section>
 
         {/* Tab Selector */}
-        <section className="w-full max-w-md px-4 mb-10">
+        <motion.section 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25, ease: 'easeOut' }}
+          className="w-full max-w-md px-4 mb-10"
+        >
           <div className="relative flex p-1.5 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-slate-950/40 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30">
             
             {/* Tab 1: Profile Frame */}
@@ -162,10 +167,15 @@ export default function Home() {
             </button>
 
           </div>
-        </section>
+        </motion.section>
 
         {/* Active Customizer Section */}
-        <section className="w-full relative z-20">
+        <motion.section 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
+          className="w-full relative z-20"
+        >
           <AnimatePresence mode="wait">
             {activeTab === 'frame' ? (
               <motion.div
@@ -189,7 +199,7 @@ export default function Home() {
               </motion.div>
             )}
           </AnimatePresence>
-        </section>
+        </motion.section>
 
       </main>
 

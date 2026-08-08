@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface HeaderProps {
   darkMode: boolean;
@@ -10,7 +11,12 @@ interface HeaderProps {
 
 export default function Header({ darkMode, setDarkMode }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-white/5 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md transition-colors duration-300">
+    <motion.header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="sticky top-0 z-40 w-full border-b border-slate-200 dark:border-white/5 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md transition-colors duration-300"
+    >
       <div className="relative mx-auto flex max-w-7xl h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         
         {/* Left Side: 2:47PM Studio Logo */}
@@ -43,7 +49,7 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
           {/* Theme Switcher Button */}
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200 active:scale-[0.92]"
             aria-label="Toggle dark mode"
           >
             {darkMode ? (
@@ -59,6 +65,6 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
         </div>
 
       </div>
-    </header>
+    </motion.header>
   );
 }
