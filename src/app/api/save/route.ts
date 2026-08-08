@@ -8,13 +8,41 @@ export async function POST(request: Request) {
     const { name, role, title, theme } = body;
 
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-    const logLine = `[${timestamp}] Name: ${name || 'N/A'} | Role: ${role || 'N/A'} | Title: ${title || 'N/A'} | Theme: ${theme || 'N/A'}\n`;
+    const logData = {
+      timestamp,
+      name: name || 'N/A',
+      role: role || 'N/A',
+      title: title || 'N/A',
+      theme: theme || 'N/A',
+    };
 
-    // File path for data.txt in project root
-    const filePath = path.join(process.cwd(), 'data.txt');
+    const logLine = `[${timestamp}] Name: ${logData.name} | Role: ${logData.role} | Title: ${logData.title} | Theme: ${logData.theme}\n`;
 
-    // Append to file (creates the file if it does not exist)
-    fs.appendFileSync(filePath, logLine, 'utf8');
+    // 1. Log to server console (Visible in Vercel Logs Dashboard)
+    console.log(`DATABASE_LOG: ${logLine.trim()}`);
+
+    // 2. Persist to Vercel KV if connected
+    const kvUrl = process.env.KV_REST_API_URL;
+    const kvToken = process.env.KV_REST_API_TOKEN;
+    if (kvUrl && kvToken) {
+      try {
+        // Push log object to a Redis list named "submissions"
+        await fetch(`${kvUrl}/rpush/submissions/${encodeURIComponent(JSON.stringify(logData))}`, {
+          headers: { Authorization: `Bearer ${kvToken}` },
+        });
+      } catch (err) {
+        console.error('Error logging to Vercel KV:', err);
+      }
+    }
+
+    // 3. Write locally to data.txt for local development
+    try {
+      const filePath = path.join(process.cwd(), 'data.txt');
+      fs.appendFileSync(filePath, logLine, 'utf8');
+    } catch (err) {
+      // Safe catch for serverless environments where filesystem is read-only
+      console.log('Skipped writing to local data.txt (Vercel read-only filesystem)');
+    }
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

@@ -33,6 +33,18 @@ export default function Home() {
       
       {/* Dynamic Background Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Beautiful Branded Tropical Hackathon Illustration Background */}
+        <div 
+          className="absolute top-0 left-0 right-0 h-[480px] sm:h-[600px] z-0 opacity-20 dark:opacity-25 pointer-events-none transition-all duration-500"
+          style={{
+            backgroundImage: "url('/hero-bg.jpg')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center bottom',
+            maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0.1) 85%, rgba(0,0,0,0) 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0.1) 85%, rgba(0,0,0,0) 100%)',
+          }}
+        />
+
         {/* Orbiting Neon Mesh Blobs - dynamically updating with active theme using inline gradient styled structures */}
         <div 
           className="absolute top-[-10%] left-[-15%] w-[60vw] h-[60vw] rounded-full opacity-10 dark:opacity-[0.24] blur-[100px] sm:blur-[140px] animate-orbit-1 transition-all duration-1000" 
