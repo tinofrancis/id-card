@@ -35,7 +35,7 @@ export default function Home() {
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Beautiful Branded Tropical Hackathon Illustration Background */}
         <div 
-          className="absolute top-0 left-0 right-0 h-[480px] sm:h-[600px] z-0 opacity-20 dark:opacity-25 pointer-events-none transition-all duration-500"
+          className="fixed top-0 left-0 right-0 h-[480px] sm:h-[600px] z-0 opacity-20 dark:opacity-25 pointer-events-none transition-all duration-500"
           style={{
             backgroundImage: "url('/hero-bg.jpg')",
             backgroundSize: 'cover',
