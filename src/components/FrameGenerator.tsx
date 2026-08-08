@@ -176,8 +176,6 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
 
               {/* Right Info */}
               <div className="flex items-center gap-1 text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-slate-400">
-                <span>Official Profile</span>
-                <span className="opacity-40">•</span>
                 <span className={activeTheme.accentText}>Goa, IN</span>
               </div>
             </div>
@@ -311,8 +309,6 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
 
             {/* Right Info */}
             <div className="flex items-center gap-3 text-sm font-black uppercase tracking-[0.2em] text-slate-400">
-              <span>Official Profile</span>
-              <span className="opacity-40">•</span>
               <span className={activeTheme.accentText}>Goa, India</span>
             </div>
           </div>
