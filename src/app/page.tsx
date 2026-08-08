@@ -119,21 +119,6 @@ export default function Home() {
           >
             Generate your official event Profile Frame and digital Builder Card in under 10 seconds. Show the world you are building in Goa!
           </motion.p>
-
-          {/* Social Proof Stats Capsule */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.25 }}
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/5 bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl px-4 py-1.5 text-xs text-slate-600 dark:text-slate-400 shadow-sm"
-          >
-            <div className="flex -space-x-1.5">
-              <img className="h-5 w-5 rounded-full border border-white dark:border-slate-950 object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&h=80" alt="Builder avatar" />
-              <img className="h-5 w-5 rounded-full border border-white dark:border-slate-950 object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&h=80" alt="Builder avatar" />
-              <img className="h-5 w-5 rounded-full border border-white dark:border-slate-950 object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&h=80" alt="Builder avatar" />
-            </div>
-            <span className="font-semibold text-slate-800 dark:text-slate-300">Join 384+ builders registered</span>
-          </motion.div>
         </section>
 
         {/* Tab Selector */}
