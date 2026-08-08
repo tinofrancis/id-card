@@ -21,6 +21,11 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
   const [showCropModal, setShowCropModal] = useState(false);
+  const [frameId, setFrameId] = useState('');
+
+  useEffect(() => {
+    setFrameId(Math.random().toString(36).substring(2, 10).toUpperCase());
+  }, []);
 
   const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({
     transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
@@ -79,9 +84,29 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
     setShowCropModal(true);
   };
 
+  const saveProfileFrame = async (imageToSave?: string | null) => {
+    const img = imageToSave !== undefined ? imageToSave : croppedImage;
+    if (!img) return;
+    try {
+      await fetch('/api/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'frame',
+          id: frameId,
+          theme: activeThemeId,
+          image: img,
+        }),
+      });
+    } catch (err) {
+      console.error('Failed to auto-save builder profile frame details:', err);
+    }
+  };
+
   const handleCropComplete = (croppedSrc: string) => {
     setCroppedImage(croppedSrc);
     setShowCropModal(false);
+    saveProfileFrame(croppedSrc);
   };
 
   const handleReset = () => {
@@ -151,20 +176,7 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
                   elementRef={highResRef}
                   fileName={`hh-goa-profile-frame-${activeThemeId}.png`}
                   onDownloadCompleted={async () => {
-                    try {
-                      await fetch('/api/save', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                          name: 'N/A (Profile Frame)',
-                          role: 'N/A',
-                          title: 'N/A',
-                          theme: activeThemeId,
-                        }),
-                      });
-                    } catch (err) {
-                      console.error('Failed to log client data:', err);
-                    }
+                    await saveProfileFrame();
                   }}
                 />
                 <ShareButton mode="frame" />

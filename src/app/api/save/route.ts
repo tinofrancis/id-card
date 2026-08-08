@@ -3,11 +3,12 @@ import fs from 'fs';
 import path from 'path';
 import dbConnect from '@/lib/db';
 import Submission from '@/models/Submission';
+import ProfileFrame from '@/models/ProfileFrame';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { id, name, role, title, theme, image } = body;
+    const { type, id, name, role, title, theme, image } = body;
 
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
     const logData = {
@@ -18,15 +19,31 @@ export async function POST(request: Request) {
       title: title || 'N/A',
       theme: theme || 'N/A',
       image: image || null,
+      type: type || 'card',
     };
 
-    const logLine = `[${timestamp}] ID: ${logData.id} | Name: ${logData.name} | Role: ${logData.role} | Title: ${logData.title} | Theme: ${logData.theme}\n`;
+    const logLine = `[${timestamp}] ID: ${logData.id} | Name: ${logData.name} | Role: ${logData.role} | Title: ${logData.title} | Theme: ${logData.theme} | Type: ${logData.type}\n`;
 
     // 1. Log to server console (Visible in Vercel Logs Dashboard)
     console.log(`DATABASE_LOG: ${logLine.trim()}`);
 
     // 2. Persist to MongoDB
-    if (id) {
+    if (type === 'frame' && id) {
+      try {
+        await dbConnect();
+        await ProfileFrame.findOneAndUpdate(
+          { id },
+          {
+            id,
+            theme: theme || 'N/A',
+            imageUrl: image || null,
+          },
+          { upsert: true, new: true }
+        );
+      } catch (err) {
+        console.error('Error saving profile frame to MongoDB:', err);
+      }
+    } else if (id) {
       try {
         await dbConnect();
         await Submission.findOneAndUpdate(
@@ -42,7 +59,7 @@ export async function POST(request: Request) {
           { upsert: true, new: true }
         );
       } catch (err) {
-        console.error('Error saving to MongoDB:', err);
+        console.error('Error saving submission to MongoDB:', err);
       }
     }
 
