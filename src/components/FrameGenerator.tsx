@@ -155,24 +155,31 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
             </div>
 
             {/* Top Bar Branding */}
-            <div className="relative z-10 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-white/5 pb-2">
-              <div className="flex items-center gap-1.5 font-black">
+            <div className="relative z-10 flex justify-between items-center border-b border-white/5 pb-2">
+              {/* Left Logo */}
+              <div className="flex items-center">
                 <img
                   src="/studio-logo.png"
                   alt="2:47PM Studio"
                   className="h-3.5 w-6 object-contain"
                 />
-                <div className="h-2 w-[1px] bg-white/20" />
+              </div>
+              
+              {/* Center Logo */}
+              <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
                 <img
                   src="/hacker-house-logo.png"
                   alt="Hacker House"
                   className="h-3.5 w-16 object-contain"
                 />
               </div>
-              <span>•</span>
-              <span>Official Profile</span>
-              <span>•</span>
-              <span className={activeTheme.accentText}>Goa, IN</span>
+
+              {/* Right Info */}
+              <div className="flex items-center gap-1 text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-slate-400">
+                <span>Official Profile</span>
+                <span className="opacity-40">•</span>
+                <span className={activeTheme.accentText}>Goa, IN</span>
+              </div>
             </div>
 
             {/* Main Avatar Circular Frame */}
@@ -283,24 +290,31 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
           </div>
 
           {/* High-res Header */}
-          <div className="relative z-10 flex justify-between items-center text-xl font-black uppercase tracking-[0.25em] text-slate-400 border-b-2 border-white/5 pb-6">
-            <div className="flex items-center gap-4 font-black">
+          <div className="relative z-10 flex justify-between items-center border-b-2 border-white/5 pb-6">
+            {/* Left Logo */}
+            <div className="flex items-center">
               <img
                 src="/studio-logo.png"
                 alt="2:47PM Studio"
                 className="h-10 w-16 object-contain"
               />
-              <div className="h-6 w-[2px] bg-white/20" />
+            </div>
+
+            {/* Center Logo */}
+            <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
               <img
                 src="/hacker-house-logo.png"
                 alt="Hacker House"
                 className="h-10 w-44 object-contain"
               />
             </div>
-            <span>•</span>
-            <span>Official Profile</span>
-            <span>•</span>
-            <span className={activeTheme.accentText}>Goa, India</span>
+
+            {/* Right Info */}
+            <div className="flex items-center gap-3 text-sm font-black uppercase tracking-[0.2em] text-slate-400">
+              <span>Official Profile</span>
+              <span className="opacity-40">•</span>
+              <span className={activeTheme.accentText}>Goa, India</span>
+            </div>
           </div>
 
           {/* High-res Central Frame */}

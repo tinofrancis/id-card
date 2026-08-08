@@ -275,13 +275,17 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
             {/* Header info */}
             <div className="relative z-10 flex justify-between items-center border-b border-white/5 pb-2.5">
-              <div className="flex items-center gap-2">
+              {/* Left Logo */}
+              <div className="flex items-center">
                 <img
                   src="/studio-logo.png"
                   alt="2:47PM Studio"
                   className="h-5 w-8 object-contain"
                 />
-                <div className="h-3 w-[1px] bg-white/20" />
+              </div>
+
+              {/* Center Logo */}
+              <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
                 <img
                   src="/hacker-house-logo.png"
                   alt="Hacker House"
@@ -405,13 +409,17 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
           {/* Header */}
           <div className="relative z-10 flex justify-between items-center border-b-2 border-white/5 pb-8">
-            <div className="flex items-center gap-6">
+            {/* Left Logo */}
+            <div className="flex items-center">
               <img
                 src="/studio-logo.png"
                 alt="2:47PM Studio"
                 className="h-14 w-24 object-contain"
               />
-              <div className="h-8 w-[2px] bg-white/20" />
+            </div>
+
+            {/* Center Logo */}
+            <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
               <img
                 src="/hacker-house-logo.png"
                 alt="Hacker House"
