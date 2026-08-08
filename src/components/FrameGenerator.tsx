@@ -163,7 +163,11 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
                   className="h-3.5 w-6 object-contain"
                 />
                 <div className="h-2 w-[1px] bg-white/20" />
-                <span>HH GOA 2026</span>
+                <img
+                  src="/hacker-house-logo.png"
+                  alt="Hacker House"
+                  className="h-3.5 w-16 object-contain"
+                />
               </div>
               <span>•</span>
               <span>Official Profile</span>
@@ -287,7 +291,11 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
                 className="h-10 w-16 object-contain"
               />
               <div className="h-6 w-[2px] bg-white/20" />
-              <span>HH GOA 2026</span>
+              <img
+                src="/hacker-house-logo.png"
+                alt="Hacker House"
+                className="h-10 w-44 object-contain"
+              />
             </div>
             <span>•</span>
             <span>Official Profile</span>

@@ -282,9 +282,11 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   className="h-5 w-8 object-contain"
                 />
                 <div className="h-3 w-[1px] bg-white/20" />
-                <span className="font-display font-black text-[10px] text-white tracking-wider">
-                  HH GOA <span className={activeTheme.accentText}>2026</span>
-                </span>
+                <img
+                  src="/hacker-house-logo.png"
+                  alt="Hacker House"
+                  className="h-5 w-20 object-contain"
+                />
               </div>
               <div className="flex items-center gap-1 text-[8px] font-mono text-slate-500 uppercase tracking-widest">
                 <Star className={`h-2.5 w-2.5 fill-current ${activeTheme.accentText}`} />
@@ -410,9 +412,11 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 className="h-14 w-24 object-contain"
               />
               <div className="h-8 w-[2px] bg-white/20" />
-              <span className="font-display font-black text-3xl text-white tracking-widest">
-                HH GOA <span className={activeTheme.accentText}>2026</span>
-              </span>
+              <img
+                src="/hacker-house-logo.png"
+                alt="Hacker House"
+                className="h-14 w-52 object-contain"
+              />
             </div>
             <div className="flex items-center gap-2 text-sm font-mono text-slate-400 uppercase tracking-[0.2em]">
               <Star className={`h-4.5 w-4.5 fill-current ${activeTheme.accentText}`} />
