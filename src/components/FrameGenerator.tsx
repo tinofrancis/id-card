@@ -156,7 +156,15 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
 
             {/* Top Bar Branding */}
             <div className="relative z-10 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-white/5 pb-2">
-              <span>HH GOA 2026</span>
+              <div className="flex items-center gap-1.5 font-black">
+                <img
+                  src="/studio-logo.png"
+                  alt="2:47PM Studio"
+                  className="h-3.5 w-6 object-contain"
+                />
+                <div className="h-2 w-[1px] bg-white/20" />
+                <span>HH GOA 2026</span>
+              </div>
               <span>•</span>
               <span>Official Profile</span>
               <span>•</span>
@@ -272,7 +280,15 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
 
           {/* High-res Header */}
           <div className="relative z-10 flex justify-between items-center text-xl font-black uppercase tracking-[0.25em] text-slate-400 border-b-2 border-white/5 pb-6">
-            <span>HH GOA 2026</span>
+            <div className="flex items-center gap-4 font-black">
+              <img
+                src="/studio-logo.png"
+                alt="2:47PM Studio"
+                className="h-10 w-16 object-contain"
+              />
+              <div className="h-6 w-[2px] bg-white/20" />
+              <span>HH GOA 2026</span>
+            </div>
             <span>•</span>
             <span>Official Profile</span>
             <span>•</span>
