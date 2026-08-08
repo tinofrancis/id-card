@@ -159,9 +159,31 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
     setShowCropModal(true);
   };
 
+  const saveProfileCard = async (imageToSave?: string | null) => {
+    const img = imageToSave !== undefined ? imageToSave : croppedImage;
+    if (!img) return;
+    try {
+      await fetch('/api/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: cardId,
+          name,
+          role,
+          title: builderTitle,
+          theme: activeThemeId,
+          image: img,
+        }),
+      });
+    } catch (err) {
+      console.error('Failed to auto-save builder card details:', err);
+    }
+  };
+
   const handleCropComplete = (croppedSrc: string) => {
     setCroppedImage(croppedSrc);
     setShowCropModal(false);
+    saveProfileCard(croppedSrc);
   };
 
   const handleReset = () => {
@@ -279,22 +301,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   elementRef={highResRef}
                   fileName={`hh-goa-builder-card-${activeThemeId}.png`}
                   onDownloadCompleted={async () => {
-                    try {
-                      await fetch('/api/save', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                          id: cardId,
-                          name,
-                          role,
-                          title: builderTitle,
-                          theme: activeThemeId,
-                          image: croppedImage,
-                        }),
-                      });
-                    } catch (err) {
-                      console.error('Failed to log client data:', err);
-                    }
+                    await saveProfileCard();
                   }}
                 />
                 <ShareButton mode="card" />

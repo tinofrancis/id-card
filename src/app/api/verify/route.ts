@@ -16,7 +16,7 @@ export async function GET(request: Request) {
     // 1. Try MongoDB first
     try {
       await dbConnect();
-      const submission = await Submission.findOne({ id });
+      const submission = await Submission.findOne({ id }).lean();
       if (submission) {
         return NextResponse.json({
           success: true,
@@ -27,7 +27,7 @@ export async function GET(request: Request) {
             title: submission.title,
             theme: submission.theme,
             image: submission.imageUrl,
-            timestamp: submission.createdAt.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+            timestamp: submission.createdAt ? new Date(submission.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) : undefined,
           }
         });
       }
