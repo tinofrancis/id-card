@@ -102,10 +102,10 @@ export default function Home() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-6"
+            className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-6 drop-shadow-[0_2px_10px_rgba(2,6,23,0.05)] dark:drop-shadow-[0_0_30px_rgba(255,255,255,0.06)]"
           >
             Become an HH Goa <br className="hidden sm:inline" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sunset-start via-[#ff7a50] to-sunset-end">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sunset-start via-[#ff7a50] to-sunset-end drop-shadow-[0_0_20px_rgba(255,94,98,0.15)]">
               2026 Builder
             </span>
           </motion.h1>
@@ -115,7 +115,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-sm sm:text-base md:text-lg text-slate-700 dark:text-slate-300 max-w-xl mx-auto leading-relaxed"
+            className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto leading-relaxed"
           >
             Generate your official event Profile Frame and digital Builder Card in under 10 seconds. Show the world you are building in Goa!
           </motion.p>
@@ -123,7 +123,7 @@ export default function Home() {
 
         {/* Tab Selector */}
         <section className="w-full max-w-md px-4 mb-10">
-          <div className="relative flex p-1.5 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md">
+          <div className="relative flex p-1.5 rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-slate-950/40 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/30">
             
             {/* Tab 1: Profile Frame */}
             <button
@@ -135,7 +135,7 @@ export default function Home() {
               {activeTab === 'frame' && (
                 <motion.div
                   layoutId="activeTabIndicator"
-                  className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-r from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-800/80 shadow"
+                  className="absolute inset-0 -z-10 rounded-xl bg-white dark:bg-[#0f172a]/95 border border-slate-200/50 dark:border-white/10 shadow-sm"
                   transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                 />
               )}
@@ -153,7 +153,7 @@ export default function Home() {
               {activeTab === 'card' && (
                 <motion.div
                   layoutId="activeTabIndicator"
-                  className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-r from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-800/80 shadow"
+                  className="absolute inset-0 -z-10 rounded-xl bg-white dark:bg-[#0f172a]/95 border border-slate-200/50 dark:border-white/10 shadow-sm"
                   transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                 />
               )}

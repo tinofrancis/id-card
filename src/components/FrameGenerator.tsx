@@ -42,8 +42,8 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
     <div className="flex flex-col lg:flex-row gap-8 items-start justify-center w-full max-w-5xl mx-auto px-4">
       {/* Left panel: Controls */}
       <div className="w-full lg:w-1/2 flex flex-col gap-6 order-2 lg:order-1">
-        <div className="rounded-2xl border border-white/5 bg-slate-900/40 p-6 backdrop-blur-xl">
-          <h2 className="text-xl font-bold font-display text-white mb-5 flex items-center gap-2">
+        <div className="glass-panel rounded-2xl p-6 transition-colors duration-300">
+          <h2 className="text-xl font-bold font-display text-slate-900 dark:text-white mb-5 flex items-center gap-2">
             <span className={`inline-block h-3.5 w-3.5 rounded-full bg-gradient-to-r ${activeTheme.gradient} ${activeTheme.glow}`} />
             Profile Frame Customizer
           </h2>
@@ -54,33 +54,33 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
               <UploadBox onImageSelected={handleImageSelected} />
             ) : (
               <div className="flex flex-col gap-3">
-                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Profile Photo
                 </label>
-                <div className="flex items-center justify-between rounded-xl border border-white/5 bg-slate-950/50 p-4">
+                <div className="flex items-center justify-between rounded-xl border border-slate-200 dark:border-white/5 bg-slate-100/50 dark:bg-slate-950/50 p-4 transition-colors duration-300">
                   <div className="flex items-center gap-3">
                     {/* Tiny thumbnail */}
                     <img
                       src={croppedImage}
                       alt="Cropped Preview"
-                      className="h-12 w-12 rounded-full object-cover border border-white/10"
+                      className="h-12 w-12 rounded-full object-cover border border-slate-200 dark:border-white/10"
                     />
                     <div>
-                      <p className="text-sm font-semibold text-white">Photo loaded</p>
-                      <p className="text-xs text-slate-400">Successfully cropped & optimized</p>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">Photo loaded</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">Successfully cropped & optimized</p>
                     </div>
                   </div>
                   <div className="flex gap-2">
                     <button
                       onClick={() => setShowCropModal(true)}
-                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-200"
+                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200 shadow-sm"
                       title="Recrop photo"
                     >
                       <Edit2 className="h-4 w-4" />
                     </button>
                     <button
                       onClick={handleReset}
-                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-200"
+                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200 shadow-sm"
                       title="Upload new photo"
                     >
                       <RefreshCw className="h-4 w-4" />
@@ -134,13 +134,7 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-white/10 bg-[#020617] shadow-2xl flex flex-col justify-between p-6 sm:p-8">
             
             {/* Grid Pattern */}
-            <div
-              className="absolute inset-0 opacity-15"
-              style={{
-                backgroundImage: 'radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)',
-                backgroundSize: '20px 20px',
-              }}
-            />
+            <div className="absolute inset-0 opacity-20 digital-grid pointer-events-none" />
 
             {/* Background Glows */}
             <div className={`absolute -top-24 -left-24 w-48 h-48 rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-20 blur-[50px]`} />
@@ -175,8 +169,10 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
               </div>
 
               {/* Right Info */}
-              <div className="flex items-center gap-1 text-[8px] sm:text-[9px] font-black uppercase tracking-wider text-slate-400">
-                <span className={activeTheme.accentText}>Goa, IN</span>
+              <div className="flex items-center">
+                <span className={`px-2 py-0.5 rounded border border-white/10 bg-white/5 text-[8px] font-mono tracking-widest text-slate-300`}>
+                  Goa, IN
+                </span>
               </div>
             </div>
 
@@ -240,8 +236,11 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
             {/* Bottom Info Details */}
             <div className="relative z-10 flex justify-between items-end border-t border-white/5 pt-3">
               <div className="flex flex-col gap-0.5 text-left">
-                <span className="text-[7px] font-bold uppercase tracking-wider text-slate-500">BUILDER STATUS</span>
-                <span className="text-[9px] font-black uppercase text-white tracking-widest">VERIFIED</span>
+                <span className="text-[7px] font-bold uppercase tracking-wider text-slate-500 font-mono">BUILDER STATUS</span>
+                <span className="text-[9px] font-black uppercase text-white tracking-widest flex items-center gap-1">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]" />
+                  VERIFIED
+                </span>
               </div>
               <div className="flex flex-col items-center">
                 <span className={`text-[12px] font-black uppercase tracking-wider bg-gradient-to-r ${activeTheme.gradient} bg-clip-text text-transparent`}>
@@ -308,8 +307,10 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
             </div>
 
             {/* Right Info */}
-            <div className="flex items-center gap-3 text-sm font-black uppercase tracking-[0.2em] text-slate-400">
-              <span className={activeTheme.accentText}>Goa, India</span>
+            <div className="flex items-center">
+              <span className={`px-5 py-1.5 rounded-md border-2 border-white/10 bg-white/5 text-base font-mono tracking-widest text-slate-300`}>
+                Goa, India
+              </span>
             </div>
           </div>
 
@@ -357,9 +358,12 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
 
           {/* High-res Footer */}
           <div className="relative z-10 flex justify-between items-end border-t-2 border-white/5 pt-8">
-            <div className="flex flex-col gap-1.5 text-left">
+            <div className="flex flex-col gap-1.5 text-left font-mono">
               <span className="text-xs font-bold uppercase tracking-widest text-slate-500">BUILDER STATUS</span>
-              <span className="text-xl font-black uppercase text-white tracking-[0.15em]">VERIFIED</span>
+              <span className="text-xl font-black uppercase text-white tracking-[0.15em] flex items-center gap-2">
+                <span className="h-3 w-3 rounded-full bg-emerald-500 shadow-[0_0_12px_#10b981]" />
+                VERIFIED
+              </span>
             </div>
             <div className="flex flex-col items-center">
               <span className={`text-[32px] font-black uppercase tracking-[0.1em] bg-gradient-to-r ${activeTheme.gradient} bg-clip-text text-transparent`}>

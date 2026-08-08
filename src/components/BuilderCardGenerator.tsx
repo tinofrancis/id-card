@@ -116,8 +116,8 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
     <div className="flex flex-col lg:flex-row gap-8 items-start justify-center w-full max-w-5xl mx-auto px-4">
       {/* Left panel: Controls */}
       <div className="w-full lg:w-1/2 flex flex-col gap-6 order-2 lg:order-1">
-        <div className="rounded-2xl border border-white/5 bg-slate-900/40 p-6 backdrop-blur-xl">
-          <h2 className="text-xl font-bold font-display text-white mb-5 flex items-center gap-2">
+        <div className="glass-panel rounded-2xl p-6 transition-colors duration-300">
+          <h2 className="text-xl font-bold font-display text-slate-900 dark:text-white mb-5 flex items-center gap-2">
             <span className={`inline-block h-3.5 w-3.5 rounded-full bg-gradient-to-r ${activeTheme.gradient} ${activeTheme.glow}`} />
             Builder Card Customizer
           </h2>
@@ -128,32 +128,32 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               <UploadBox onImageSelected={handleImageSelected} />
             ) : (
               <div className="flex flex-col gap-3">
-                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Profile Photo
                 </label>
-                <div className="flex items-center justify-between rounded-xl border border-white/5 bg-slate-950/50 p-4">
+                <div className="flex items-center justify-between rounded-xl border border-slate-200 dark:border-white/5 bg-slate-100/50 dark:bg-slate-950/50 p-4 transition-colors duration-300">
                   <div className="flex items-center gap-3">
                     <img
                       src={croppedImage}
                       alt="Cropped Preview"
-                      className="h-12 w-12 rounded-lg object-cover border border-white/10"
+                      className="h-12 w-12 rounded-lg object-cover border border-slate-200 dark:border-white/10"
                     />
                     <div>
-                      <p className="text-sm font-semibold text-white">Photo loaded</p>
-                      <p className="text-xs text-slate-400">Successfully cropped & optimized</p>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">Photo loaded</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">Successfully cropped & optimized</p>
                     </div>
                   </div>
                   <div className="flex gap-2">
                     <button
                       onClick={() => setShowCropModal(true)}
-                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-200"
+                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200 shadow-sm"
                       title="Recrop photo"
                     >
                       <Edit2 className="h-4 w-4" />
                     </button>
                     <button
                       onClick={handleReset}
-                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-200"
+                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200 shadow-sm"
                       title="Upload new photo"
                     >
                       <RefreshCw className="h-4 w-4" />
@@ -165,7 +165,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
             {/* Name Input */}
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Full Name
               </label>
               <input
@@ -173,28 +173,28 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 value={name}
                 onChange={(e) => setName(e.target.value.slice(0, 24))}
                 placeholder="Enter your name"
-                className="w-full rounded-xl border border-white/10 bg-slate-950/50 px-4 py-3 text-sm text-white placeholder-slate-600 focus:border-[#ff5e62] focus:outline-none transition-colors duration-200"
+                className="glass-input w-full rounded-xl px-4 py-3 text-sm placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-slate-400 dark:focus:ring-white/20"
               />
             </div>
 
             {/* Role Picker */}
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Stack / Role
               </label>
               <div className="relative">
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="w-full appearance-none rounded-xl border border-white/10 bg-slate-950/50 px-4 py-3 text-sm text-white focus:border-[#ff5e62] focus:outline-none transition-colors duration-200 cursor-pointer"
+                  className="glass-input w-full appearance-none rounded-xl px-4 py-3 text-sm focus:outline-none cursor-pointer focus:ring-1 focus:ring-slate-400 dark:focus:ring-white/20"
                 >
                   {ROLES.map((r) => (
-                    <option key={r} value={r} className="bg-slate-950 text-white">
+                    <option key={r} value={r} className="bg-white text-slate-900 dark:bg-slate-950 dark:text-white">
                       {r}
                     </option>
                   ))}
                 </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500 dark:text-slate-400">
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -253,13 +253,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-white/10 bg-[#020617] shadow-2xl flex flex-col justify-between p-6 sm:p-8">
             
             {/* Grid background */}
-            <div
-              className="absolute inset-0 opacity-15"
-              style={{
-                backgroundImage: 'radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)',
-                backgroundSize: '20px 20px',
-              }}
-            />
+            <div className="absolute inset-0 opacity-20 digital-grid pointer-events-none" />
 
             {/* Background glowing blob */}
             <div className={`absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-20 blur-[60px]`} />
@@ -292,9 +286,11 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   className="h-5 w-20 object-contain"
                 />
               </div>
-              <div className="flex items-center gap-1 text-[8px] font-mono text-slate-500 uppercase tracking-widest">
-                <Star className={`h-2.5 w-2.5 fill-current ${activeTheme.accentText}`} />
-                <span>BUILDER PASS</span>
+              <div className="flex items-center">
+                <span className={`px-2 py-0.5 rounded border border-white/10 bg-white/5 text-[8px] font-mono tracking-widest text-slate-300 flex items-center gap-1`}>
+                  <Star className={`h-2.5 w-2.5 fill-current ${activeTheme.accentText} animate-pulse`} />
+                  PASS
+                </span>
               </div>
             </div>
 
@@ -354,8 +350,11 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               <div className="flex items-center gap-2">
                 <QRCodeSVG className={`h-8 w-8 text-white`} />
                 <div className="flex flex-col text-left">
-                  <span className="text-[7px] font-mono text-slate-500 uppercase">SYS ID</span>
-                  <span className="text-[8px] font-mono text-white leading-none">#GOA-2026-BND</span>
+                  <span className="text-[6px] font-mono text-slate-500 uppercase flex items-center gap-0.5">
+                    <span className="h-1 w-1 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_4px_#10b981]" />
+                    SYS ID
+                  </span>
+                  <span className="text-[8px] font-mono text-slate-300 leading-none mt-0.5">#GOA-2026-BND</span>
                 </div>
               </div>
 
@@ -426,9 +425,11 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 className="h-14 w-52 object-contain"
               />
             </div>
-            <div className="flex items-center gap-2 text-sm font-mono text-slate-400 uppercase tracking-[0.2em]">
-              <Star className={`h-4.5 w-4.5 fill-current ${activeTheme.accentText}`} />
-              <span>BUILDER PASS</span>
+            <div className="flex items-center">
+              <span className={`px-5 py-1.5 rounded-md border-2 border-white/10 bg-white/5 text-base font-mono tracking-widest text-slate-300 flex items-center gap-2`}>
+                <Star className={`h-4.5 w-4.5 fill-current ${activeTheme.accentText} animate-pulse`} />
+                PASS
+              </span>
             </div>
           </div>
 
@@ -479,7 +480,10 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             <div className="flex items-center gap-6">
               <QRCodeSVG className={`h-24 w-24 text-white`} />
               <div className="flex flex-col text-left gap-1">
-                <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">SYS ID</span>
+                <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
+                  SYS ID
+                </span>
                 <span className="text-sm font-mono text-white leading-none tracking-widest">#GOA-2026-BUILD</span>
                 <span className="text-[10px] font-mono text-slate-400 mt-1 uppercase tracking-widest">VERIFIED SYSTEM REG</span>
               </div>

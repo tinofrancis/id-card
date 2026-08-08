@@ -12,7 +12,7 @@ interface ThemeSelectorProps {
 export default function ThemeSelector({ activeThemeId, onChange }: ThemeSelectorProps) {
   return (
     <div className="w-full">
-      <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">
+      <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
         Select Tropical Theme
       </label>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -24,8 +24,8 @@ export default function ThemeSelector({ activeThemeId, onChange }: ThemeSelector
               onClick={() => onChange(theme.id)}
               className={`relative flex flex-col items-center justify-center rounded-xl p-3 border text-center cursor-pointer transition-all duration-300 ${
                 isActive
-                  ? `border-transparent bg-slate-900 shadow-md ${theme.glow}`
-                  : 'border-white/5 bg-slate-950/40 hover:border-white/10 hover:bg-slate-950/60'
+                  ? `border-transparent bg-slate-100 dark:bg-slate-900 shadow-md shadow-black/5 dark:shadow-black/40 ${theme.glow}`
+                  : 'border-slate-200 dark:border-white/5 bg-slate-50/60 dark:bg-slate-950/40 hover:border-slate-300 dark:hover:border-white/10 hover:bg-slate-100/60 dark:hover:bg-slate-950/60'
               }`}
             >
               {/* Highlight bar for active state */}
@@ -43,7 +43,7 @@ export default function ThemeSelector({ activeThemeId, onChange }: ThemeSelector
               </div>
 
               {/* Theme Name */}
-              <span className={`text-xs font-semibold tracking-wide ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-300'}`}>
+              <span className={`text-xs font-semibold tracking-wide ${isActive ? 'text-slate-950 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}>
                 {theme.name.split(' ')[0]} {/* display just 'Sunset', 'Ocean', etc. for compactness */}
               </span>
             </button>
