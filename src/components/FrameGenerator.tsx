@@ -265,6 +265,7 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
                 <DownloadButton
                   elementRef={highResRef}
                   fileName={`hh-goa-profile-frame-${activeThemeId}.png`}
+                  label="Download Completed Frame"
                   onDownloadCompleted={async (dataUrl) => {
                     if (dataUrl) {
                       await saveProfileFrame(dataUrl);
@@ -340,8 +341,11 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
                   maskSize: 'cover',
                   // Apply theme styling filters/presets dynamically
                   ...(activeThemeId === 'sunset' ? { filter: 'saturate(1.2) contrast(1.1) drop-shadow(0 0 10px rgba(255, 0, 122, 0.4))' } : {}),
-                  ...(activeThemeId === 'hacker' ? { filter: 'hue-rotate(60deg) brightness(0.6) saturate(1.8)' } : {}),
-                  ...(activeThemeId === 'purple' ? { filter: 'hue-rotate(-40deg) saturate(1.3)' } : {})
+                  ...(activeThemeId === 'matrix' ? { filter: 'hue-rotate(60deg) brightness(0.6) saturate(1.8)' } : {}),
+                  ...(activeThemeId === 'synthwave' ? { filter: 'hue-rotate(-40deg) saturate(1.3)' } : {}),
+                  ...(activeThemeId === 'tropic' ? { filter: 'saturate(1.4) contrast(1.1)' } : {}),
+                  ...(activeThemeId === 'midnight' ? { filter: 'brightness(0.5) contrast(1.2) saturate(0.8)' } : {}),
+                  ...(activeThemeId === 'holo' ? { filter: 'grayscale(1) brightness(1.2) contrast(1.1)' } : {})
                 }}
               />
 
@@ -409,8 +413,11 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
                   maskSize: 'cover',
                   // Apply theme styling filters/presets dynamically
                   ...(activeThemeId === 'sunset' ? { filter: 'saturate(1.2) contrast(1.1) drop-shadow(0 0 30px rgba(255, 0, 122, 0.4))' } : {}),
-                  ...(activeThemeId === 'hacker' ? { filter: 'hue-rotate(60deg) brightness(0.6) saturate(1.8)' } : {}),
-                  ...(activeThemeId === 'purple' ? { filter: 'hue-rotate(-40deg) saturate(1.3)' } : {})
+                  ...(activeThemeId === 'matrix' ? { filter: 'hue-rotate(60deg) brightness(0.6) saturate(1.8)' } : {}),
+                  ...(activeThemeId === 'synthwave' ? { filter: 'hue-rotate(-40deg) saturate(1.3)' } : {}),
+                  ...(activeThemeId === 'tropic' ? { filter: 'saturate(1.4) contrast(1.1)' } : {}),
+                  ...(activeThemeId === 'midnight' ? { filter: 'brightness(0.5) contrast(1.2) saturate(0.8)' } : {}),
+                  ...(activeThemeId === 'holo' ? { filter: 'grayscale(1) brightness(1.2) contrast(1.1)' } : {})
                 }}
               />
 

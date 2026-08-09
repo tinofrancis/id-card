@@ -9,6 +9,7 @@ import { audio } from '@/utils/audio';
 interface DownloadButtonProps {
   elementRef: React.RefObject<HTMLDivElement | null>;
   fileName: string;
+  label?: string;
   onDownloadStarted?: () => void;
   onDownloadCompleted?: (dataUrl: string) => void;
 }
@@ -16,6 +17,7 @@ interface DownloadButtonProps {
 export default function DownloadButton({
   elementRef,
   fileName,
+  label,
   onDownloadStarted,
   onDownloadCompleted,
 }: DownloadButtonProps) {
@@ -119,7 +121,7 @@ export default function DownloadButton({
       ) : (
         <>
           <Download className="h-5 w-5 group-hover:translate-y-[1px] transition-transform duration-200" />
-          <span>Download Builder Card</span>
+          <span>{label || 'Download Builder Card'}</span>
         </>
       )}
     </button>

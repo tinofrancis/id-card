@@ -389,6 +389,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 <DownloadButton
                   elementRef={highResRef}
                   fileName={`hh-goa-builder-card-${activeThemeId}.png`}
+                  label="Download Builder Pass"
                   onDownloadCompleted={async () => {
                     await saveProfileCard();
                   }}
