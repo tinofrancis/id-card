@@ -6,11 +6,11 @@ import CropModal from './CropModal';
 import ThemeSelector from './ThemeSelector';
 import DownloadButton from './DownloadButton';
 import ShareButton from './ShareButton';
-import PalmLeafSVG from './PalmLeafSVG';
 import { THEMES, Theme } from '@/utils/constants';
-import { Edit2, RefreshCw, AlertCircle, Compass } from 'lucide-react';
+import { Edit2, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
+import { audio } from '@/utils/audio';
 
 interface FrameGeneratorProps {
   activeThemeId: Theme['id'];
@@ -23,8 +23,14 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
   const [showCropModal, setShowCropModal] = useState(false);
   const [frameId, setFrameId] = useState('');
 
+  // Interactive Pan / Zoom / Rotation Controls
+  const [zoom, setZoom] = useState(1);
+  const [panX, setPanX] = useState(0);
+  const [panY, setPanY] = useState(0);
+  const [rotation, setRotation] = useState(0);
+
   useEffect(() => {
-    setFrameId(`FRAME-${Date.now()}`);
+    setFrameId(`FRAME-GOA-${Date.now()}`);
   }, []);
 
   const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({
@@ -43,18 +49,17 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     
-    // Max tilt angle ~8 degrees for subtle, high-end look
-    const rotateX = -(y - rect.height / 2) / (rect.height / 16);
-    const rotateY = (x - rect.width / 2) / (rect.width / 16);
+    const rotateX = -(y - rect.height / 2) / (rect.height / 20);
+    const rotateY = (x - rect.width / 2) / (rect.width / 20);
     
     setTiltStyle({
-      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`,
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`,
     });
 
     const percentX = (x / rect.width) * 100;
     const percentY = (y / rect.height) * 100;
     setGlareStyle({
-      background: `radial-gradient(circle 120px at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.12), transparent)`,
+      background: `radial-gradient(circle 150px at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.15), transparent)`,
     });
   };
 
@@ -67,14 +72,14 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
     });
   };
 
-  // Celebration Confetti on Successful Image Generation
+  // Confetti on success
   useEffect(() => {
     if (croppedImage) {
       confetti({
-        particleCount: 50,
+        particleCount: 60,
         spread: 60,
         origin: { y: 0.75 },
-        colors: ['#ff5e62', '#ff9966', '#00c6ff', '#8b5cf6', '#38ef7d'],
+        colors: ['#FFE600', '#FF007A', '#0A6B48', '#00FF66'],
       });
     }
   }, [croppedImage]);
@@ -85,17 +90,17 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
   };
 
   const saveProfileFrame = async (imageToSave?: string | null) => {
-    const img = imageToSave !== undefined ? imageToSave : croppedImage;
+    const img = imageToSave || croppedImage;
     if (!img) return;
     try {
+      const finalId = `FRAME-GOA-${Date.now()}`;
       await fetch('/api/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           type: 'frame',
-          id: frameId,
-          name: 'N/A (Profile Frame)',
-          theme: activeTheme.name,
+          id: finalId,
+          theme: activeThemeId,
           image: img,
         }),
       });
@@ -111,8 +116,13 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
   };
 
   const handleReset = () => {
+    audio.playClick();
     setImageSrc(null);
     setCroppedImage(null);
+    setZoom(1);
+    setPanX(0);
+    setPanY(0);
+    setRotation(0);
   };
 
   return (
@@ -136,7 +146,6 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
                 </label>
                 <div className="flex items-center justify-between rounded-xl border border-slate-200 dark:border-white/5 bg-slate-100/50 dark:bg-slate-950/50 p-4 transition-colors duration-300">
                   <div className="flex items-center gap-3">
-                    {/* Tiny thumbnail */}
                     <img
                       src={croppedImage}
                       alt="Cropped Preview"
@@ -149,15 +158,18 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
                   </div>
                   <div className="flex gap-2">
                     <button
-                      onClick={() => setShowCropModal(true)}
-                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200 shadow-sm"
+                      onClick={() => {
+                        audio.playClick();
+                        setShowCropModal(true);
+                      }}
+                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200 shadow-sm cursor-pointer"
                       title="Recrop photo"
                     >
                       <Edit2 className="h-4 w-4" />
                     </button>
                     <button
                       onClick={handleReset}
-                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200 shadow-sm"
+                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200 shadow-sm cursor-pointer"
                       title="Upload new photo"
                     >
                       <RefreshCw className="h-4 w-4" />
@@ -170,14 +182,95 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
             {/* Theme Selector */}
             <ThemeSelector activeThemeId={activeThemeId} onChange={setActiveThemeId} />
 
+            {/* Interactive Image Positioning Sliders */}
+            {croppedImage && (
+              <div className="flex flex-col gap-4 p-4 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-100/30 dark:bg-slate-950/20">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+                  Adjust Photo Layout
+                </span>
+                
+                {/* Zoom Slider */}
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between text-[10px] font-mono text-slate-500">
+                    <span>Zoom</span>
+                    <span>{zoom.toFixed(1)}x</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0.5"
+                    max="2.5"
+                    step="0.1"
+                    value={zoom}
+                    onChange={(e) => setZoom(parseFloat(e.target.value))}
+                    className="w-full accent-[#FFE600] h-1 bg-slate-200 dark:bg-white/10 rounded-lg appearance-none cursor-pointer"
+                  />
+                </div>
+
+                {/* Pan X Slider */}
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between text-[10px] font-mono text-slate-500">
+                    <span>Position X</span>
+                    <span>{panX}px</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="-100"
+                    max="100"
+                    step="1"
+                    value={panX}
+                    onChange={(e) => setPanX(parseInt(e.target.value))}
+                    className="w-full accent-[#FFE600] h-1 bg-slate-200 dark:bg-white/10 rounded-lg appearance-none cursor-pointer"
+                  />
+                </div>
+
+                {/* Pan Y Slider */}
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between text-[10px] font-mono text-slate-500">
+                    <span>Position Y</span>
+                    <span>{panY}px</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="-100"
+                    max="100"
+                    step="1"
+                    value={panY}
+                    onChange={(e) => setPanY(parseInt(e.target.value))}
+                    className="w-full accent-[#FFE600] h-1 bg-slate-200 dark:bg-white/10 rounded-lg appearance-none cursor-pointer"
+                  />
+                </div>
+
+                {/* Rotation Slider */}
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between text-[10px] font-mono text-slate-500">
+                    <span>Rotation</span>
+                    <span>{rotation}°</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="-180"
+                    max="180"
+                    step="5"
+                    value={rotation}
+                    onChange={(e) => setRotation(parseInt(e.target.value))}
+                    className="w-full accent-[#FFE600] h-1 bg-slate-200 dark:bg-white/10 rounded-lg appearance-none cursor-pointer"
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Actions */}
             {croppedImage && (
               <div className="flex flex-col gap-4 mt-2">
                 <DownloadButton
                   elementRef={highResRef}
                   fileName={`hh-goa-profile-frame-${activeThemeId}.png`}
-                  onDownloadCompleted={async () => {
-                    await saveProfileFrame();
+                  onDownloadCompleted={async (dataUrl) => {
+                    if (dataUrl) {
+                      await saveProfileFrame(dataUrl);
+                    } else {
+                      await saveProfileFrame();
+                    }
                   }}
                 />
                 <ShareButton mode="frame" />
@@ -194,326 +287,146 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
             Live Preview
           </span>
 
-          {/* Visible Interactive Preview (fluid sizing mirroring 1080x1350) */}
+          {/* Visible Interactive Preview (Perfect Square aspect-ratio) */}
           <div
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            style={tiltStyle}
-            className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border-2 border-emerald-500/30 bg-slate-950/90 shadow-2xl shadow-emerald-500/5 flex flex-col justify-between p-6 sm:p-8 transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
+            style={{ ...tiltStyle, backgroundColor: '#070d10' }}
+            className="relative aspect-square w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black/40 flex flex-col justify-center items-center transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
           >
-            {/* 3D Reflection Glare Overlay */}
+            {/* 3D Glare */}
             <div
               style={glareStyle}
-              className="absolute inset-0 z-20 pointer-events-none opacity-60 transition-opacity duration-300"
+              className="absolute inset-0 z-40 pointer-events-none opacity-60 transition-opacity duration-300"
             />
-            
-            {/* Grid Pattern */}
-            <div className="absolute inset-0 opacity-20 digital-grid pointer-events-none" />
 
-            {/* Background Glows */}
-            <div className={`absolute -top-24 -left-24 w-48 h-48 rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-20 blur-[50px]`} />
-            <div className={`absolute -bottom-24 -right-24 w-48 h-48 rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-20 blur-[50px]`} />
+            {croppedImage ? (
+              <div className="absolute inset-0 w-full h-full">
+                {/* Layer 1: User avatar */}
+                <div className="absolute inset-0 z-10 overflow-hidden flex items-center justify-center">
+                  <img
+                    src={croppedImage}
+                    alt="User Profile"
+                    className="w-full h-full object-cover"
+                    style={{
+                      transform: `scale(${zoom}) translate(${panX}px, ${panY}px) rotate(${rotation}deg)`
+                    }}
+                  />
+                </div>
 
-            {/* Watermark watermark */}
-            <div className="absolute inset-0 z-0 flex items-center justify-center opacity-[0.025] select-none pointer-events-none font-display font-black text-6xl tracking-widest uppercase text-white rotate-[-25deg]">
-              HH GOA
-            </div>
-
-            {/* Floating Tropical Leaves in background */}
-            <div className="absolute -left-8 top-1/4 w-24 h-24 text-white/5 rotate-45 pointer-events-none">
-              <PalmLeafSVG className="w-full h-full" />
-            </div>
-            <div className="absolute -right-8 bottom-1/4 w-24 h-24 text-white/5 -rotate-45 pointer-events-none">
-              <PalmLeafSVG className="w-full h-full" />
-            </div>
-
-            {/* Top Bar Branding */}
-            <div className="relative z-10 flex justify-between items-center border-b border-white/5 pb-2">
-              {/* Left Logo */}
-              <div className="flex items-center">
-                <img
-                  src="/studio-logo.png"
-                  alt="2:47PM Studio"
-                  className="h-3.5 w-6 object-contain"
+                {/* Layer 2: Frame Overlay */}
+                <div 
+                  className="absolute inset-0 z-20 transition-all duration-300 pointer-events-none"
+                  style={{
+                    backgroundImage: "url('/palm-frame-bg.jpg')",
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    WebkitMaskImage: 'radial-gradient(circle, transparent 48%, black 49%)',
+                    maskImage: 'radial-gradient(circle, transparent 48%, black 49%)',
+                    // Apply theme styling filters/presets dynamically
+                    ...(activeThemeId === 'sunset' ? { filter: 'saturate(1.2) contrast(1.1) drop-shadow(0 0 10px rgba(255, 0, 122, 0.4))' } : {}),
+                    ...(activeThemeId === 'hacker' ? { filter: 'hue-rotate(60deg) brightness(0.6) saturate(1.8)' } : {}),
+                    ...(activeThemeId === 'purple' ? { filter: 'hue-rotate(-40deg) saturate(1.3)' } : {})
+                  }}
                 />
-              </div>
-              
-              {/* Center Logo */}
-              <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                <img
-                  src="/hacker-house-goa-logo.png"
-                  alt="Hacker House"
-                  className="h-3.5 w-16 object-contain"
-                />
-              </div>
 
-              {/* Right Info */}
-              <div className="flex items-center">
-                <span className={`px-2 py-0.5 rounded border border-white/10 bg-white/5 text-[8px] font-mono tracking-widest text-slate-300`}>
-                  Goa, IN
-                </span>
-              </div>
-            </div>
-
-            {/* Main Avatar Circular Frame */}
-            <div className="relative z-10 flex flex-col items-center justify-center my-auto">
-              
-              {/* Outer decorative ring */}
-              <div className={`absolute w-[254px] h-[254px] rounded-full border border-dashed border-white/15 animate-spin [animation-duration:80s]`} />
-              
-              {/* Corner crosshairs */}
-              <div className="absolute w-[280px] h-[280px] flex justify-between items-between text-slate-600 font-mono text-[9px] pointer-events-none">
-                <div className="absolute top-0 left-0 border-t border-l border-white/20 w-3 h-3" />
-                <div className="absolute top-0 right-0 border-t border-r border-white/20 w-3 h-3" />
-                <div className="absolute bottom-0 left-0 border-b border-l border-white/20 w-3 h-3" />
-                <div className="absolute bottom-0 right-0 border-b border-r border-white/20 w-3 h-3" />
-              </div>
-
-              {/* Glowing ring wrapper */}
-              <div className={`relative flex h-[230px] w-[230px] items-center justify-center rounded-full p-[5px] bg-gradient-to-r ${activeTheme.gradient} ${activeTheme.glow}`}>
-                {/* User Image or Empty State */}
-                <div className="relative h-full w-full rounded-full overflow-hidden bg-slate-900 border border-slate-950 flex items-center justify-center">
-                  <AnimatePresence mode="wait">
-                    {croppedImage ? (
-                      <div className="relative w-full h-full">
-                        <img
-                          src={croppedImage}
-                          alt="Cropped face avatar"
-                          className="h-full w-full object-cover rounded-full"
-                        />
-                        {/* Profile Frame Tropical Overlays */}
-                        <div className="absolute inset-0 z-20 pointer-events-none rounded-full overflow-hidden border-4 border-[#FFE600]">
-                          {/* Tropical palms overlay */}
-                          <div className="absolute top-0 inset-x-0 h-1/2 flex justify-between px-2 pt-2 opacity-90">
-                            <span className="text-xl rotate-12">🌴</span>
-                            <span className="text-xl -rotate-12">🌴</span>
-                          </div>
-                          {/* Beach-shack desk & laptop vector overlay representation */}
-                          <div className="absolute bottom-0 inset-x-0 h-10 bg-slate-950/80 border-t border-[#FF007A] flex flex-col items-center justify-center text-[5px] font-mono text-[#FFE600] font-black uppercase tracking-wider py-0.5">
-                            <div className="flex gap-1 items-center">
-                              <span>💻 SHACK DESK</span>
-                              <span className="text-[#FF007A]">गोवा</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <motion.div
-                        key="placeholder"
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ duration: 0.25, ease: 'easeOut' }}
-                        className="flex flex-col items-center justify-center p-4 text-center"
-                      >
-                        <div className="h-10 w-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-2">
-                          <svg className="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                          </svg>
-                        </div>
-                        <p className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
-                          Upload Image
-                        </p>
-                        <p className="text-[8px] text-slate-500 max-w-[120px] mt-0.5">
-                          Choose photo to preview frame
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                {/* Layer 3: Top Header branding */}
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 w-36 pointer-events-none drop-shadow-[0_0_12px_rgba(255,0,122,0.35)]">
+                  <img
+                    src="/hacker-house-goa-logo.png"
+                    alt="Hacker House Goa"
+                    className="w-full object-contain"
+                  />
                 </div>
 
-                {/* Overlaid Badges on circular frame */}
-                <div className="absolute -bottom-2 bg-slate-950 border border-white/10 px-4 py-1 rounded-full font-black text-[10px] tracking-widest text-center uppercase shadow-xl text-white">
-                  HH GOA 2026
+                {/* Layer 4: Footer event tag */}
+                <div className="absolute bottom-4 inset-x-4 z-30 p-2.5 rounded-xl border border-[#FFE600]/30 bg-slate-950/90 backdrop-blur-md text-center shadow-lg pointer-events-none">
+                  <div className="text-[10px] font-black tracking-widest text-[#FFE600] font-display">HH GOA 2026 • BUILDER</div>
+                  <div className="text-[7px] font-mono tracking-widest text-slate-400 mt-0.5 flex justify-center gap-1.5 uppercase">
+                    <span>15.4967° N, 73.8278° E</span>
+                    <span className="text-slate-600">•</span>
+                    <span className="text-[#FF007A] font-bold">#FrameInGoa</span>
+                  </div>
                 </div>
-                <div className={`absolute -top-2 bg-slate-950 border border-white/10 px-3 py-0.5 rounded-full font-bold text-[8px] tracking-widest text-center uppercase shadow-xl ${activeTheme.accentText}`}>
-                  BUILDER
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center p-6 text-center z-10">
+                <div className="h-14 w-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-3">
+                  <svg className="h-7 w-7 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
                 </div>
+                <h3 className="text-sm font-bold text-slate-200 uppercase tracking-wider">No Avatar Uploaded</h3>
+                <p className="text-[10px] text-slate-500 max-w-[180px] mt-1 leading-relaxed">
+                  Upload your photo on the left to generate your official HH Goa 2026 Profile Frame.
+                </p>
               </div>
-
-              {/* Coordinates label */}
-              <div className="mt-8 flex items-center gap-1 text-[9px] font-mono tracking-widest text-slate-400">
-                <Compass className="h-3 w-3 animate-spin [animation-duration:15s]" />
-                <span>15.4967° N, 73.8278° E</span>
-              </div>
-            </div>
-
-            {/* Bottom Info Details */}
-            <div className="relative z-10 flex justify-between items-end border-t border-white/5 pt-3">
-              <div className="flex flex-col gap-0.5 text-left">
-                <span className="text-[7px] font-bold uppercase tracking-wider text-slate-500 font-mono">BUILDER STATUS</span>
-                <span className="text-[9px] font-black uppercase text-white tracking-widest flex items-center gap-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]" />
-                  VERIFIED
-                </span>
-              </div>
-              <div className="flex flex-col items-center">
-                <span className={`text-[12px] font-black uppercase tracking-wider bg-gradient-to-r ${activeTheme.gradient} bg-clip-text text-transparent`}>
-                  #FrameInGoa
-                </span>
-              </div>
-              <div className="flex flex-col gap-0.5 text-right font-mono">
-                <span className="text-[7px] font-bold uppercase tracking-wider text-slate-500">PORT ENTRY</span>
-                <span className="text-[9px] font-bold text-white uppercase tracking-widest">FEB 2026</span>
-              </div>
-            </div>
-
+            )}
           </div>
         </div>
       </div>
 
       {/* ====================================================
-          HIDDEN OFF-SCREEN 1080x1350 CANVAS FOR PNG EXPORT
+          HIDDEN OFF-SCREEN 1080x1080 CANVAS FOR PNG EXPORT
           ==================================================== */}
       <div className="badge-canvas-container">
         <div
           ref={highResRef}
-          className="w-[1080px] h-[1350px] bg-[#0A1118] border-[16px] border-solid border-slate-900/60 text-white flex flex-col justify-between p-20 font-sans relative overflow-hidden"
+          className="w-[1080px] h-[1080px] text-white relative overflow-hidden"
+          style={{ backgroundColor: '#070d10' }}
         >
-          {/* High-res Grid Pattern */}
-          <div
-            className="absolute inset-0 opacity-15"
-            style={{
-              backgroundImage: 'radial-gradient(rgba(255,255,255,0.2) 2px, transparent 2px)',
-              backgroundSize: '60px 60px',
-            }}
-          />
+          {croppedImage && (
+            <>
+              {/* Layer 1: User avatar (high-res scale calculations) */}
+              <div className="absolute inset-0 z-10 overflow-hidden flex items-center justify-center">
+                <img
+                  src={croppedImage}
+                  alt="User Profile"
+                  className="w-full h-full object-cover"
+                  style={{
+                    transform: `scale(${zoom}) translate(${panX * 3.375}px, ${panY * 3.375}px) rotate(${rotation}deg)`
+                  }}
+                />
+              </div>
 
-          {/* High-res Glow blobs */}
-          <div className={`absolute -top-72 -left-72 w-[600px] h-[600px] rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-25 blur-[120px]`} />
-          <div className={`absolute -bottom-72 -right-72 w-[600px] h-[600px] rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-25 blur-[120px]`} />
-
-          {/* Watermark */}
-          <div className="absolute inset-0 z-0 flex items-center justify-center opacity-[0.02] select-none pointer-events-none font-display font-black text-[180px] tracking-widest uppercase text-white rotate-[-25deg]">
-            HH GOA
-          </div>
-
-          {/* High-res Floating Leaves */}
-          <div className="absolute -left-20 top-[30%] w-80 h-80 text-white/5 rotate-45 pointer-events-none">
-            <PalmLeafSVG className="w-full h-full" />
-          </div>
-          <div className="absolute -right-20 bottom-[30%] w-80 h-80 text-white/5 -rotate-45 pointer-events-none">
-            <PalmLeafSVG className="w-full h-full" />
-          </div>
-
-          {/* High-res Header */}
-          <div className="relative z-10 flex justify-between items-center border-b-2 border-white/5 pb-6">
-            {/* Left Logo */}
-            <div className="flex items-center">
-              <img
-                src="/studio-logo.png"
-                alt="2:47PM Studio"
-                className="h-10 w-16 object-contain"
+              {/* Layer 2: Frame Overlay */}
+              <div 
+                className="absolute inset-0 z-20 pointer-events-none"
+                style={{
+                  backgroundImage: "url('/palm-frame-bg.jpg')",
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  WebkitMaskImage: 'radial-gradient(circle, transparent 48%, black 49%)',
+                  maskImage: 'radial-gradient(circle, transparent 48%, black 49%)',
+                  // Apply theme styling filters/presets dynamically
+                  ...(activeThemeId === 'sunset' ? { filter: 'saturate(1.2) contrast(1.1) drop-shadow(0 0 30px rgba(255, 0, 122, 0.4))' } : {}),
+                  ...(activeThemeId === 'hacker' ? { filter: 'hue-rotate(60deg) brightness(0.6) saturate(1.8)' } : {}),
+                  ...(activeThemeId === 'purple' ? { filter: 'hue-rotate(-40deg) saturate(1.3)' } : {})
+                }}
               />
-            </div>
 
-            {/* Center Logo */}
-            <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-              <img
-                src="/hacker-house-goa-logo.png"
-                alt="Hacker House"
-                className="h-10 w-44 object-contain"
-              />
-            </div>
-
-            {/* Right Info */}
-            <div className="flex items-center">
-              <span className={`px-5 py-1.5 rounded-md border-2 border-white/10 bg-white/5 text-base font-mono tracking-widest text-slate-300`}>
-                Goa, India
-              </span>
-            </div>
-          </div>
-
-          {/* High-res Central Frame */}
-          <div className="relative z-10 flex flex-col items-center justify-center my-auto">
-            {/* Outer dotted accent circle */}
-            <div className="absolute w-[740px] h-[740px] rounded-full border-2 border-dashed border-white/10" />
-
-            {/* Corner brackets */}
-            <div className="absolute w-[820px] h-[820px] flex justify-between items-between text-slate-700 pointer-events-none">
-              <div className="absolute top-0 left-0 border-t-4 border-l-4 border-white/20 w-8 h-8" />
-              <div className="absolute top-0 right-0 border-t-4 border-r-4 border-white/20 w-8 h-8" />
-              <div className="absolute bottom-0 left-0 border-b-4 border-l-4 border-white/20 w-8 h-8" />
-              <div className="absolute bottom-0 right-0 border-b-4 border-r-4 border-white/20 w-8 h-8" />
-            </div>
-
-            {/* Main Avatar Border */}
-            <div className={`relative flex h-[660px] w-[660px] items-center justify-center rounded-full p-[14px] bg-gradient-to-r ${activeTheme.gradient} ${activeTheme.glow}`}>
-              <div className="relative h-full w-full rounded-full overflow-hidden bg-slate-900 border-[3px] border-slate-950">
-                {croppedImage ? (
-                  <div className="relative w-full h-full">
-                    <img
-                      src={croppedImage}
-                      alt="Cropped high-res face"
-                      className="h-full w-full object-cover rounded-full"
-                    />
-                    {/* Profile Frame Tropical Overlays */}
-                    <div className="absolute inset-0 z-20 pointer-events-none rounded-full overflow-hidden border-[12px] border-[#FFE600]">
-                      {/* Tropical palms overlay */}
-                      <div className="absolute top-0 inset-x-0 h-1/2 flex justify-between px-8 pt-8 opacity-90">
-                        <span className="text-5xl rotate-12">🌴</span>
-                        <span className="text-5xl -rotate-12">🌴</span>
-                      </div>
-                      {/* Beach-shack desk & laptop vector overlay representation */}
-                      <div className="absolute bottom-0 inset-x-0 h-28 bg-slate-950/80 border-t-2 border-[#FF007A] flex flex-col items-center justify-center text-sm font-mono text-[#FFE600] font-black uppercase tracking-wider py-1">
-                        <div className="flex gap-2 items-center">
-                          <span>💻 SHACK DESK</span>
-                          <span className="text-[#FF007A]">गोवा</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="w-full h-full bg-slate-900" />
-                )}
+              {/* Layer 3: Top Header branding */}
+              <div className="absolute top-12 left-1/2 -translate-x-1/2 z-30 w-96 pointer-events-none drop-shadow-[0_0_40px_rgba(255,0,122,0.45)]">
+                <img
+                  src="/hacker-house-goa-logo.png"
+                  alt="Hacker House Goa"
+                  className="w-full object-contain"
+                />
               </div>
 
-              {/* Circular frame overlay text badges */}
-              <div className="absolute -bottom-6 bg-slate-950 border-2 border-white/15 px-12 py-3 rounded-full font-black text-2xl tracking-[0.2em] text-center uppercase shadow-2xl text-white">
-                HH GOA 2026
+              {/* Layer 4: Footer event tag */}
+              <div className="absolute bottom-12 inset-x-12 z-30 p-8 rounded-3xl border-2 border-[#FFE600]/30 bg-slate-950/95 text-center shadow-2xl">
+                <div className="text-3xl font-black tracking-widest text-[#FFE600] font-display">HH GOA 2026 • BUILDER</div>
+                <div className="text-lg font-mono tracking-widest text-slate-400 mt-2 flex justify-center gap-4 uppercase">
+                  <span>15.4967° N, 73.8278° E</span>
+                  <span className="text-slate-600">•</span>
+                  <span className="text-[#FF007A] font-bold">#FrameInGoa</span>
+                </div>
               </div>
-              <div className={`absolute -top-6 bg-slate-950 border-2 border-white/15 px-8 py-2 rounded-full font-bold text-lg tracking-[0.25em] text-center uppercase shadow-2xl ${activeTheme.accentText}`}>
-                BUILDER
-              </div>
-            </div>
-
-            {/* Coordinates */}
-            <div className="mt-20 text-[20px] font-mono tracking-[0.3em] text-slate-400">
-              15.4967° N, 73.8278° E
-            </div>
-          </div>
-
-          {/* High-res Footer */}
-          <div className="relative z-10 flex justify-between items-end border-t-2 border-white/5 pt-8">
-            <div className="flex flex-col gap-1.5 text-left font-mono">
-              <span className="text-xs font-bold uppercase tracking-widest text-slate-500">BUILDER STATUS</span>
-              <span className="text-xl font-black uppercase text-white tracking-[0.15em] flex items-center gap-2">
-                <span className="h-3 w-3 rounded-full bg-emerald-500 shadow-[0_0_12px_#10b981]" />
-                VERIFIED
-              </span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className={`text-[32px] font-black uppercase tracking-[0.1em] bg-gradient-to-r ${activeTheme.gradient} bg-clip-text text-transparent`}>
-                #FrameInGoa
-              </span>
-            </div>
-            <div className="flex flex-col gap-1.5 text-right font-mono">
-              <span className="text-xs font-bold uppercase tracking-widest text-slate-500">PORT ENTRY</span>
-              <span className="text-xl font-bold text-white uppercase tracking-[0.15em]">FEB 2026</span>
-            </div>
-          </div>
-
+            </>
+          )}
         </div>
       </div>
-
-      {/* Crop Modal */}
-      {showCropModal && imageSrc && (
-        <CropModal
-          imageSrc={imageSrc}
-          onCropComplete={handleCropComplete}
-          onCancel={() => setShowCropModal(false)}
-        />
-      )}
     </div>
   );
 }

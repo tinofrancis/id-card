@@ -10,7 +10,7 @@ interface DownloadButtonProps {
   elementRef: React.RefObject<HTMLDivElement | null>;
   fileName: string;
   onDownloadStarted?: () => void;
-  onDownloadCompleted?: () => void;
+  onDownloadCompleted?: (dataUrl: string) => void;
 }
 
 export default function DownloadButton({
@@ -81,7 +81,7 @@ export default function DownloadButton({
       audio.playSuccess();
       triggerConfetti();
       setDownloadSuccess(true);
-      onDownloadCompleted?.();
+      onDownloadCompleted?.(dataUrl);
 
       // Reset success state after a few seconds
       setTimeout(() => setDownloadSuccess(false), 3000);
