@@ -10,6 +10,7 @@ interface DownloadButtonProps {
   elementRef: React.RefObject<HTMLDivElement | null>;
   fileName: string;
   label?: string;
+  variant?: 'sunset' | 'green';
   onDownloadStarted?: () => void;
   onDownloadCompleted?: (dataUrl: string) => void;
 }
@@ -18,6 +19,7 @@ export default function DownloadButton({
   elementRef,
   fileName,
   label,
+  variant,
   onDownloadStarted,
   onDownloadCompleted,
 }: DownloadButtonProps) {
@@ -99,10 +101,12 @@ export default function DownloadButton({
     <button
       onClick={handleDownload}
       disabled={isGenerating}
-      className={`relative flex w-full items-center justify-center gap-2 rounded-xl py-3.5 px-6 font-semibold text-white shadow-lg overflow-hidden group transition-all duration-300 active:scale-[0.98] ${
+      className={`relative flex w-full items-center justify-center gap-2 rounded-xl py-3.5 px-6 font-semibold shadow-lg overflow-hidden group transition-all duration-300 active:scale-[0.98] ${
         downloadSuccess
-          ? 'bg-emerald-600 shadow-emerald-500/20'
-          : 'bg-gradient-to-r from-sunset-start via-[#ff7a50] to-sunset-end hover:shadow-sunset-start/20'
+          ? 'bg-emerald-600 text-white shadow-emerald-500/20'
+          : variant === 'green'
+          ? 'bg-gradient-to-r from-emerald-500 via-[#00F5A0] to-emerald-500 text-slate-950 font-black tracking-wider hover:shadow-emerald-500/20 border border-[#00F5A0]/30'
+          : 'bg-gradient-to-r from-sunset-start via-[#ff7a50] to-sunset-end text-white hover:shadow-sunset-start/20'
       } disabled:opacity-85 disabled:pointer-events-none`}
     >
       {/* Background reflection shimmer */}

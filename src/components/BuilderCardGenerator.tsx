@@ -390,6 +390,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   elementRef={highResRef}
                   fileName={`hh-goa-builder-card-${activeThemeId}.png`}
                   label="Download Builder Pass"
+                  variant="green"
                   onDownloadCompleted={async () => {
                     await saveProfileCard();
                   }}
@@ -413,8 +414,13 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={{ ...tiltStyle, ...getTextureStyle(cardTexture) }}
-            className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border-2 border-emerald-500/30 shadow-2xl shadow-emerald-500/5 flex flex-col justify-between p-6 sm:p-8 transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
+            className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border-2 border-emerald-500/30 shadow-2xl shadow-emerald-500/5 flex flex-col justify-between p-6 sm:p-8 pt-8 transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
           >
+            {/* VIP Header Ribbon */}
+            <div className="absolute top-0 inset-x-0 bg-gradient-to-r from-[#FF007A] via-[#FFE600] to-[#FF007A] text-[6px] sm:text-[7px] font-mono font-black tracking-widest text-slate-950 text-center py-1 uppercase z-30 shadow-md">
+              HH GOA 2026 • VIP BUILDER PASS
+            </div>
+
             {/* Holographic foil overlay sheen */}
             {cardTexture === 'holo' && (
               <div
@@ -454,43 +460,18 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             </div>
 
             {/* Header info */}
-            <div className="relative z-10 flex justify-between items-center border-b border-white/5 pb-2.5">
-              {/* Left Logo */}
-              <div className="flex items-center">
-                <img
-                  src="/studio-logo.png"
-                  alt="2:47PM Studio"
-                  className="h-5 w-8 object-contain"
-                />
-              </div>
-
-              {/* Center Logo */}
-              <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+            <div className="relative z-10 flex justify-center items-center pt-2 pb-2 border-b border-white/5">
+              <div className="h-6 w-28 pointer-events-none drop-shadow-[0_0_8px_rgba(255,230,0,0.3)]">
                 <img
                   src="/hacker-house-goa-logo.png"
                   alt="Hacker House"
-                  className="h-5 w-20 object-contain"
+                  className="h-full w-full object-contain"
                 />
-              </div>
-              {/* Luxury Holographic Seal */}
-              <div className="flex items-center relative z-20">
-                <div 
-                  style={cardTexture === 'holo' ? holoStyle : {
-                    background: 'linear-gradient(135deg, #FF007A 0%, #00F0FF 50%, #00F5A0 100%)'
-                  }}
-                  className="relative h-10 w-10 rounded-full flex items-center justify-center p-[1px] shadow-[0_0_12px_rgba(0,240,255,0.25)] border border-white/20 select-none"
-                >
-                  <div className="h-full w-full rounded-full bg-slate-950/90 flex flex-col items-center justify-center text-center p-0.5">
-                    <span className="text-[4px] font-black tracking-wider text-[#00F5A0] font-mono leading-none">HH GOA</span>
-                    <span className="text-[5px] font-black tracking-widest text-white font-mono leading-none mt-0.5">2026</span>
-                    <span className="text-[3px] font-mono font-bold text-slate-400 mt-0.5 uppercase tracking-wider leading-none">VERIFIED</span>
-                  </div>
-                </div>
               </div>
             </div>
 
             {/* Body */}
-            <div className="relative z-10 flex flex-col items-center gap-4 my-auto">
+            <div className="relative z-10 flex flex-col items-center gap-3 my-auto">
               
               {/* Bamboo Hanger Cords */}
               <div className="flex justify-between w-28 absolute -top-4 left-1/2 -translate-x-1/2 z-0 pointer-events-none">
@@ -498,9 +479,9 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 <div className="w-[1.5px] h-4 bg-amber-800" />
               </div>
 
-              {/* Photo Area with pop-art yellow/magenta frame */}
-              <div className="relative p-[4px] rounded-xl bg-gradient-to-tr from-[#FFE600] to-[#FF007A] shadow-[0_0_15px_rgba(255,0,122,0.3)]">
-                <div className="relative h-[140px] w-[140px] overflow-hidden rounded-lg bg-slate-900 border border-slate-950 flex items-center justify-center">
+              {/* Photo Area with portrait pop-art neon border */}
+              <div className="relative p-[3px] rounded-xl bg-gradient-to-tr from-[#FFE600] to-[#FF007A] shadow-[0_0_20px_rgba(255,0,122,0.35)]">
+                <div className="relative h-[155px] w-[124px] overflow-hidden rounded-lg bg-slate-900 border border-slate-950 flex items-center justify-center">
                   <AnimatePresence mode="wait">
                     {croppedImage ? (
                       <motion.img
@@ -520,13 +501,13 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.25, ease: 'easeOut' }}
-                        className="flex flex-col items-center justify-center p-3 text-center"
+                        className="flex flex-col items-center justify-center p-3 text-center opacity-40"
                       >
-                        <svg className="h-6 w-6 text-slate-500 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        <svg className="h-7 w-7 text-slate-400 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
-                        <p className="text-[8px] font-bold text-slate-400 uppercase tracking-wide">
-                          Upload Image
+                        <p className="text-[7px] font-mono font-bold text-slate-400 uppercase tracking-wider">
+                          NO PHOTO
                         </p>
                       </motion.div>
                     )}
@@ -537,27 +518,63 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               {/* Text Fields */}
               <div className="text-center w-full max-w-[280px]">
                 {/* Name */}
-                <h3 className="font-display font-black text-lg uppercase tracking-wider text-white truncate">
+                <h3 className="font-display font-black text-base sm:text-lg uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-[#FFE600] to-[#FF007A] drop-shadow-[0_2px_8px_rgba(255,0,122,0.35)] truncate">
                   {name || 'HACKER'}
                 </h3>
                 
                 {/* High-Tech Metadata Grid */}
-                <div className="mt-3 p-2 rounded-xl bg-slate-950/80 border border-white/5 text-left text-[7px] font-mono leading-relaxed space-y-0.5 text-slate-400">
-                  <div><span className="text-slate-500 font-bold">STATUS:</span> <span className="text-[#00F5A0] font-bold">VERIFIED BUILDER</span></div>
-                  <div><span className="text-slate-500 font-bold">PORT ENTRY:</span> <span className="text-white font-bold">FEB 2026</span></div>
-                  <div><span className="text-slate-500 font-bold">GPS LOC:</span> <span className="text-white font-bold">15.4967° N, 73.8278° E</span></div>
-                  <div><span className="text-slate-500 font-bold">TRACK:</span> <span className="text-[#FFE600] font-bold">{role.toUpperCase()} BUILDER</span></div>
-                  <div><span className="text-slate-500 font-bold">TITLE:</span> <span className="text-rose-400 font-bold">{builderTitle.toUpperCase()}</span></div>
+                <div className="mt-3 p-3 rounded-xl bg-slate-950/80 backdrop-blur-md border border-white/10 text-left text-[8px] font-mono leading-relaxed space-y-1">
+                  <div className="grid grid-cols-2 gap-x-2">
+                    <span className="text-slate-500 uppercase font-black">STATUS</span>
+                    <span className="text-[#00FF66] font-black">[VERIFIED BUILDER]</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-2">
+                    <span className="text-slate-500 uppercase font-black">PORT ENTRY</span>
+                    <span className="text-white font-bold">FEB 2026</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-2">
+                    <span className="text-slate-500 uppercase font-black">TRACK</span>
+                    <span className="text-[#FFE600] font-black truncate">{role.toUpperCase()}</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-2">
+                    <span className="text-slate-500 uppercase font-black">GPS LOC</span>
+                    <span className="text-white font-bold">15.4967° N, 73.8278° E</span>
+                  </div>
                 </div>
               </div>
 
             </div>
 
             {/* Bottom Bar: QR, Barcode, Details */}
-            <div className="relative z-10 flex justify-between items-end border-t border-white/5 pt-3.5 mt-auto">
-              {/* QR representation with luxury glow */}
-              <div className="flex items-center gap-2">
-                <div className="relative p-[1.5px] rounded bg-gradient-to-tr from-[#FF007A] via-[#00F0FF] to-[#00F5A0] shadow-[0_0_8px_rgba(0,240,255,0.15)]">
+            <div className="relative z-10 flex justify-between items-end border-t border-white/5 pt-3 mt-auto w-full">
+              {/* Holographic Security Seal (Bottom Left) */}
+              <div className="flex items-center">
+                <div 
+                  style={{
+                    background: 'linear-gradient(135deg, #FF007A 0%, #00F0FF 50%, #00F5A0 100%)',
+                    boxShadow: '0 0 10px rgba(0, 240, 255, 0.4)'
+                  }}
+                  className="relative h-9 w-9 rounded-full flex items-center justify-center p-[1px] border border-white/20 select-none"
+                >
+                  <div className="h-full w-full rounded-full bg-slate-950/90 flex flex-col items-center justify-center text-center p-0.5">
+                    <span className="text-[3.5px] font-black tracking-wider text-[#00F5A0] font-mono leading-none">HH GOA</span>
+                    <span className="text-[4px] font-black tracking-widest text-white font-mono leading-none mt-0.5">2026</span>
+                    <span className="text-[3px] font-mono font-bold text-slate-400 mt-0.5 uppercase tracking-wider leading-none">VIP SEAL</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Badge Code & Coordinate Micro-typography (Right) */}
+              <div className="flex items-end gap-2">
+                <div className="flex flex-col text-right">
+                  <span className="text-[5px] font-mono font-bold tracking-widest text-[#00F5A0] flex items-center gap-0.5 justify-end">
+                    <span className="h-1 w-1 rounded-full bg-[#00F5A0] animate-ping" />
+                    LIVE VERIFIED
+                  </span>
+                  <span className="text-[7px] font-mono text-slate-300 font-bold leading-none mt-0.5">#GOA-{cardId || '2026-BND'}</span>
+                </div>
+                {/* QR representation with glowing cyan border */}
+                <div className="relative p-[1px] rounded bg-gradient-to-tr from-[#00F0FF] to-[#00F5A0] shadow-[0_0_8px_rgba(0,240,255,0.25)]">
                   {cardId ? (
                     <img
                       src={qrImageUrl}
@@ -569,23 +586,6 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                     <QRCodeSVG className="h-8 w-8 text-white animate-pulse" />
                   )}
                 </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-[6px] font-mono font-bold tracking-widest text-[#00F5A0] flex items-center gap-0.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#00F5A0] animate-ping shadow-[0_0_4px_#00F5A0]" />
-                    LIVE VERIFIED
-                  </span>
-                  <span className="text-[8px] font-mono text-slate-300 font-bold leading-none mt-0.5">#GOA-{cardId || '2026-BND'}</span>
-                </div>
-              </div>
-
-              {/* Coordinates and pass micro-typography */}
-              <div className="flex flex-col items-end gap-0.5">
-                <span className="text-[6px] font-mono text-slate-400 tracking-wider">
-                  15.4967° N, 73.8278° E
-                </span>
-                <span className="text-[5px] font-mono font-bold text-slate-500 uppercase tracking-widest leading-none mt-0.5">
-                  OFFICIAL BUILDER PASS • PORT OF GOA
-                </span>
               </div>
             </div>
 
@@ -600,8 +600,13 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
         <div
           ref={highResRef}
           style={getTextureStyle(cardTexture, true)}
-          className="w-[1080px] h-[1350px] border-[16px] border-solid border-slate-900 text-white flex flex-col justify-between p-20 font-sans relative overflow-hidden"
+          className="w-[1080px] h-[1350px] border-[16px] border-solid border-slate-900 text-white flex flex-col justify-between p-20 pt-24 font-sans relative overflow-hidden"
         >
+          {/* VIP Header Ribbon */}
+          <div className="absolute top-0 inset-x-0 bg-gradient-to-r from-[#FF007A] via-[#FFE600] to-[#FF007A] text-[20px] font-mono font-black tracking-widest text-slate-950 text-center py-2 uppercase z-30 shadow-md">
+            HH GOA 2026 • VIP BUILDER PASS
+          </div>
+
           {/* Grid Pattern */}
           <div
             className="absolute inset-0 opacity-15"
@@ -633,42 +638,18 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           </div>
 
           {/* Header */}
-          <div className="relative z-10 flex justify-between items-center border-b-2 border-white/5 pb-8">
-            {/* Left Logo */}
-            <div className="flex items-center">
-              <img
-                src="/studio-logo.png"
-                alt="2:47PM Studio"
-                className="h-14 w-24 object-contain"
-              />
-            </div>
-
-            {/* Center Logo */}
-            <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+          <div className="relative z-10 flex justify-center items-center pt-4 pb-4 border-b-2 border-white/5">
+            <div className="h-16 w-80 pointer-events-none drop-shadow-[0_0_24px_rgba(255,230,0,0.3)]">
               <img
                 src="/hacker-house-goa-logo.png"
                 alt="Hacker House"
-                className="h-14 w-52 object-contain"
+                className="h-full w-full object-contain"
               />
-            </div>
-            <div className="flex items-center">
-              <div 
-                style={{
-                  background: 'linear-gradient(135deg, #FF007A 0%, #00F0FF 50%, #00F5A0 100%)'
-                }}
-                className="relative h-28 w-28 rounded-full flex items-center justify-center p-[2.5px] shadow-[0_0_36px_rgba(0,240,255,0.25)] border border-white/20 select-none"
-              >
-                <div className="h-full w-full rounded-full bg-slate-950/90 flex flex-col items-center justify-center text-center p-1.5">
-                  <span className="text-[11px] font-black tracking-widest text-[#00F5A0] font-mono leading-none">HH GOA</span>
-                  <span className="text-[12px] font-black tracking-widest text-white font-mono leading-none mt-1.5">2026</span>
-                  <span className="text-[8px] font-mono font-bold text-slate-400 mt-1.5 uppercase tracking-widest leading-none">VERIFIED</span>
-                </div>
-              </div>
             </div>
           </div>
 
           {/* Central Body Content */}
-          <div className="relative z-10 flex flex-col items-center gap-12 my-auto">
+          <div className="relative z-10 flex flex-col items-center gap-10 my-auto">
             {/* Bamboo Hanger Cords */}
             <div className="flex justify-between w-96 absolute -top-[60px] left-1/2 -translate-x-1/2 z-0 pointer-events-none">
               <div className="w-[4px] h-[60px] bg-amber-800" />
@@ -676,8 +657,8 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             </div>
 
             {/* Developer photo frame */}
-            <div className="relative p-[12px] rounded-3xl bg-gradient-to-tr from-[#FFE600] to-[#FF007A] shadow-[0_0_40px_rgba(255,0,122,0.3)]">
-              <div className="relative h-[460px] w-[460px] overflow-hidden rounded-2xl bg-slate-900 border-[3px] border-slate-950">
+            <div className="relative p-[9px] rounded-3xl bg-gradient-to-tr from-[#FFE600] to-[#FF007A] shadow-[0_0_40px_rgba(255,0,122,0.35)]">
+              <div className="relative h-[480px] w-[384px] overflow-hidden rounded-2xl bg-slate-900 border-[3px] border-slate-950 flex items-center justify-center">
                 {croppedImage ? (
                   <img
                     src={croppedImage}
@@ -685,7 +666,12 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-slate-900" />
+                  <div className="flex flex-col items-center justify-center opacity-40 select-none">
+                    <svg className="h-24 w-24 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <span className="text-xs font-mono font-bold text-slate-400 tracking-wider mt-2">NO PHOTO</span>
+                  </div>
                 )}
               </div>
             </div>
@@ -693,26 +679,62 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             {/* Profile fields */}
             <div className="text-center w-full max-w-[700px] flex flex-col items-center">
               {/* Name */}
-              <h3 className="font-display font-black text-6xl uppercase tracking-[0.05em] text-white truncate px-4">
+              <h3 className="font-display font-black text-6xl uppercase tracking-[0.05em] text-transparent bg-clip-text bg-gradient-to-r from-[#FFE600] to-[#FF007A] drop-shadow-[0_6px_24px_rgba(255,0,122,0.35)] truncate px-4">
                 {name || 'HACKER'}
               </h3>
               
               {/* High-Tech Metadata Grid */}
-              <div className="mt-8 w-[520px] p-6 rounded-2xl bg-slate-950/95 border-2 border-white/5 text-left text-base font-mono leading-relaxed space-y-1.5 text-slate-400">
-                <div><span className="text-slate-500 font-bold">STATUS:</span> <span className="text-[#00F5A0] font-bold">VERIFIED BUILDER</span></div>
-                <div><span className="text-slate-500 font-bold">PORT ENTRY:</span> <span className="text-white font-bold">FEB 2026</span></div>
-                <div><span className="text-slate-500 font-bold">GPS LOC:</span> <span className="text-white font-bold">15.4967° N, 73.8278° E</span></div>
-                <div><span className="text-slate-500 font-bold">TRACK:</span> <span className="text-[#FFE600] font-bold">{role.toUpperCase()} BUILDER</span></div>
-                <div><span className="text-slate-500 font-bold">TITLE:</span> <span className="text-rose-400 font-bold">{builderTitle.toUpperCase()}</span></div>
+              <div className="mt-8 w-[520px] p-8 rounded-2xl bg-slate-950/95 backdrop-blur-md border-2 border-white/10 text-left text-sm font-mono leading-relaxed space-y-2.5">
+                <div className="grid grid-cols-2 gap-x-4">
+                  <span className="text-slate-500 uppercase font-black">STATUS</span>
+                  <span className="text-[#00FF66] font-black">[VERIFIED BUILDER]</span>
+                </div>
+                <div className="grid grid-cols-2 gap-x-4">
+                  <span className="text-slate-500 uppercase font-black">PORT ENTRY</span>
+                  <span className="text-white font-bold">FEB 2026</span>
+                </div>
+                <div className="grid grid-cols-2 gap-x-4">
+                  <span className="text-slate-500 uppercase font-black">TRACK</span>
+                  <span className="text-[#FFE600] font-black truncate">{role.toUpperCase()}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-x-4">
+                  <span className="text-slate-500 uppercase font-black">GPS LOC</span>
+                  <span className="text-white font-bold">15.4967° N, 73.8278° E</span>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Footer of card */}
-          <div className="relative z-10 flex justify-between items-end border-t-2 border-white/5 pt-10">
-            {/* QR block with gradient border */}
-            <div className="flex items-center gap-6">
-              <div className="relative p-[3px] rounded-xl bg-gradient-to-tr from-[#FF007A] via-[#00F0FF] to-[#00F5A0] shadow-[0_0_24px_rgba(0,240,255,0.2)]">
+          <div className="relative z-10 flex justify-between items-end border-t-2 border-white/5 pt-8 w-full">
+            {/* Holographic Security Seal (Bottom Left) */}
+            <div className="flex items-center">
+              <div 
+                style={{
+                  background: 'linear-gradient(135deg, #FF007A 0%, #00F0FF 50%, #00F5A0 100%)',
+                  boxShadow: '0 0 30px rgba(0, 240, 255, 0.4)'
+                }}
+                className="relative h-28 w-28 rounded-full flex items-center justify-center p-[3px] border border-white/20 select-none"
+              >
+                <div className="h-full w-full rounded-full bg-slate-950/90 flex flex-col items-center justify-center text-center p-1.5">
+                  <span className="text-[11px] font-black tracking-widest text-[#00F5A0] font-mono leading-none">HH GOA</span>
+                  <span className="text-[12px] font-black tracking-widest text-white font-mono leading-none mt-1.5">2026</span>
+                  <span className="text-[8px] font-mono font-bold text-slate-400 mt-1.5 uppercase tracking-widest leading-none">VIP SEAL</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Badge Code & Coordinate Micro-typography (Right) */}
+            <div className="flex items-end gap-5">
+              <div className="flex flex-col text-right gap-1">
+                <span className="text-[10px] font-mono font-bold tracking-widest text-[#00F5A0] flex items-center gap-1.5 justify-end">
+                  <span className="h-2 w-2 rounded-full bg-[#00F5A0]" />
+                  LIVE VERIFIED
+                </span>
+                <span className="text-lg font-mono text-white leading-none tracking-widest font-bold">#GOA-{cardId || '2026-BUILD'}</span>
+              </div>
+              {/* QR block with gradient border */}
+              <div className="relative p-[3px] rounded-xl bg-gradient-to-tr from-[#00F0FF] to-[#00F5A0] shadow-[0_0_24px_rgba(0,240,255,0.25)]">
                 {cardId ? (
                   <img
                     src={qrImageUrl}
@@ -724,23 +746,6 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   <QRCodeSVG className={`h-24 w-24 text-white`} />
                 )}
               </div>
-              <div className="flex flex-col text-left gap-1">
-                <span className="text-[10px] font-mono font-bold tracking-widest text-[#00F5A0] flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-[#00F5A0] shadow-[0_0_8px_#00F5A0]" />
-                  LIVE VERIFIED
-                </span>
-                <span className="text-sm font-mono text-white leading-none tracking-widest font-bold">#GOA-{cardId || '2026-BUILD'}</span>
-              </div>
-            </div>
-
-            {/* Coordinates and pass micro-typography */}
-            <div className="flex flex-col items-end gap-1.5">
-              <span className="text-xs font-mono text-slate-400 tracking-wider">
-                15.4967° N, 73.8278° E
-              </span>
-              <span className="text-[9px] font-mono font-bold text-slate-500 uppercase tracking-widest leading-none mt-1">
-                OFFICIAL BUILDER PASS • FEB 2026 • PORT OF GOA
-              </span>
             </div>
           </div>
 
