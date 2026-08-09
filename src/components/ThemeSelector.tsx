@@ -4,6 +4,8 @@ import React from 'react';
 import { THEMES, Theme } from '@/utils/constants';
 import { Check } from 'lucide-react';
 
+import { audio } from '@/utils/audio';
+
 interface ThemeSelectorProps {
   activeThemeId: string;
   onChange: (themeId: Theme['id']) => void;
@@ -21,7 +23,10 @@ export default function ThemeSelector({ activeThemeId, onChange }: ThemeSelector
           return (
             <button
               key={theme.id}
-              onClick={() => onChange(theme.id)}
+              onClick={() => {
+                audio.playClick();
+                onChange(theme.id);
+              }}
               className={`relative flex flex-col items-center justify-center rounded-xl p-3 border text-center cursor-pointer transition-all duration-300 ${
                 isActive
                   ? `border-transparent bg-slate-100 dark:bg-slate-900 shadow-md shadow-black/5 dark:shadow-black/40 ${theme.glow}`

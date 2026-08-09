@@ -12,6 +12,7 @@ import { THEMES, ROLES, BUILDER_TITLES, Theme } from '@/utils/constants';
 import { Edit2, RefreshCw, Star, Compass } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
+import { audio } from '@/utils/audio';
 
 const QRCodeSVG = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 100 100" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
@@ -83,7 +84,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
   const [showCropModal, setShowCropModal] = useState(false);
   const [cardId, setCardId] = useState('');
   const [domain, setDomain] = useState('');
-  const [cardTexture, setCardTexture] = useState<'glass' | 'brushed' | 'carbon' | 'holo'>('glass');
+  const [cardTexture, setCardTexture] = useState<'glass' | 'brushed' | 'carbon' | 'grid' | 'holo'>('glass');
   const [holoStyle, setHoloStyle] = useState<React.CSSProperties>({});
 
   const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({
@@ -96,7 +97,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
   const highResRef = useRef<HTMLDivElement | null>(null);
   const activeTheme = THEMES.find((t) => t.id === activeThemeId) || THEMES[0];
 
-  const getTextureStyle = (texture: 'glass' | 'brushed' | 'carbon' | 'holo', isHighRes: boolean = false) => {
+  const getTextureStyle = (texture: 'glass' | 'brushed' | 'carbon' | 'grid' | 'holo', isHighRes: boolean = false) => {
     const scaleFactor = isHighRes ? 3 : 1;
     switch (texture) {
       case 'brushed':
@@ -118,6 +119,15 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           `,
           backgroundColor: '#11161d',
           backgroundSize: `${12 * scaleFactor}px ${12 * scaleFactor}px`,
+        };
+      case 'grid':
+        return {
+          backgroundImage: `
+            linear-gradient(to right, rgba(0, 240, 255, 0.08) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 240, 255, 0.08) 1px, transparent 1px)
+          `,
+          backgroundColor: '#070d19',
+          backgroundSize: `${20 * scaleFactor}px ${20 * scaleFactor}px`,
         };
       case 'holo':
         return {
@@ -344,19 +354,23 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
                 Card Texture Material
               </label>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-5 gap-1.5">
                 {[
                   { id: 'glass', name: 'Glass' },
                   { id: 'brushed', name: 'Brushed' },
                   { id: 'carbon', name: 'Carbon' },
+                  { id: 'grid', name: 'Grid' },
                   { id: 'holo', name: 'Holo' }
                 ].map((tex) => {
                   const isActive = cardTexture === tex.id;
                   return (
                     <button
                       key={tex.id}
-                      onClick={() => setCardTexture(tex.id as any)}
-                      className={`py-2 px-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-lg border transition-all duration-200 cursor-pointer ${
+                      onClick={() => {
+                        audio.playClick();
+                        setCardTexture(tex.id as any);
+                      }}
+                      className={`py-2 px-0.5 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider rounded-lg border transition-all duration-200 cursor-pointer text-center ${
                         isActive
                           ? 'border-[#00F5A0] bg-emerald-500/10 text-[#00F5A0] shadow-[0_0_15px_rgba(0,245,160,0.1)]'
                           : 'border-slate-200 dark:border-white/5 bg-slate-50/60 dark:bg-slate-950/40 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100/60 dark:hover:bg-slate-950/60'
@@ -453,11 +467,20 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   className="h-5 w-20 object-contain"
                 />
               </div>
-              <div className="flex items-center">
-                <span className={`px-2 py-0.5 rounded border border-white/10 bg-white/5 text-[8px] font-mono tracking-widest text-slate-300 flex items-center gap-1`}>
-                  <Star className={`h-2.5 w-2.5 fill-current ${activeTheme.accentText} animate-pulse`} />
-                  PASS
-                </span>
+              {/* Luxury Holographic Seal */}
+              <div className="flex items-center relative z-20">
+                <div 
+                  style={cardTexture === 'holo' ? holoStyle : {
+                    background: 'linear-gradient(135deg, #FF007A 0%, #00F0FF 50%, #00F5A0 100%)'
+                  }}
+                  className="relative h-10 w-10 rounded-full flex items-center justify-center p-[1px] shadow-[0_0_12px_rgba(0,240,255,0.25)] border border-white/20 select-none"
+                >
+                  <div className="h-full w-full rounded-full bg-slate-950/90 flex flex-col items-center justify-center text-center p-0.5">
+                    <span className="text-[4px] font-black tracking-wider text-[#00F5A0] font-mono leading-none">HH GOA</span>
+                    <span className="text-[5px] font-black tracking-widest text-white font-mono leading-none mt-0.5">2026</span>
+                    <span className="text-[3px] font-mono font-bold text-slate-400 mt-0.5 uppercase tracking-wider leading-none">VERIFIED</span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -620,10 +643,18 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               />
             </div>
             <div className="flex items-center">
-              <span className={`px-5 py-1.5 rounded-md border-2 border-white/10 bg-white/5 text-base font-mono tracking-widest text-slate-300 flex items-center gap-2`}>
-                <Star className={`h-4.5 w-4.5 fill-current ${activeTheme.accentText} animate-pulse`} />
-                PASS
-              </span>
+              <div 
+                style={{
+                  background: 'linear-gradient(135deg, #FF007A 0%, #00F0FF 50%, #00F5A0 100%)'
+                }}
+                className="relative h-28 w-28 rounded-full flex items-center justify-center p-[2.5px] shadow-[0_0_36px_rgba(0,240,255,0.25)] border border-white/20 select-none"
+              >
+                <div className="h-full w-full rounded-full bg-slate-950/90 flex flex-col items-center justify-center text-center p-1.5">
+                  <span className="text-[11px] font-black tracking-widest text-[#00F5A0] font-mono leading-none">HH GOA</span>
+                  <span className="text-[12px] font-black tracking-widest text-white font-mono leading-none mt-1.5">2026</span>
+                  <span className="text-[8px] font-mono font-bold text-slate-400 mt-1.5 uppercase tracking-widest leading-none">VERIFIED</span>
+                </div>
+              </div>
             </div>
           </div>
 

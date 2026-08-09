@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Sparkles } from 'lucide-react';
+import { Volume2, VolumeX } from 'lucide-react';
+import { audio } from '@/utils/audio';
 import { motion } from 'framer-motion';
 
 interface HeaderProps {
@@ -10,6 +11,22 @@ interface HeaderProps {
 }
 
 export default function Header({ darkMode, setDarkMode }: HeaderProps) {
+  const [soundOn, setSoundOn] = React.useState(false);
+
+  React.useEffect(() => {
+    setSoundOn(audio.isEnabled());
+  }, []);
+
+  const handleToggleSound = () => {
+    const nextVal = audio.toggle();
+    setSoundOn(nextVal);
+    if (nextVal) {
+      audio.playSuccess();
+    } else {
+      audio.playClick();
+    }
+  };
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -40,16 +57,32 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
         </div>
 
         {/* Info Badge */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-[9px] sm:text-xs font-bold uppercase tracking-wider text-[#00F5A0] shadow-[0_0_15px_rgba(0,245,160,0.15)]">
             <span className="h-2 w-2 rounded-full bg-[#00F5A0] shadow-[0_0_8px_#00F5A0] animate-ping" />
-            <span>PORT ENTRY OPEN</span>
+            <span>PORT OF GOA • FEB 2026 🌴</span>
           </div>
+
+          {/* Sound FX Toggle Button */}
+          <button
+            onClick={handleToggleSound}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200 active:scale-[0.92] cursor-pointer"
+            aria-label="Toggle sound effects"
+          >
+            {soundOn ? (
+              <Volume2 className="h-4 w-4 text-[#00F5A0]" />
+            ) : (
+              <VolumeX className="h-4 w-4 text-slate-400" />
+            )}
+          </button>
 
           {/* Theme Switcher Button */}
           <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200 active:scale-[0.92]"
+            onClick={() => {
+              audio.playClick();
+              setDarkMode(!darkMode);
+            }}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-black/10 dark:hover:bg-white/10 hover:text-slate-900 dark:hover:text-white transition-all duration-200 active:scale-[0.92] cursor-pointer"
             aria-label="Toggle dark mode"
           >
             {darkMode ? (

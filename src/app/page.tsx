@@ -11,6 +11,7 @@ import { Sparkles, User, Badge } from 'lucide-react';
 import { THEMES, Theme } from '@/utils/constants';
 
 import ParticleBackground from '@/components/ParticleBackground';
+import { audio } from '@/utils/audio';
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(true);
@@ -178,8 +179,11 @@ export default function Home() {
             
             {/* Tab 1: Profile Frame */}
             <button
-              onClick={() => setActiveTab('frame')}
-              className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-xs font-semibold tracking-wide transition-colors duration-300 ${
+              onClick={() => {
+                audio.playTab();
+                setActiveTab('frame');
+              }}
+              className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-xs font-semibold tracking-wide transition-colors duration-300 cursor-pointer ${
                 activeTab === 'frame' ? 'text-slate-900 dark:text-white' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
               }`}
             >
@@ -196,8 +200,11 @@ export default function Home() {
 
             {/* Tab 2: Builder ID Card */}
             <button
-              onClick={() => setActiveTab('card')}
-              className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-xs font-semibold tracking-wide transition-colors duration-300 ${
+              onClick={() => {
+                audio.playTab();
+                setActiveTab('card');
+              }}
+              className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-xs font-semibold tracking-wide transition-colors duration-300 cursor-pointer ${
                 activeTab === 'card' ? 'text-slate-900 dark:text-white' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
               }`}
             >

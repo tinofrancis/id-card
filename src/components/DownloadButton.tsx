@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Download, Loader2, Check } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import confetti from 'canvas-confetti';
+import { audio } from '@/utils/audio';
 
 interface DownloadButtonProps {
   elementRef: React.RefObject<HTMLDivElement | null>;
@@ -77,6 +78,7 @@ export default function DownloadButton({
       link.click();
 
       // Confetti & Success Animation
+      audio.playSuccess();
       triggerConfetti();
       setDownloadSuccess(true);
       onDownloadCompleted?.();
