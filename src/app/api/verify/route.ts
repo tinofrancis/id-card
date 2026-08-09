@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import dbConnect from '@/lib/db';
 import Submission from '@/models/Submission';
+import ProfileFrame from '@/models/ProfileFrame';
 
 export async function GET(request: Request) {
   try {
@@ -27,7 +28,25 @@ export async function GET(request: Request) {
             title: submission.title,
             theme: submission.theme,
             image: submission.imageUrl,
+            type: 'card',
             timestamp: submission.createdAt ? new Date(submission.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) : undefined,
+          }
+        });
+      }
+
+      const frame = await ProfileFrame.findOne({ id }).lean();
+      if (frame) {
+        return NextResponse.json({
+          success: true,
+          data: {
+            id: frame.id,
+            name: frame.name || 'N/A (Profile Frame)',
+            role: 'Builder',
+            title: 'Profile Frame Overlay',
+            theme: frame.theme,
+            image: frame.imageUrl,
+            type: 'frame',
+            timestamp: frame.createdAt ? new Date(frame.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) : undefined,
           }
         });
       }
