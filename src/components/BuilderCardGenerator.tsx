@@ -435,9 +435,13 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             <div className={`absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-20 blur-[60px]`} />
             <div className={`absolute bottom-0 right-0 w-36 h-36 rounded-full bg-[#1e293b] opacity-10 blur-[40px]`} />
 
-            {/* Watermark watermark */}
-            <div className="absolute inset-0 z-0 flex items-center justify-center opacity-[0.025] select-none pointer-events-none font-display font-black text-6xl tracking-widest uppercase text-white rotate-[-25deg]">
-              HH GOA
+            {/* Watermark image */}
+            <div className="absolute inset-0 z-0 flex items-center justify-center opacity-[0.022] select-none pointer-events-none rotate-[-25deg]">
+              <img
+                src="/hacker-house-text.png"
+                alt="Hacker House Logo Watermark"
+                className="w-[80%] object-contain"
+              />
             </div>
 
             {/* Tropical accents */}
@@ -462,7 +466,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               {/* Center Logo */}
               <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
                 <img
-                  src="/hacker-house-logo.png"
+                  src="/hacker-house-goa-logo.png"
                   alt="Hacker House"
                   className="h-5 w-20 object-contain"
                 />
@@ -487,9 +491,15 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             {/* Body */}
             <div className="relative z-10 flex flex-col items-center gap-4 my-auto">
               
-              {/* Photo Area with holographic frame */}
-              <div className={`relative p-[3px] rounded-xl bg-gradient-to-tr ${activeTheme.gradient} ${activeTheme.glow}`}>
-                <div className="relative h-[150px] w-[150px] overflow-hidden rounded-lg bg-slate-900 border border-slate-950 flex items-center justify-center">
+              {/* Bamboo Hanger Cords */}
+              <div className="flex justify-between w-28 absolute -top-4 left-1/2 -translate-x-1/2 z-0 pointer-events-none">
+                <div className="w-[1.5px] h-4 bg-amber-800" />
+                <div className="w-[1.5px] h-4 bg-amber-800" />
+              </div>
+
+              {/* Photo Area with pop-art yellow/magenta frame */}
+              <div className="relative p-[4px] rounded-xl bg-gradient-to-tr from-[#FFE600] to-[#FF007A] shadow-[0_0_15px_rgba(255,0,122,0.3)]">
+                <div className="relative h-[140px] w-[140px] overflow-hidden rounded-lg bg-slate-900 border border-slate-950 flex items-center justify-center">
                   <AnimatePresence mode="wait">
                     {croppedImage ? (
                       <motion.img
@@ -530,19 +540,13 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   {name || 'HACKER'}
                 </h3>
                 
-                {/* Role Capsule */}
-                <div className="mt-1 flex justify-center">
-                  <span className={`inline-block text-[9px] font-bold uppercase tracking-widest px-3 py-0.5 rounded-full border ${activeTheme.borderClass} bg-slate-950/60 text-slate-300 shadow-sm`}>
-                    {role}
-                  </span>
-                </div>
-
-                {/* Animated Builder Title banner */}
-                <div className="mt-4 py-1.5 border-y border-white/5 flex flex-col items-center justify-center min-h-[40px]">
-                  <span className="text-[7px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Title Claimed</span>
-                  <span className={`font-display text-[10px] font-black uppercase tracking-widest ${activeTheme.accentText} animate-pulse`}>
-                    {builderTitle}
-                  </span>
+                {/* High-Tech Metadata Grid */}
+                <div className="mt-3 p-2 rounded-xl bg-slate-950/80 border border-white/5 text-left text-[7px] font-mono leading-relaxed space-y-0.5 text-slate-400">
+                  <div><span className="text-slate-500 font-bold">STATUS:</span> <span className="text-[#00F5A0] font-bold">VERIFIED BUILDER</span></div>
+                  <div><span className="text-slate-500 font-bold">PORT ENTRY:</span> <span className="text-white font-bold">FEB 2026</span></div>
+                  <div><span className="text-slate-500 font-bold">GPS LOC:</span> <span className="text-white font-bold">15.4967° N, 73.8278° E</span></div>
+                  <div><span className="text-slate-500 font-bold">TRACK:</span> <span className="text-[#FFE600] font-bold">{role.toUpperCase()} BUILDER</span></div>
+                  <div><span className="text-slate-500 font-bold">TITLE:</span> <span className="text-rose-400 font-bold">{builderTitle.toUpperCase()}</span></div>
                 </div>
               </div>
 
@@ -610,9 +614,13 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           <div className={`absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-25 blur-[120px]`} />
           <div className={`absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-slate-900 opacity-20 blur-[80px]`} />
 
-          {/* Watermark */}
-          <div className="absolute inset-0 z-0 flex items-center justify-center opacity-[0.02] select-none pointer-events-none font-display font-black text-[180px] tracking-widest uppercase text-white rotate-[-25deg]">
-            HH GOA
+          {/* Watermark image */}
+          <div className="absolute inset-0 z-0 flex items-center justify-center opacity-[0.015] select-none pointer-events-none rotate-[-25deg]">
+            <img
+              src="/hacker-house-text.png"
+              alt="Hacker House Logo Watermark"
+              className="w-[85%] object-contain"
+            />
           </div>
 
           {/* Tropical leaves */}
@@ -637,7 +645,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             {/* Center Logo */}
             <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
               <img
-                src="/hacker-house-logo.png"
+                src="/hacker-house-goa-logo.png"
                 alt="Hacker House"
                 className="h-14 w-52 object-contain"
               />
@@ -660,9 +668,15 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
           {/* Central Body Content */}
           <div className="relative z-10 flex flex-col items-center gap-12 my-auto">
+            {/* Bamboo Hanger Cords */}
+            <div className="flex justify-between w-96 absolute -top-[60px] left-1/2 -translate-x-1/2 z-0 pointer-events-none">
+              <div className="w-[4px] h-[60px] bg-amber-800" />
+              <div className="w-[4px] h-[60px] bg-amber-800" />
+            </div>
+
             {/* Developer photo frame */}
-            <div className={`relative p-[10px] rounded-3xl bg-gradient-to-tr ${activeTheme.gradient} ${activeTheme.glow}`}>
-              <div className="relative h-[480px] w-[480px] overflow-hidden rounded-2xl bg-slate-900 border-[3px] border-slate-950">
+            <div className="relative p-[12px] rounded-3xl bg-gradient-to-tr from-[#FFE600] to-[#FF007A] shadow-[0_0_40px_rgba(255,0,122,0.3)]">
+              <div className="relative h-[460px] w-[460px] overflow-hidden rounded-2xl bg-slate-900 border-[3px] border-slate-950">
                 {croppedImage ? (
                   <img
                     src={croppedImage}
@@ -676,25 +690,19 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             </div>
 
             {/* Profile fields */}
-            <div className="text-center w-full max-w-[700px]">
+            <div className="text-center w-full max-w-[700px] flex flex-col items-center">
               {/* Name */}
               <h3 className="font-display font-black text-6xl uppercase tracking-[0.05em] text-white truncate px-4">
                 {name || 'HACKER'}
               </h3>
               
-              {/* Role Badge */}
-              <div className="mt-4 flex justify-center">
-                <span className={`inline-block text-lg font-bold uppercase tracking-[0.2em] px-10 py-2.5 rounded-full border-2 ${activeTheme.borderClass} bg-slate-950/80 text-slate-300 shadow-md`}>
-                  {role}
-                </span>
-              </div>
-
-              {/* Title claimed */}
-              <div className="mt-14 py-6 border-y-2 border-white/5 flex flex-col items-center justify-center">
-                <span className="text-[11px] text-slate-500 font-bold uppercase tracking-[0.3em] mb-2 font-mono">Title Claimed</span>
-                <span className={`font-display text-2xl font-black uppercase tracking-[0.25em] ${activeTheme.accentText}`}>
-                  {builderTitle}
-                </span>
+              {/* High-Tech Metadata Grid */}
+              <div className="mt-8 w-[520px] p-6 rounded-2xl bg-slate-950/95 border-2 border-white/5 text-left text-base font-mono leading-relaxed space-y-1.5 text-slate-400">
+                <div><span className="text-slate-500 font-bold">STATUS:</span> <span className="text-[#00F5A0] font-bold">VERIFIED BUILDER</span></div>
+                <div><span className="text-slate-500 font-bold">PORT ENTRY:</span> <span className="text-white font-bold">FEB 2026</span></div>
+                <div><span className="text-slate-500 font-bold">GPS LOC:</span> <span className="text-white font-bold">15.4967° N, 73.8278° E</span></div>
+                <div><span className="text-slate-500 font-bold">TRACK:</span> <span className="text-[#FFE600] font-bold">{role.toUpperCase()} BUILDER</span></div>
+                <div><span className="text-slate-500 font-bold">TITLE:</span> <span className="text-rose-400 font-bold">{builderTitle.toUpperCase()}</span></div>
               </div>
             </div>
           </div>

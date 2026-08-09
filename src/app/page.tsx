@@ -41,11 +41,11 @@ export default function Home() {
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Beautiful Branded Tropical Hackathon Illustration Background */}
         <div 
-          className="absolute inset-0 z-0 opacity-15 dark:opacity-[0.22] pointer-events-none transition-all duration-500"
+          className="absolute inset-0 z-0 opacity-30 dark:opacity-[0.38] pointer-events-none transition-all duration-500"
           style={{
-            backgroundImage: "url('/hero-bg.jpg')",
+            backgroundImage: "url('/goa-frame-bg.jpg')",
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'center bottom',
           }}
         />
 
@@ -125,18 +125,19 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Heading */}
-          <motion.h1
+          {/* Hero Branding Logo */}
+          <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-6 drop-shadow-[0_2px_10px_rgba(2,6,23,0.05)] dark:drop-shadow-[0_0_30px_rgba(255,255,255,0.06)]"
+            className="relative mb-6 max-w-sm sm:max-w-md w-full flex items-center justify-center pointer-events-none drop-shadow-[0_0_35px_rgba(255,230,0,0.22)]"
           >
-            Become an HH Goa <br className="hidden sm:inline" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sunset-start via-[#ff7a50] to-sunset-end drop-shadow-[0_0_20px_rgba(255,94,98,0.15)]">
-              2026 Builder
-            </span>
-          </motion.h1>
+            <img
+              src="/hacker-house-goa-logo.png"
+              alt="Hacker House Goa 2026"
+              className="w-full object-contain"
+            />
+          </motion.div>
 
           {/* Subtitle */}
           <motion.p

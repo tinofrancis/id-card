@@ -1,64 +1,64 @@
 export interface Theme {
-  id: 'sunset' | 'ocean' | 'purple' | 'green';
+  id: 'green' | 'sunset' | 'hacker' | 'purple';
   name: string;
-  gradient: string; // Tailwind class for gradients
-  textGradient: string; // Tailwind class for text gradients
-  from: string; // Hex color from
-  to: string; // Hex color to
-  glow: string; // Tailwind class for neon glow shadows
-  borderClass: string; // Tailwind class for tinted borders
-  accentText: string; // Tailwind class for text highlights
-  bgHex: string; // Solid dark background for text cards
+  gradient: string;
+  textGradient: string;
+  from: string;
+  to: string;
+  glow: string;
+  borderClass: string;
+  accentText: string;
+  bgHex: string;
 }
 
 export const THEMES: Theme[] = [
   {
+    id: 'green',
+    name: 'Goa Shack Pop-Art 🌴',
+    gradient: 'from-[#0A6B48] via-[#FFE600] to-[#FF007A]',
+    textGradient: 'bg-gradient-to-r from-[#0A6B48] via-[#FFE600] to-[#FF007A] bg-clip-text text-transparent',
+    from: '#0A6B48',
+    to: '#FF007A',
+    glow: 'shadow-[0_0_30px_rgba(255,0,122,0.35)]',
+    borderClass: 'border-[#FFE600]/30 focus:border-[#FFE600]',
+    accentText: 'text-[#FFE600]',
+    bgHex: '#0a2215',
+  },
+  {
     id: 'sunset',
-    name: 'Sunset Palms',
-    gradient: 'from-sunset-start to-sunset-end',
-    textGradient: 'bg-gradient-to-r from-sunset-start to-sunset-end bg-clip-text text-transparent',
-    from: '#ff5e62',
-    to: '#ff9966',
+    name: 'Sunset Palms 🌅',
+    gradient: 'from-[#FF5E62] via-[#FFE600] to-[#0f172a]',
+    textGradient: 'bg-gradient-to-r from-[#FF5E62] via-[#FFE600] to-[#0f172a] bg-clip-text text-transparent',
+    from: '#FF5E62',
+    to: '#FFE600',
     glow: 'shadow-[0_0_30px_rgba(255,94,98,0.35)]',
-    borderClass: 'border-[#ff5e62]/30 focus:border-[#ff5e62]',
-    accentText: 'text-[#ff9966]',
+    borderClass: 'border-[#FFE600]/30 focus:border-[#FFE600]',
+    accentText: 'text-[#FFE600]',
     bgHex: '#1e1111',
   },
   {
-    id: 'ocean',
-    name: 'Ocean Breeze',
-    gradient: 'from-ocean-start to-ocean-end',
-    textGradient: 'bg-gradient-to-r from-ocean-start to-ocean-end bg-clip-text text-transparent',
-    from: '#00D9F6',
-    to: '#00F5A0',
-    glow: 'shadow-[0_0_30px_rgba(0,217,246,0.35)]',
-    borderClass: 'border-[#00D9F6]/30 focus:border-[#00D9F6]',
-    accentText: 'text-[#00F5A0]',
-    bgHex: '#0c1d24',
+    id: 'hacker',
+    name: 'Cyber Matrix ⚡',
+    gradient: 'from-[#00FF66] to-[#070d10]',
+    textGradient: 'bg-gradient-to-r from-[#00FF66] to-[#070d10] bg-clip-text text-transparent',
+    from: '#00FF66',
+    to: '#070d10',
+    glow: 'shadow-[0_0_30px_rgba(0,255,102,0.3)]',
+    borderClass: 'border-[#00FF66]/30 focus:border-[#00FF66]',
+    accentText: 'text-[#00FF66]',
+    bgHex: '#070b10',
   },
   {
     id: 'purple',
-    name: 'Cyber Neon',
-    gradient: 'from-purple-start to-purple-end',
-    textGradient: 'bg-gradient-to-r from-purple-start to-purple-end bg-clip-text text-transparent',
-    from: '#00D9F6',
-    to: '#8b5cf6',
-    glow: 'shadow-[0_0_30px_rgba(0,217,246,0.35)]',
-    borderClass: 'border-[#00D9F6]/30 focus:border-[#00D9F6]',
-    accentText: 'text-[#8b5cf6]',
+    name: 'Pink Devanagari 🪩',
+    gradient: 'from-[#FF007A] to-[#cbd5e1]',
+    textGradient: 'bg-gradient-to-r from-[#FF007A] to-[#cbd5e1] bg-clip-text text-transparent',
+    from: '#FF007A',
+    to: '#cbd5e1',
+    glow: 'shadow-[0_0_30px_rgba(255,0,122,0.35)]',
+    borderClass: 'border-[#FF007A]/30 focus:border-[#FF007A]',
+    accentText: 'text-[#FF007A]',
     bgHex: '#140c24',
-  },
-  {
-    id: 'green',
-    name: 'Tropical Goa',
-    gradient: 'from-green-start to-green-end',
-    textGradient: 'bg-gradient-to-r from-green-start to-green-end bg-clip-text text-transparent',
-    from: '#00D26A',
-    to: '#38ef7d',
-    glow: 'shadow-[0_0_30px_rgba(0,210,106,0.35)]',
-    borderClass: 'border-[#00D26A]/30 focus:border-[#00D26A]',
-    accentText: 'text-[#38ef7d]',
-    bgHex: '#0c2415',
   },
 ];
 

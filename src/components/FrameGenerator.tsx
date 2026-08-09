@@ -241,7 +241,7 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
               {/* Center Logo */}
               <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
                 <img
-                  src="/hacker-house-logo.png"
+                  src="/hacker-house-goa-logo.png"
                   alt="Hacker House"
                   className="h-3.5 w-16 object-contain"
                 />
@@ -275,16 +275,28 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
                 <div className="relative h-full w-full rounded-full overflow-hidden bg-slate-900 border border-slate-950 flex items-center justify-center">
                   <AnimatePresence mode="wait">
                     {croppedImage ? (
-                      <motion.img
-                        key="cropped"
-                        initial={{ opacity: 0, scale: 0.92 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.92 }}
-                        transition={{ duration: 0.25, ease: 'easeOut' }}
-                        src={croppedImage}
-                        alt="Cropped face avatar"
-                        className="h-full w-full object-cover rounded-full"
-                      />
+                      <div className="relative w-full h-full">
+                        <img
+                          src={croppedImage}
+                          alt="Cropped face avatar"
+                          className="h-full w-full object-cover rounded-full"
+                        />
+                        {/* Profile Frame Tropical Overlays */}
+                        <div className="absolute inset-0 z-20 pointer-events-none rounded-full overflow-hidden border-4 border-[#FFE600]">
+                          {/* Tropical palms overlay */}
+                          <div className="absolute top-0 inset-x-0 h-1/2 flex justify-between px-2 pt-2 opacity-90">
+                            <span className="text-xl rotate-12">🌴</span>
+                            <span className="text-xl -rotate-12">🌴</span>
+                          </div>
+                          {/* Beach-shack desk & laptop vector overlay representation */}
+                          <div className="absolute bottom-0 inset-x-0 h-10 bg-slate-950/80 border-t border-[#FF007A] flex flex-col items-center justify-center text-[5px] font-mono text-[#FFE600] font-black uppercase tracking-wider py-0.5">
+                            <div className="flex gap-1 items-center">
+                              <span>💻 SHACK DESK</span>
+                              <span className="text-[#FF007A]">गोवा</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     ) : (
                       <motion.div
                         key="placeholder"
@@ -398,7 +410,7 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
             {/* Center Logo */}
             <div className="absolute left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
               <img
-                src="/hacker-house-logo.png"
+                src="/hacker-house-goa-logo.png"
                 alt="Hacker House"
                 className="h-10 w-44 object-contain"
               />
@@ -429,11 +441,28 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
             <div className={`relative flex h-[660px] w-[660px] items-center justify-center rounded-full p-[14px] bg-gradient-to-r ${activeTheme.gradient} ${activeTheme.glow}`}>
               <div className="relative h-full w-full rounded-full overflow-hidden bg-slate-900 border-[3px] border-slate-950">
                 {croppedImage ? (
-                  <img
-                    src={croppedImage}
-                    alt="Cropped high-res face"
-                    className="h-full w-full object-cover rounded-full"
-                  />
+                  <div className="relative w-full h-full">
+                    <img
+                      src={croppedImage}
+                      alt="Cropped high-res face"
+                      className="h-full w-full object-cover rounded-full"
+                    />
+                    {/* Profile Frame Tropical Overlays */}
+                    <div className="absolute inset-0 z-20 pointer-events-none rounded-full overflow-hidden border-[12px] border-[#FFE600]">
+                      {/* Tropical palms overlay */}
+                      <div className="absolute top-0 inset-x-0 h-1/2 flex justify-between px-8 pt-8 opacity-90">
+                        <span className="text-5xl rotate-12">🌴</span>
+                        <span className="text-5xl -rotate-12">🌴</span>
+                      </div>
+                      {/* Beach-shack desk & laptop vector overlay representation */}
+                      <div className="absolute bottom-0 inset-x-0 h-28 bg-slate-950/80 border-t-2 border-[#FF007A] flex flex-col items-center justify-center text-sm font-mono text-[#FFE600] font-black uppercase tracking-wider py-1">
+                        <div className="flex gap-2 items-center">
+                          <span>💻 SHACK DESK</span>
+                          <span className="text-[#FF007A]">गोवा</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 ) : (
                   <div className="w-full h-full bg-slate-900" />
                 )}

@@ -50,7 +50,7 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
         {/* Center: Hacker House Logo */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-8 w-32 sm:h-9 sm:w-36 md:h-10 md:w-44 flex items-center justify-center pointer-events-none">
           <img
-            src="/hacker-house-logo.png"
+            src="/hacker-house-goa-logo.png"
             alt="Hacker House Logo"
             className="h-full w-full object-contain"
           />
