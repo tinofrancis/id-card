@@ -2,20 +2,20 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "HH Goa 2026 Builder Studio",
-  description: "Generate premium branded HH Goa 2026 profile frames and Builder ID Cards client-side in under 10 seconds. Get ready to show the world you are building in Goa!",
-  keywords: ["HH Goa 2026", "Hacker House", "Goa", "Builder Card", "Profile Frame", "Event Badge", "Web3", "Developer Studio"],
-  authors: [{ name: "HH Goa Team" }],
+  title: "HH Goa 2026 | Official Builder ID & Profile Frame Customizer",
+  description: "Claim your official HH Goa 2026 digital builder pass and profile frame. Built for hackers worldwide.",
+  keywords: ["HH Goa 2026", "Hacker House", "Goa", "Builder Pass", "Profile Frame", "Developer Badge", "Coastal Hackathon", "Creative Technologist"],
+  authors: [{ name: "HH Goa 2026 Creative Team" }],
   openGraph: {
-    title: "HH Goa 2026 Builder Studio",
-    description: "Generate branded profile frames and Builder ID Cards in under 10 seconds client-side. See you in Goa!",
+    title: "HH Goa 2026 | Official Builder ID & Profile Frame Customizer",
+    description: "Claim your official HH Goa 2026 digital builder pass and profile frame. Built for hackers worldwide.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "HH Goa 2026 Builder Studio",
-    description: "Generate branded profile frames and Builder ID Cards in under 10 seconds client-side. See you in Goa!",
+    title: "HH Goa 2026 | Official Builder ID & Profile Frame Customizer",
+    description: "Claim your official HH Goa 2026 digital builder pass and profile frame. Built for hackers worldwide.",
     creator: "@HHGoa2026",
   },
 };

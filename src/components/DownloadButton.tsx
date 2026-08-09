@@ -60,14 +60,14 @@ export default function DownloadButton({
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     try {
-      // Generate high-resolution 2x png (2160x2700) for sharp social sharing
+      // Generate high-resolution 3x png (3240x4050) for ultra-sharp social sharing
       const dataUrl = await toPng(elementRef.current, {
         cacheBust: true,
         style: {
           transform: 'scale(1)',
           transformOrigin: 'top left',
         },
-        pixelRatio: 2,
+        pixelRatio: 3,
       });
 
       // Create download anchor

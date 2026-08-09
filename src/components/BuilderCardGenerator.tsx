@@ -83,6 +83,8 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
   const [showCropModal, setShowCropModal] = useState(false);
   const [cardId, setCardId] = useState('');
   const [domain, setDomain] = useState('');
+  const [cardTexture, setCardTexture] = useState<'glass' | 'brushed' | 'carbon' | 'holo'>('glass');
+  const [holoStyle, setHoloStyle] = useState<React.CSSProperties>({});
 
   const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({
     transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
@@ -93,6 +95,43 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
   const highResRef = useRef<HTMLDivElement | null>(null);
   const activeTheme = THEMES.find((t) => t.id === activeThemeId) || THEMES[0];
+
+  const getTextureStyle = (texture: 'glass' | 'brushed' | 'carbon' | 'holo', isHighRes: boolean = false) => {
+    const scaleFactor = isHighRes ? 3 : 1;
+    switch (texture) {
+      case 'brushed':
+        return {
+          backgroundImage: `
+            radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 70%),
+            linear-gradient(rgba(255, 255, 255, 0.015) 50%, rgba(0, 0, 0, 0.15) 50%),
+            linear-gradient(to bottom, #242b35, #0f131a)
+          `,
+          backgroundSize: `100% 100%, ${4 * scaleFactor}px ${4 * scaleFactor}px, 100% 100%`,
+        };
+      case 'carbon':
+        return {
+          backgroundImage: `
+            linear-gradient(45deg, rgba(0, 0, 0, 0.6) 25%, transparent 25%),
+            linear-gradient(-45deg, rgba(0, 0, 0, 0.6) 25%, transparent 25%),
+            linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.6) 75%),
+            linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.6) 75%)
+          `,
+          backgroundColor: '#11161d',
+          backgroundSize: `${12 * scaleFactor}px ${12 * scaleFactor}px`,
+        };
+      case 'holo':
+        return {
+          backgroundColor: '#0d131f',
+        };
+      case 'glass':
+      default:
+        return {
+          backgroundColor: 'rgba(15, 23, 42, 0.85)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+        };
+    }
+  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
@@ -113,6 +152,11 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
     setGlareStyle({
       background: `radial-gradient(circle 120px at ${percentX}% ${percentY}%, rgba(255, 255, 255, 0.12), transparent)`,
     });
+
+    setHoloStyle({
+      background: `linear-gradient(${percentX * 2.2 + percentY * 2.2}deg, rgba(255, 0, 122, 0.18) 0%, rgba(0, 240, 255, 0.18) 33%, rgba(0, 245, 160, 0.18) 66%, rgba(255, 217, 125, 0.18) 100%)`,
+      mixBlendMode: 'color-dodge',
+    });
   };
 
   const handleMouseLeave = () => {
@@ -122,6 +166,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
     setGlareStyle({
       background: 'transparent',
     });
+    setHoloStyle({});
   };
 
   // Celebration Confetti on Successful Image Generation
@@ -294,6 +339,36 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             {/* Theme Selector */}
             <ThemeSelector activeThemeId={activeThemeId} onChange={setActiveThemeId} />
 
+            {/* Texture Selector */}
+            <div className="w-full mt-4">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+                Card Texture Material
+              </label>
+              <div className="grid grid-cols-4 gap-2">
+                {[
+                  { id: 'glass', name: 'Glass' },
+                  { id: 'brushed', name: 'Brushed' },
+                  { id: 'carbon', name: 'Carbon' },
+                  { id: 'holo', name: 'Holo' }
+                ].map((tex) => {
+                  const isActive = cardTexture === tex.id;
+                  return (
+                    <button
+                      key={tex.id}
+                      onClick={() => setCardTexture(tex.id as any)}
+                      className={`py-2 px-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-lg border transition-all duration-200 cursor-pointer ${
+                        isActive
+                          ? 'border-[#00F5A0] bg-emerald-500/10 text-[#00F5A0] shadow-[0_0_15px_rgba(0,245,160,0.1)]'
+                          : 'border-slate-200 dark:border-white/5 bg-slate-50/60 dark:bg-slate-950/40 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100/60 dark:hover:bg-slate-950/60'
+                      }`}
+                    >
+                      {tex.name}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* Actions */}
             {croppedImage && (
               <div className="flex flex-col gap-4 mt-2">
@@ -322,9 +397,17 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           <div
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            style={tiltStyle}
-            className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border-2 border-emerald-500/30 bg-slate-950/90 shadow-2xl shadow-emerald-500/5 flex flex-col justify-between p-6 sm:p-8 transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
+            style={{ ...tiltStyle, ...getTextureStyle(cardTexture) }}
+            className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border-2 border-emerald-500/30 shadow-2xl shadow-emerald-500/5 flex flex-col justify-between p-6 sm:p-8 transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
           >
+            {/* Holographic foil overlay sheen */}
+            {cardTexture === 'holo' && (
+              <div
+                style={holoStyle}
+                className="absolute inset-0 z-10 pointer-events-none transition-opacity duration-300"
+              />
+            )}
+
             {/* 3D Reflection Glare Overlay */}
             <div
               style={glareStyle}
@@ -443,39 +526,37 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             </div>
 
             {/* Bottom Bar: QR, Barcode, Details */}
-            <div className="relative z-10 flex justify-between items-end border-t border-white/5 pt-3.5">
-              {/* QR representation */}
+            <div className="relative z-10 flex justify-between items-end border-t border-white/5 pt-3.5 mt-auto">
+              {/* QR representation with luxury glow */}
               <div className="flex items-center gap-2">
-                {cardId ? (
-                  <img
-                    src={qrImageUrl}
-                    alt="QR Verification Link"
-                    crossOrigin="anonymous"
-                    className="h-8 w-8 object-contain rounded border border-white/10"
-                  />
-                ) : (
-                  <QRCodeSVG className="h-8 w-8 text-white" />
-                )}
+                <div className="relative p-[1.5px] rounded bg-gradient-to-tr from-[#FF007A] via-[#00F0FF] to-[#00F5A0] shadow-[0_0_8px_rgba(0,240,255,0.15)]">
+                  {cardId ? (
+                    <img
+                      src={qrImageUrl}
+                      alt="QR Verification Link"
+                      crossOrigin="anonymous"
+                      className="h-8 w-8 object-contain rounded bg-slate-950"
+                    />
+                  ) : (
+                    <QRCodeSVG className="h-8 w-8 text-white animate-pulse" />
+                  )}
+                </div>
                 <div className="flex flex-col text-left">
-                  <span className="text-[6px] font-mono text-slate-500 uppercase flex items-center gap-0.5">
-                    <span className="h-1 w-1 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_4px_#10b981]" />
-                    SYS ID
+                  <span className="text-[6px] font-mono font-bold tracking-widest text-[#00F5A0] flex items-center gap-0.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#00F5A0] animate-ping shadow-[0_0_4px_#00F5A0]" />
+                    LIVE VERIFIED
                   </span>
-                  <span className="text-[8px] font-mono text-slate-300 leading-none mt-0.5">#GOA-${cardId || '2026-BND'}</span>
+                  <span className="text-[8px] font-mono text-slate-300 font-bold leading-none mt-0.5">#GOA-{cardId || '2026-BND'}</span>
                 </div>
               </div>
 
-              {/* Barcode representation */}
-              <div className="hidden sm:flex flex-col items-center">
-                <BarcodeSVG className="h-4 w-24 text-slate-600" />
-                <span className="text-[6px] font-mono text-slate-500 mt-0.5">VERIFIED REGISTRATION</span>
-              </div>
-
-              {/* Hashtag */}
-              <div className="flex flex-col items-end">
-                <span className="text-[6px] font-bold text-slate-500 uppercase tracking-widest font-mono">EVENT POST</span>
-                <span className={`text-[11px] font-black uppercase bg-gradient-to-r ${activeTheme.gradient} bg-clip-text text-transparent`}>
-                  #FrameInGoa
+              {/* Coordinates and pass micro-typography */}
+              <div className="flex flex-col items-end gap-0.5">
+                <span className="text-[6px] font-mono text-slate-400 tracking-wider">
+                  15.4967° N, 73.8278° E
+                </span>
+                <span className="text-[5px] font-mono font-bold text-slate-500 uppercase tracking-widest leading-none mt-0.5">
+                  OFFICIAL BUILDER PASS • PORT OF GOA
                 </span>
               </div>
             </div>
@@ -490,7 +571,8 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
       <div className="badge-canvas-container">
         <div
           ref={highResRef}
-          className="w-[1080px] h-[1350px] bg-[#0A1118] border-[16px] border-solid border-slate-900/60 text-white flex flex-col justify-between p-20 font-sans relative overflow-hidden"
+          style={getTextureStyle(cardTexture, true)}
+          className="w-[1080px] h-[1350px] border-[16px] border-solid border-slate-900 text-white flex flex-col justify-between p-20 font-sans relative overflow-hidden"
         >
           {/* Grid Pattern */}
           <div
@@ -588,39 +670,36 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
           {/* Footer of card */}
           <div className="relative z-10 flex justify-between items-end border-t-2 border-white/5 pt-10">
-            {/* QR block */}
+            {/* QR block with gradient border */}
             <div className="flex items-center gap-6">
-              {cardId ? (
-                <img
-                  src={qrImageUrl}
-                  alt="QR Verification Link"
-                  crossOrigin="anonymous"
-                  className="h-24 w-24 object-contain rounded-md border-2 border-white/10"
-                />
-              ) : (
-                <QRCodeSVG className={`h-24 w-24 text-white`} />
-              )}
+              <div className="relative p-[3px] rounded-xl bg-gradient-to-tr from-[#FF007A] via-[#00F0FF] to-[#00F5A0] shadow-[0_0_24px_rgba(0,240,255,0.2)]">
+                {cardId ? (
+                  <img
+                    src={qrImageUrl}
+                    alt="QR Verification Link"
+                    crossOrigin="anonymous"
+                    className="h-24 w-24 object-contain rounded-md bg-slate-950"
+                  />
+                ) : (
+                  <QRCodeSVG className={`h-24 w-24 text-white`} />
+                )}
+              </div>
               <div className="flex flex-col text-left gap-1">
-                <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
-                  SYS ID
+                <span className="text-[10px] font-mono font-bold tracking-widest text-[#00F5A0] flex items-center gap-1.5">
+                  <span className="h-2 w-2 rounded-full bg-[#00F5A0] shadow-[0_0_8px_#00F5A0]" />
+                  LIVE VERIFIED
                 </span>
-                <span className="text-sm font-mono text-white leading-none tracking-widest">#GOA-${cardId || '2026-BUILD'}</span>
-                <span className="text-[10px] font-mono text-slate-400 mt-1 uppercase tracking-widest">VERIFIED SYSTEM REG</span>
+                <span className="text-sm font-mono text-white leading-none tracking-widest font-bold">#GOA-{cardId || '2026-BUILD'}</span>
               </div>
             </div>
 
-            {/* Barcode */}
-            <div className="flex flex-col items-center gap-1">
-              <BarcodeSVG className="h-10 w-72 text-slate-500" />
-              <span className="text-[9px] font-mono text-slate-500 uppercase tracking-[0.15em]">Official Dev Pass • Feb 2026</span>
-            </div>
-
-            {/* Hashtag */}
-            <div className="flex flex-col items-end gap-1">
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] font-mono">GOA EXPERIENCE</span>
-              <span className={`text-[32px] font-black uppercase tracking-[0.05em] bg-gradient-to-r ${activeTheme.gradient} bg-clip-text text-transparent`}>
-                #FrameInGoa
+            {/* Coordinates and pass micro-typography */}
+            <div className="flex flex-col items-end gap-1.5">
+              <span className="text-xs font-mono text-slate-400 tracking-wider">
+                15.4967° N, 73.8278° E
+              </span>
+              <span className="text-[9px] font-mono font-bold text-slate-500 uppercase tracking-widest leading-none mt-1">
+                OFFICIAL BUILDER PASS • FEB 2026 • PORT OF GOA
               </span>
             </div>
           </div>

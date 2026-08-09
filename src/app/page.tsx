@@ -10,6 +10,8 @@ import PalmLeafSVG from '@/components/PalmLeafSVG';
 import { Sparkles, User, Badge } from 'lucide-react';
 import { THEMES, Theme } from '@/utils/constants';
 
+import ParticleBackground from '@/components/ParticleBackground';
+
 export default function Home() {
   const [darkMode, setDarkMode] = useState(true);
   const [activeTab, setActiveTab] = useState<'frame' | 'card'>('frame');
@@ -30,6 +32,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between overflow-x-hidden bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300">
+      
+      {/* Dynamic particles background linked to active theme */}
+      <ParticleBackground theme={activeTheme} />
       
       {/* Dynamic Background Elements */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
