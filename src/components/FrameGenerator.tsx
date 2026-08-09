@@ -443,6 +443,15 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
           )}
         </div>
       </div>
+
+      {/* Crop Modal */}
+      {showCropModal && imageSrc && (
+        <CropModal
+          imageSrc={imageSrc}
+          onCropComplete={handleCropComplete}
+          onCancel={() => setShowCropModal(false)}
+        />
+      )}
     </div>
   );
 }
