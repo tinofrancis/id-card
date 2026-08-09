@@ -86,16 +86,38 @@ export default function Home() {
         
         {/* Hero Section */}
         <section className="text-center max-w-3xl px-4 mb-10 sm:mb-12 flex flex-col items-center">
-          {/* Sparkle badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-[#ff5e62]/20 dark:border-[#ff5e62]/30 bg-[#ff5e62]/5 dark:bg-[#ff5e62]/10 px-3.5 py-1 text-xs font-mono tracking-widest text-[#ff5e62] mb-5 shadow-sm shadow-[#ff5e62]/5"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#ff5e62] animate-ping" />
-            <span>HH Goa 2026 Exclusive</span>
-          </motion.div>
+          {/* Brand Badges Group */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-6 max-w-2xl">
+            {/* Palm Tree Hackathon Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+              className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-3.5 py-1 text-[10px] font-bold text-[#00F5A0] shadow-[0_0_15px_rgba(0,245,160,0.05)]"
+            >
+              <span>PALM TREE HACKATHON 🌴</span>
+            </motion.div>
+
+            {/* Goa Location Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.05 }}
+              className="inline-flex items-center gap-1.5 rounded-full border border-[#00D9F6]/20 bg-[#00D9F6]/5 px-3.5 py-1 text-[10px] font-bold text-[#00D9F6]"
+            >
+              <span>GOA, INDIA</span>
+            </motion.div>
+
+            {/* Coordinates Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="inline-flex items-center gap-1.5 rounded-full border border-slate-500/20 bg-slate-500/5 px-3.5 py-1 text-[9px] font-mono text-slate-400"
+            >
+              <span>15.4967° N, 73.8278° E</span>
+            </motion.div>
+          </div>
 
           {/* Heading */}
           <motion.h1
@@ -119,6 +141,25 @@ export default function Home() {
           >
             Generate your official event Profile Frame and digital Builder Card in under 10 seconds. Show the world you are building in Goa!
           </motion.p>
+
+          {/* Event Status Tags */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="flex flex-wrap items-center justify-center gap-2.5 mt-6"
+          >
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-0.5 text-[9px] font-bold uppercase tracking-wider text-emerald-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+              VERIFIED BUILDER
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-400">
+              PORT ENTRY: FEB 2026
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#00D9F6]/30 bg-[#00D9F6]/10 px-3 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#00D9F6] animate-pulse">
+              #FrameInGoa
+            </span>
+          </motion.div>
         </section>
 
         {/* Tab Selector */}

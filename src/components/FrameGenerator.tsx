@@ -24,7 +24,7 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
   const [frameId, setFrameId] = useState('');
 
   useEffect(() => {
-    setFrameId(Math.random().toString(36).substring(2, 10).toUpperCase());
+    setFrameId(`FRAME-${Date.now()}`);
   }, []);
 
   const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({
@@ -94,7 +94,8 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
         body: JSON.stringify({
           type: 'frame',
           id: frameId,
-          theme: activeThemeId,
+          name: 'N/A (Profile Frame)',
+          theme: activeTheme.name,
           image: img,
         }),
       });
@@ -198,7 +199,7 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={tiltStyle}
-            className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-white/10 bg-[#020617] shadow-2xl flex flex-col justify-between p-6 sm:p-8 transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
+            className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border-2 border-emerald-500/30 bg-slate-950/90 shadow-2xl shadow-emerald-500/5 flex flex-col justify-between p-6 sm:p-8 transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
           >
             {/* 3D Reflection Glare Overlay */}
             <div
@@ -212,6 +213,11 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
             {/* Background Glows */}
             <div className={`absolute -top-24 -left-24 w-48 h-48 rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-20 blur-[50px]`} />
             <div className={`absolute -bottom-24 -right-24 w-48 h-48 rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-20 blur-[50px]`} />
+
+            {/* Watermark watermark */}
+            <div className="absolute inset-0 z-0 flex items-center justify-center opacity-[0.025] select-none pointer-events-none font-display font-black text-6xl tracking-widest uppercase text-white rotate-[-25deg]">
+              HH GOA
+            </div>
 
             {/* Floating Tropical Leaves in background */}
             <div className="absolute -left-8 top-1/4 w-24 h-24 text-white/5 rotate-45 pointer-events-none">
@@ -350,7 +356,7 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
       <div className="badge-canvas-container">
         <div
           ref={highResRef}
-          className="w-[1080px] h-[1350px] bg-[#020617] text-white flex flex-col justify-between p-20 font-sans relative overflow-hidden"
+          className="w-[1080px] h-[1350px] bg-[#0A1118] border-[16px] border-solid border-slate-900/60 text-white flex flex-col justify-between p-20 font-sans relative overflow-hidden"
         >
           {/* High-res Grid Pattern */}
           <div
@@ -364,6 +370,11 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
           {/* High-res Glow blobs */}
           <div className={`absolute -top-72 -left-72 w-[600px] h-[600px] rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-25 blur-[120px]`} />
           <div className={`absolute -bottom-72 -right-72 w-[600px] h-[600px] rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-25 blur-[120px]`} />
+
+          {/* Watermark */}
+          <div className="absolute inset-0 z-0 flex items-center justify-center opacity-[0.02] select-none pointer-events-none font-display font-black text-[180px] tracking-widest uppercase text-white rotate-[-25deg]">
+            HH GOA
+          </div>
 
           {/* High-res Floating Leaves */}
           <div className="absolute -left-20 top-[30%] w-80 h-80 text-white/5 rotate-45 pointer-events-none">

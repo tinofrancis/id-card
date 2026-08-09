@@ -10,22 +10,22 @@
   --color-sunset-start: #ff5e62;
   --color-sunset-end: #ff9966;
   
-  --color-ocean-start: #00c6ff;
-  --color-ocean-end: #0072ff;
+  --color-ocean-start: #00D9F6;
+  --color-ocean-end: #00F5A0;
   
-  --color-purple-start: #d946ef;
+  --color-purple-start: #00D9F6;
   --color-purple-end: #8b5cf6;
   
-  --color-green-start: #11998e;
+  --color-green-start: #00D26A;
   --color-green-end: #38ef7d;
 }
 
 /* Premium Glassmorphism styling */
 .glass-panel {
-  background: rgba(8, 12, 28, 0.72);
+  background: rgba(15, 23, 42, 0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 245, 160, 0.15); /* Tinted with Emerald Palm */
   box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
@@ -223,21 +223,26 @@
 
 /* Base overrides */
 :root {
-  --background: #020617;
+  --background: #0A1118;
   --foreground: #f8fafc;
 }
 
 :root.light {
   --background: #f8fafc;
-  --foreground: #020617;
+  --foreground: #0A1118;
 }
 
 body {
   background-color: var(--background);
+  background-image: radial-gradient(circle at 50% 50%, #0F1C2E 0%, #0A1118 100%);
   color: var(--foreground);
   font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.light body {
+  background-image: none;
 }
 
 /* Canvas badge template sizes */

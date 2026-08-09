@@ -92,8 +92,8 @@ export default function UploadBox({ onImageSelected }: UploadBoxProps) {
             </div>
           ) : (
             <div className="flex flex-col items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 group-hover:scale-105 transition-transform duration-300">
-                <Upload className="h-6 w-6 text-slate-500 dark:text-slate-300" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 group-hover:scale-110 transition-transform duration-300 text-xl">
+                🌴
               </div>
               
               <div>

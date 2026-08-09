@@ -41,9 +41,9 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
 
         {/* Info Badge */}
         <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-3 py-1 text-xs font-medium text-emerald-400">
-            <Sparkles className="h-3.5 w-3.5" />
-            <span>Instant Client-Side Generation</span>
+          <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-[9px] sm:text-xs font-bold uppercase tracking-wider text-[#00F5A0] shadow-[0_0_15px_rgba(0,245,160,0.15)]">
+            <span className="h-2 w-2 rounded-full bg-[#00F5A0] shadow-[0_0_8px_#00F5A0] animate-ping" />
+            <span>PORT ENTRY OPEN</span>
           </div>
 
           {/* Theme Switcher Button */}

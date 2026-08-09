@@ -323,7 +323,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={tiltStyle}
-            className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-white/10 bg-[#020617] shadow-2xl flex flex-col justify-between p-6 sm:p-8 transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
+            className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border-2 border-emerald-500/30 bg-slate-950/90 shadow-2xl shadow-emerald-500/5 flex flex-col justify-between p-6 sm:p-8 transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
           >
             {/* 3D Reflection Glare Overlay */}
             <div
@@ -337,6 +337,11 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             {/* Background glowing blob */}
             <div className={`absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-20 blur-[60px]`} />
             <div className={`absolute bottom-0 right-0 w-36 h-36 rounded-full bg-[#1e293b] opacity-10 blur-[40px]`} />
+
+            {/* Watermark watermark */}
+            <div className="absolute inset-0 z-0 flex items-center justify-center opacity-[0.025] select-none pointer-events-none font-display font-black text-6xl tracking-widest uppercase text-white rotate-[-25deg]">
+              HH GOA
+            </div>
 
             {/* Tropical accents */}
             <div className="absolute -left-12 -bottom-4 w-32 h-32 text-white/5 rotate-90 pointer-events-none">
@@ -485,7 +490,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
       <div className="badge-canvas-container">
         <div
           ref={highResRef}
-          className="w-[1080px] h-[1350px] bg-[#020617] text-white flex flex-col justify-between p-20 font-sans relative overflow-hidden"
+          className="w-[1080px] h-[1350px] bg-[#0A1118] border-[16px] border-solid border-slate-900/60 text-white flex flex-col justify-between p-20 font-sans relative overflow-hidden"
         >
           {/* Grid Pattern */}
           <div
@@ -499,6 +504,11 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           {/* Glow blobs */}
           <div className={`absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-25 blur-[120px]`} />
           <div className={`absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-slate-900 opacity-20 blur-[80px]`} />
+
+          {/* Watermark */}
+          <div className="absolute inset-0 z-0 flex items-center justify-center opacity-[0.02] select-none pointer-events-none font-display font-black text-[180px] tracking-widest uppercase text-white rotate-[-25deg]">
+            HH GOA
+          </div>
 
           {/* Tropical leaves */}
           <div className="absolute -left-28 -bottom-10 w-96 h-96 text-white/5 rotate-90 pointer-events-none">

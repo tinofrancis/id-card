@@ -2,6 +2,7 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 
 export interface IProfileFrame extends Document {
   id: string;
+  name?: string;
   theme: string;
   imageUrl: string;
   createdAt: Date;
@@ -9,6 +10,7 @@ export interface IProfileFrame extends Document {
 
 const ProfileFrameSchema: Schema = new Schema({
   id: { type: String, required: true, unique: true, index: true },
+  name: { type: String },
   theme: { type: String, required: true },
   imageUrl: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },

@@ -35,6 +35,7 @@ export async function POST(request: Request) {
           { id },
           {
             id,
+            name: name || 'N/A',
             theme: theme || 'N/A',
             imageUrl: image || null,
           },
@@ -111,7 +112,7 @@ export async function POST(request: Request) {
       console.log('Skipped writing to local data.txt (Vercel read-only)');
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, type: type || 'card', id });
   } catch (error: any) {
     console.error('API Error saving client data:', error);
     return NextResponse.json(

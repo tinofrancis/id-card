@@ -60,15 +60,14 @@ export default function DownloadButton({
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     try {
-      // Generate standard 1080x1350 png
+      // Generate high-resolution 2x png (2160x2700) for sharp social sharing
       const dataUrl = await toPng(elementRef.current, {
         cacheBust: true,
         style: {
           transform: 'scale(1)',
           transformOrigin: 'top left',
         },
-        // We set pixelRatio: 1 because the canvas is already sized at 1080x1350
-        pixelRatio: 1,
+        pixelRatio: 2,
       });
 
       // Create download anchor
