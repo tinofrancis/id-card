@@ -300,10 +300,13 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
               className="absolute inset-0 z-40 pointer-events-none opacity-60 transition-opacity duration-300"
             />
 
-            {croppedImage ? (
-              <div className="absolute inset-0 w-full h-full">
-                {/* Layer 1: User avatar */}
-                <div className="absolute inset-0 z-10 overflow-hidden flex items-center justify-center">
+            <div className="absolute inset-0 w-full h-full">
+              {/* Layer 0: Base card background */}
+              <div className="absolute inset-0 bg-[#0f172a]" />
+
+              {/* Layer 1: User avatar */}
+              <div className="absolute inset-0 z-10 overflow-hidden flex items-center justify-center">
+                {croppedImage ? (
                   <img
                     src={croppedImage}
                     alt="User Profile"
@@ -312,60 +315,58 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
                       transform: `scale(${zoom}) translate(${panX}px, ${panY}px) rotate(${rotation}deg)`
                     }}
                   />
-                </div>
+                ) : (
+                  <div className="flex flex-col items-center justify-center opacity-30 select-none">
+                    <svg className="h-28 w-28 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <span className="text-[8px] font-mono font-bold tracking-widest text-slate-400 uppercase mt-2">NO AVATAR LOADED</span>
+                  </div>
+                )}
+              </div>
 
-                {/* Layer 2: Frame Overlay */}
-                <div 
-                  className="absolute inset-0 z-20 transition-all duration-300 pointer-events-none"
-                  style={{
-                    backgroundImage: "url('/palm-frame-bg.jpg')",
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    WebkitMaskImage: 'radial-gradient(circle, transparent 48%, black 49%)',
-                    maskImage: 'radial-gradient(circle, transparent 48%, black 49%)',
-                    WebkitMaskRepeat: 'no-repeat',
-                    maskRepeat: 'no-repeat',
-                    WebkitMaskSize: 'cover',
-                    maskSize: 'cover',
-                    // Apply theme styling filters/presets dynamically
-                    ...(activeThemeId === 'sunset' ? { filter: 'saturate(1.2) contrast(1.1) drop-shadow(0 0 10px rgba(255, 0, 122, 0.4))' } : {}),
-                    ...(activeThemeId === 'hacker' ? { filter: 'hue-rotate(60deg) brightness(0.6) saturate(1.8)' } : {}),
-                    ...(activeThemeId === 'purple' ? { filter: 'hue-rotate(-40deg) saturate(1.3)' } : {})
+              {/* Layer 2: Frame Overlay */}
+              <div 
+                className="absolute inset-0 z-20 transition-all duration-300 pointer-events-none"
+                style={{
+                  backgroundImage: "url('/palm-frame-bg.jpg')",
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  WebkitMaskImage: 'radial-gradient(circle, transparent 48%, black 49%)',
+                  maskImage: 'radial-gradient(circle, transparent 48%, black 49%)',
+                  WebkitMaskRepeat: 'no-repeat',
+                  maskRepeat: 'no-repeat',
+                  WebkitMaskSize: 'cover',
+                  maskSize: 'cover',
+                  // Apply theme styling filters/presets dynamically
+                  ...(activeThemeId === 'sunset' ? { filter: 'saturate(1.2) contrast(1.1) drop-shadow(0 0 10px rgba(255, 0, 122, 0.4))' } : {}),
+                  ...(activeThemeId === 'hacker' ? { filter: 'hue-rotate(60deg) brightness(0.6) saturate(1.8)' } : {}),
+                  ...(activeThemeId === 'purple' ? { filter: 'hue-rotate(-40deg) saturate(1.3)' } : {})
+                }}
+              />
+
+              {/* Layer 3: Top Header branding */}
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 w-36 pointer-events-none drop-shadow-[0_0_12px_rgba(255,0,122,0.35)]">
+                <img
+                  src="/hacker-house-goa-logo.png"
+                  alt="Hacker House Goa"
+                  className="w-full object-contain"
+                  onError={(e) => {
+                    e.currentTarget.src = '/hacker-house-logo.png';
                   }}
                 />
+              </div>
 
-                {/* Layer 3: Top Header branding */}
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 w-36 pointer-events-none drop-shadow-[0_0_12px_rgba(255,0,122,0.35)]">
-                  <img
-                    src="/hacker-house-goa-logo.png"
-                    alt="Hacker House Goa"
-                    className="w-full object-contain"
-                  />
-                </div>
-
-                {/* Layer 4: Footer event tag */}
-                <div className="absolute bottom-4 inset-x-4 z-30 p-2.5 rounded-xl border border-[#FFE600]/30 bg-slate-950/90 backdrop-blur-md text-center shadow-lg pointer-events-none">
-                  <div className="text-[10px] font-black tracking-widest text-[#FFE600] font-display">HH GOA 2026 • BUILDER</div>
-                  <div className="text-[7px] font-mono tracking-widest text-slate-400 mt-0.5 flex justify-center gap-1.5 uppercase">
-                    <span>15.4967° N, 73.8278° E</span>
-                    <span className="text-slate-600">•</span>
-                    <span className="text-[#FF007A] font-bold">#FrameInGoa</span>
-                  </div>
+              {/* Layer 4: Footer event tag */}
+              <div className="absolute bottom-4 inset-x-4 z-30 p-2.5 rounded-xl border border-[#FFE600]/30 bg-slate-950/90 backdrop-blur-md text-center shadow-lg pointer-events-none">
+                <div className="text-[10px] font-black tracking-widest text-[#FFE600] font-display">HH GOA 2026 • BUILDER</div>
+                <div className="text-[7px] font-mono tracking-widest text-slate-400 mt-0.5 flex justify-center gap-1.5 uppercase">
+                  <span>15.4967° N, 73.8278° E</span>
+                  <span className="text-slate-600">•</span>
+                  <span className="text-[#FF007A] font-bold">#FrameInGoa</span>
                 </div>
               </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center p-6 text-center z-10">
-                <div className="h-14 w-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-3">
-                  <svg className="h-7 w-7 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-sm font-bold text-slate-200 uppercase tracking-wider">No Avatar Uploaded</h3>
-                <p className="text-[10px] text-slate-500 max-w-[180px] mt-1 leading-relaxed">
-                  Upload your photo on the left to generate your official HH Goa 2026 Profile Frame.
-                </p>
-              </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
