@@ -323,6 +323,10 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
                     backgroundPosition: 'center',
                     WebkitMaskImage: 'radial-gradient(circle, transparent 48%, black 49%)',
                     maskImage: 'radial-gradient(circle, transparent 48%, black 49%)',
+                    WebkitMaskRepeat: 'no-repeat',
+                    maskRepeat: 'no-repeat',
+                    WebkitMaskSize: 'cover',
+                    maskSize: 'cover',
                     // Apply theme styling filters/presets dynamically
                     ...(activeThemeId === 'sunset' ? { filter: 'saturate(1.2) contrast(1.1) drop-shadow(0 0 10px rgba(255, 0, 122, 0.4))' } : {}),
                     ...(activeThemeId === 'hacker' ? { filter: 'hue-rotate(60deg) brightness(0.6) saturate(1.8)' } : {}),
@@ -398,6 +402,10 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
                   backgroundPosition: 'center',
                   WebkitMaskImage: 'radial-gradient(circle, transparent 48%, black 49%)',
                   maskImage: 'radial-gradient(circle, transparent 48%, black 49%)',
+                  WebkitMaskRepeat: 'no-repeat',
+                  maskRepeat: 'no-repeat',
+                  WebkitMaskSize: 'cover',
+                  maskSize: 'cover',
                   // Apply theme styling filters/presets dynamically
                   ...(activeThemeId === 'sunset' ? { filter: 'saturate(1.2) contrast(1.1) drop-shadow(0 0 30px rgba(255, 0, 122, 0.4))' } : {}),
                   ...(activeThemeId === 'hacker' ? { filter: 'hue-rotate(60deg) brightness(0.6) saturate(1.8)' } : {}),
