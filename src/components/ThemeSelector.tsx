@@ -43,8 +43,8 @@ export default function ThemeSelector({ activeThemeId, onChange }: ThemeSelector
               </div>
 
               {/* Theme Name */}
-              <span className={`text-xs font-semibold tracking-wide ${isActive ? 'text-slate-950 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}>
-                {theme.name.split(' ')[0]} {/* display just 'Sunset', 'Ocean', etc. for compactness */}
+              <span className={`text-[10px] sm:text-xs font-semibold tracking-wide ${isActive ? 'text-slate-950 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'}`}>
+                {theme.name}
               </span>
             </button>
           );

@@ -14,7 +14,7 @@ export interface Theme {
 export const THEMES: Theme[] = [
   {
     id: 'sunset',
-    name: 'Sunset Orange',
+    name: 'HH Goa',
     gradient: 'from-sunset-start to-sunset-end',
     textGradient: 'bg-gradient-to-r from-sunset-start to-sunset-end bg-clip-text text-transparent',
     from: '#ff5e62',
