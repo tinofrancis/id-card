@@ -76,15 +76,15 @@ interface BuilderCardGeneratorProps {
 }
 
 export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }: BuilderCardGeneratorProps) {
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [croppedImage, setCroppedImage] = useState<string | null>(null);
-  const [zoom, setZoom] = useState(1.2);
+  const [imageSrc, setImageSrc] = useState<string | null>('/default-avatar.jpg');
+  const [croppedImage, setCroppedImage] = useState<string | null>('/default-avatar.jpg');
+  const [zoom, setZoom] = useState(1.0);
   const [panX, setPanX] = useState(0);
   const [panY, setPanY] = useState(0);
   const [rotation, setRotation] = useState(0);
-  const [name, setName] = useState('HACKER');
-  const [role, setRole] = useState('AI Engineer');
-  const [builderTitle, setBuilderTitle] = useState('Late Night Hacker');
+  const [name, setName] = useState('K. KISHORE');
+  const [role, setRole] = useState('Full Stack Developer');
+  const [builderTitle, setBuilderTitle] = useState('THE SHIPPER');
   const [showCropModal, setShowCropModal] = useState(false);
   const [cardId, setCardId] = useState('');
   const [domain, setDomain] = useState('');
@@ -364,12 +364,15 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
   };
 
   const handleReset = () => {
-    setImageSrc(null);
-    setCroppedImage(null);
-    setZoom(1.2);
+    setImageSrc('/default-avatar.jpg');
+    setCroppedImage('/default-avatar.jpg');
+    setZoom(1.0);
     setPanX(0);
     setPanY(0);
     setRotation(0);
+    setName('K. KISHORE');
+    setRole('Full Stack Developer');
+    setBuilderTitle('THE SHIPPER');
   };
 
   const verifyUrl = `${domain}/verify?id=${cardId}&name=${encodeURIComponent(name)}&role=${encodeURIComponent(role)}&title=${encodeURIComponent(builderTitle)}&theme=${activeThemeId}`;
