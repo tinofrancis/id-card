@@ -493,7 +493,6 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 text-center block">
             Live Preview
           </span>
-
           {/* Visible badge card (Ticket Style aspect-[10/16]) */}
           <div
             onMouseMove={handleMouseMove}
@@ -507,7 +506,15 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             className="relative aspect-[10/16] w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-emerald-500/5 flex flex-col justify-between p-6 sm:p-7 pt-9 transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
           >
             {/* Glass backdrop overlay */}
-            <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-md z-0" />
+            <div className="absolute inset-0 bg-slate-950/45 backdrop-blur-sm z-0" />
+
+            {/* Texture blend overlay */}
+            {cardTexture !== 'glass' && (
+              <div
+                style={getTextureStyle(cardTexture)}
+                className="absolute inset-0 z-10 pointer-events-none opacity-30 mix-blend-overlay"
+              />
+            )}
 
             {/* VIP Header Ribbon */}
             <div className="absolute top-0 inset-x-0 bg-gradient-to-r from-[#FF007A] via-[#FFE600] to-[#FF007A] text-[6px] sm:text-[7px] font-mono font-black tracking-widest text-slate-950 text-center py-1 uppercase z-30 shadow-md">
@@ -532,19 +539,19 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             <div className="absolute inset-0 opacity-15 digital-grid pointer-events-none z-0" />
 
             {/* Tropical accents */}
-            <div className="absolute -left-12 -bottom-4 w-32 h-32 text-white/5 rotate-90 pointer-events-none z-0">
+            <div className="absolute -left-12 -bottom-4 w-32 h-32 text-[#00F5A0]/10 rotate-90 pointer-events-none z-0">
               <PalmLeafSVG className="w-full h-full" />
             </div>
-            <div className="absolute -right-8 -top-8 w-24 h-24 text-white/5 -rotate-45 pointer-events-none z-0">
+            <div className="absolute -right-8 -top-8 w-24 h-24 text-[#FFE600]/10 -rotate-45 pointer-events-none z-0">
               <PalmLeafSVG className="w-full h-full animate-float-medium" />
             </div>
 
             {/* Header info */}
             <div className="relative z-10 flex justify-between items-center pb-2 border-b border-white/5">
-              <div className="text-[6px] font-mono font-black tracking-widest text-slate-400">
+              <div className="text-[6px] font-mono font-black tracking-widest text-slate-300">
                 OFFICIAL BUILDER PASS • FEB 2026
               </div>
-              <div className="h-5 w-20 pointer-events-none drop-shadow-[0_0_8px_rgba(255,230,0,0.3)]">
+              <div className="h-7 w-24 pointer-events-none drop-shadow-[0_0_8px_rgba(255,230,0,0.45)]">
                 <img
                   src="/hacker-house-goa-logo.png"
                   alt="Hacker House"
@@ -557,7 +564,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             <div className="relative z-10 flex flex-col items-center gap-3 my-auto">
               
               {/* Photo Area with circular pop-art neon border */}
-              <div className="relative p-[3px] rounded-full bg-gradient-to-tr from-[#FFE600] to-[#FF007A] shadow-[0_0_20px_rgba(255,0,122,0.35)]">
+              <div className="relative p-[3px] rounded-full bg-gradient-to-tr from-[#00F5A0] via-[#FFE600] to-[#00F5A0] shadow-[0_0_25px_rgba(0,245,160,0.4)]">
                 <div className="relative h-[120px] w-[120px] overflow-hidden rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center">
                   <AnimatePresence mode="wait">
                     {croppedImage ? (
@@ -598,17 +605,17 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               {/* Text Fields */}
               <div className="text-center w-full max-w-[280px]">
                 {/* Name */}
-                <h3 className="font-display font-black text-lg sm:text-xl uppercase tracking-wider text-[#FFE600] drop-shadow-[0_0_8px_rgba(255,230,0,0.7)] truncate">
+                <h3 className="font-display font-black text-lg sm:text-xl uppercase tracking-wider text-white drop-shadow-[0_2px_12px_rgba(255,0,122,0.85)] filter drop-shadow(0 2px 4px rgba(0,0,0,0.8)) truncate">
                   {name || 'HACKER'}
                 </h3>
 
                 {/* Role/Title Pill */}
-                <div className="inline-block mt-1.5 px-3 py-0.5 rounded-full bg-[#00D26A] text-slate-950 text-[7px] sm:text-[8px] font-mono font-black tracking-wider uppercase shadow-[0_0_10px_rgba(0,210,106,0.3)]">
+                <div className="inline-block mt-1.5 px-3 py-0.5 rounded-full bg-[#00FF66] text-slate-950 text-[7px] sm:text-[8px] font-mono font-black tracking-wider uppercase shadow-[0_0_10px_rgba(0,255,102,0.4)]">
                   {role.toUpperCase()} BUILDER
                 </div>
                 
                 {/* High-Tech Metadata Grid */}
-                <div className="mt-3 p-3 rounded-xl bg-slate-950/80 border border-white/10 text-left text-[8px] font-mono leading-relaxed space-y-1">
+                <div className="mt-3 p-3 rounded-xl bg-slate-900/80 backdrop-blur-md border border-emerald-400/30 text-left text-[8px] font-mono leading-relaxed space-y-1">
                   <div className="grid grid-cols-2 gap-x-2">
                     <span className="text-slate-500 uppercase font-black">STATUS</span>
                     <span className="text-[#00FF66] font-black flex items-center gap-1">
@@ -637,7 +644,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             <div className="absolute left-0 top-[78%] -translate-x-1/2 w-4 h-4 rounded-full bg-slate-950 border border-white/10 z-30" />
             <div className="absolute right-0 top-[78%] translate-x-1/2 w-4 h-4 rounded-full bg-slate-950 border border-white/10 z-30" />
             {/* Ticket Dash line */}
-            <div className="absolute inset-x-0 top-[78%] border-t border-dashed border-white/20 z-20 pointer-events-none" />
+            <div className="absolute inset-x-0 top-[78%] border-t-2 border-dashed border-[#FF007A]/50 z-20 pointer-events-none shadow-[0_0_8px_rgba(255,0,122,0.35)]" />
 
             {/* Bottom Bar: QR, Barcode, Details */}
             <div className="relative z-10 flex justify-between items-center mt-auto w-full pt-4">
@@ -682,18 +689,16 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
-      {/* ====================================================
+      {/* ===========================================================
           HIDDEN OFF-SCREEN 1080x1350 CANVAS FOR PNG EXPORT
           ==================================================== */}
       <div className="badge-canvas-container">
         <div
           ref={highResRef}
           style={{
-            ...getTextureStyle(cardTexture, true),
             backgroundImage: "url('/palm-frame-bg.jpg')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -701,7 +706,15 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           className="w-[1080px] h-[1728px] border-[16px] border-solid border-slate-900 text-white flex flex-col justify-between p-20 pt-28 font-sans relative overflow-hidden"
         >
           {/* Glass backdrop overlay */}
-          <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-md z-0" />
+          <div className="absolute inset-0 bg-slate-950/45 backdrop-blur-md z-0" />
+
+          {/* Texture blend overlay */}
+          {cardTexture !== 'glass' && (
+            <div
+              style={getTextureStyle(cardTexture, true)}
+              className="absolute inset-0 z-10 pointer-events-none opacity-30 mix-blend-overlay"
+            />
+          )}
 
           {/* VIP Header Ribbon */}
           <div className="absolute top-0 inset-x-0 bg-gradient-to-r from-[#FF007A] via-[#FFE600] to-[#FF007A] text-[20px] font-mono font-black tracking-widest text-slate-950 text-center py-2 uppercase z-30 shadow-md">
@@ -722,19 +735,19 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           <div className={`absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-slate-900 opacity-20 blur-[80px]`} />
 
           {/* Tropical leaves */}
-          <div className="absolute -left-28 -bottom-10 w-96 h-96 text-white/5 rotate-90 pointer-events-none">
+          <div className="absolute -left-28 -bottom-10 w-96 h-96 text-[#00F5A0]/10 rotate-90 pointer-events-none">
             <PalmLeafSVG className="w-full h-full" />
           </div>
-          <div className="absolute -right-20 -top-20 w-80 h-80 text-white/5 -rotate-45 pointer-events-none">
+          <div className="absolute -right-20 -top-20 w-80 h-80 text-[#FFE600]/10 -rotate-45 pointer-events-none">
             <PalmLeafSVG className="w-full h-full" />
           </div>
 
           {/* Header */}
           <div className="relative z-10 flex justify-between items-center pb-4 border-b-2 border-white/5">
-            <div className="text-sm font-mono font-black tracking-widest text-slate-400">
+            <div className="text-sm font-mono font-black tracking-widest text-slate-300">
               OFFICIAL BUILDER PASS • FEB 2026
             </div>
-            <div className="h-14 w-52 pointer-events-none drop-shadow-[0_0_24px_rgba(255,230,0,0.3)]">
+            <div className="h-20 w-64 pointer-events-none drop-shadow-[0_0_24px_rgba(255,230,0,0.45)]">
               <img
                 src="/hacker-house-goa-logo.png"
                 alt="Hacker House"
@@ -746,7 +759,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           {/* Central Body Content */}
           <div className="relative z-10 flex flex-col items-center gap-10 my-auto">
             {/* Developer photo frame */}
-            <div className="relative p-[9px] rounded-full bg-gradient-to-tr from-[#FFE600] to-[#FF007A] shadow-[0_0_40px_rgba(255,0,122,0.35)]">
+            <div className="relative p-[9px] rounded-full bg-gradient-to-tr from-[#00F5A0] via-[#FFE600] to-[#00F5A0] shadow-[0_0_40px_rgba(0,245,160,0.4)]">
               <div className="relative h-[380px] w-[380px] overflow-hidden rounded-full bg-slate-900 border-[3px] border-slate-950 flex items-center justify-center">
                 {croppedImage ? (
                   <img
@@ -771,17 +784,17 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             {/* Profile fields */}
             <div className="text-center w-full max-w-[700px] flex flex-col items-center">
               {/* Name */}
-              <h3 className="font-display font-black text-6xl uppercase tracking-[0.05em] text-[#FFE600] drop-shadow-[0_0_24px_rgba(255,230,0,0.7)] truncate px-4">
+              <h3 className="font-display font-black text-6xl uppercase tracking-[0.05em] text-white drop-shadow-[0_4px_24px_rgba(255,0,122,0.85)] filter drop-shadow(0 4px 8px rgba(0,0,0,0.8)) truncate px-4">
                 {name || 'HACKER'}
               </h3>
               
               {/* Role tag */}
-              <div className="inline-block mt-4 px-6 py-1.5 rounded-full bg-[#00D26A] text-slate-950 text-base font-mono font-black tracking-wider uppercase shadow-[0_0_20px_rgba(0,210,106,0.3)]">
+              <div className="inline-block mt-4 px-6 py-1.5 rounded-full bg-[#00FF66] text-slate-950 text-base font-mono font-black tracking-wider uppercase shadow-[0_0_20px_rgba(0,255,102,0.4)]">
                 {role.toUpperCase()} BUILDER
               </div>
               
               {/* High-Tech Metadata Grid */}
-              <div className="mt-8 w-[520px] p-8 rounded-2xl bg-slate-950/95 border-2 border-white/10 text-left text-sm font-mono leading-relaxed space-y-2.5">
+              <div className="mt-8 w-[520px] p-8 rounded-2xl bg-slate-900/80 backdrop-blur-md border-2 border-emerald-400/30 text-left text-sm font-mono leading-relaxed space-y-2.5">
                 <div className="grid grid-cols-2 gap-x-4">
                   <span className="text-slate-500 uppercase font-black">STATUS</span>
                   <span className="text-[#00FF66] font-black flex items-center gap-1.5">
@@ -809,7 +822,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           <div className="absolute left-0 top-[78%] -translate-x-1/2 w-12 h-12 rounded-full bg-slate-950 border border-white/10 z-30" />
           <div className="absolute right-0 top-[78%] translate-x-1/2 w-12 h-12 rounded-full bg-slate-950 border border-white/10 z-30" />
           {/* Ticket Dash line */}
-          <div className="absolute inset-x-0 top-[78%] border-t-2 border-dashed border-white/20 z-20 pointer-events-none" />
+          <div className="absolute inset-x-0 top-[78%] border-t-4 border-dashed border-[#FF007A]/50 z-20 pointer-events-none shadow-[0_0_24px_rgba(255,0,122,0.35)]" />
 
           {/* Footer of card */}
           <div className="relative z-10 flex justify-between items-center mt-auto w-full pt-8">
