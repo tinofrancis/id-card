@@ -633,13 +633,25 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 className="absolute inset-0 z-40 pointer-events-none opacity-20 transition-opacity duration-300"
               />
 
+              {/* Holographic Security Microprint Overlay */}
+              <div className="absolute inset-0 z-30 pointer-events-none opacity-[0.04] select-none overflow-hidden" aria-hidden="true">
+                <div className="w-full h-full" style={{ backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 8px, currentColor 8px, currentColor 8.5px)`, color: tc.accentColor }} />
+              </div>
+
+              {/* Theme Color Overlay */}
+              <div className={tc.overlayClass} />
+
+              {/* Club-suit ♧ decorative motif */}
+              <div className="absolute top-3 right-3 z-20 pointer-events-none select-none opacity-15 text-[28px]" style={{ color: tc.accentColor }}>♧</div>
+              <div className="absolute bottom-3 left-3 z-20 pointer-events-none select-none opacity-10 text-[22px] rotate-180" style={{ color: tc.accentColor }}>♧</div>
+
               {/* Top Header Metadata Row */}
-              <div className="relative z-10 flex justify-between items-center pb-2 border-b border-[#FFE600]/25">
-                <div className="flex flex-col items-start text-left leading-none font-extrabold text-[#FFE600]">
+              <div className="relative z-10 flex justify-between items-center pb-2" style={{ borderBottomColor: `${tc.accentColor}40`, borderBottomWidth: '1px' }}>
+                <div className="flex flex-col items-start text-left leading-none font-extrabold" style={{ color: tc.accentColor }}>
                   <span className="text-[10px] sm:text-[11px] font-mono tracking-tighter">2:47PM</span>
                   <span className="text-[5px] sm:text-[5.5px] tracking-widest font-sans mt-0.5 opacity-90">STUDIO</span>
                 </div>
-                <div className="flex flex-col items-end text-right leading-none font-extrabold text-[#FFE600]">
+                <div className="flex flex-col items-end text-right leading-none font-extrabold" style={{ color: tc.accentColor }}>
                   <span className="text-[7.5px] sm:text-[8px] tracking-tight font-mono">28 - 31 OCT 2026</span>
                   <span className="text-[5px] sm:text-[5.5px] tracking-wider font-sans mt-0.5 opacity-90">GOA, INDIA</span>
                 </div>
@@ -655,19 +667,19 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                     className="h-full w-full object-contain"
                   />
                   {/* Hot-pink Devanagari emblem "गोवा" badge overlaid */}
-                  <div className="absolute top-[38%] left-[49.5%] -translate-x-1/2 -translate-y-1/2 bg-[#FF007A] text-white text-[9px] sm:text-[10px] font-sans font-black px-1.5 py-0.5 rounded border border-white/20 rotate-[-4deg] shadow-md select-none whitespace-nowrap uppercase tracking-wider">
+                  <div className="absolute top-[38%] left-[49.5%] -translate-x-1/2 -translate-y-1/2 text-white text-[9px] sm:text-[10px] font-sans font-black px-1.5 py-0.5 rounded border border-white/20 rotate-[-4deg] shadow-md select-none whitespace-nowrap uppercase tracking-wider" style={{ backgroundColor: tc.pinkColor }}>
                     गोवा
                   </div>
                 </div>
                 <p className="text-[5.5px] sm:text-[6px] font-sans font-black text-white/95 tracking-wider uppercase mt-1.5">
-                  4 DAYS. ONE RHYTHM. EVERYTHING INTENTIONAL.
+                  BUILD · BEACH · BELONG · HHG/26
                 </p>
               </div>
 
               {/* Arch Photo Frame & Overlay */}
               <div className="relative z-10 my-auto flex flex-col items-center">
                 {/* Rounded arch frame window */}
-                <div className="relative p-[2.5px] rounded-t-full bg-[#FFE600] shadow-[0_0_15px_rgba(255,230,0,0.35)]">
+                <div className="relative p-[2.5px] rounded-t-full" style={{ backgroundColor: tc.accentColor, boxShadow: `0 0 15px ${tc.accentColor}50` }}>
                   <div className="relative h-[105px] w-[85px] sm:h-[115px] sm:w-[95px] overflow-hidden rounded-t-full bg-slate-900 border border-slate-950 flex items-center justify-center">
                     <AnimatePresence mode="wait">
                       {croppedImage ? (
@@ -703,7 +715,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   </div>
 
                   {/* Frame Badge tag attached at bottom center */}
-                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-[#036838] border border-[#FFE600]/40 rounded-full shadow-md z-20 text-[5px] font-mono font-black text-white tracking-widest uppercase whitespace-nowrap">
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full shadow-md z-20 text-[5px] font-mono font-black text-white tracking-widest uppercase whitespace-nowrap" style={{ backgroundColor: tc.bgColor, borderColor: `${tc.accentColor}66`, borderWidth: '1px' }}>
                     #FrameInGoa
                   </div>
                 </div>
@@ -712,13 +724,13 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               {/* Name Box & Role Badge */}
               <div className="relative z-10 flex flex-col items-center mt-2">
                 {/* Name Box */}
-                <div className="w-full max-w-[220px] px-3 py-1 bg-[#FFFEE0] border-[2px] border-[#FFE600] rounded-xl text-center shadow-md">
-                  <div className="font-serif font-black text-[10px] sm:text-xs text-[#0A3A22] uppercase tracking-wider truncate">
+                <div className="w-full max-w-[220px] px-3 py-1 border-[2px] rounded-xl text-center shadow-md" style={{ backgroundColor: tc.nameBg, borderColor: tc.accentColor }}>
+                  <div className="font-serif font-black text-[10px] sm:text-xs uppercase tracking-wider truncate" style={{ color: tc.nameText }}>
                     {name || 'SMRUTISWARUPA PRIYADARSINI'}
                   </div>
                 </div>
                 {/* Role Tag decorated with marigold stars */}
-                <div className="inline-flex items-center gap-1.5 mt-1.5 px-3 py-0.5 rounded-full bg-[#FF007A] text-[#FFE600] text-[6px] sm:text-[6.5px] font-mono font-black tracking-widest uppercase shadow-md">
+                <div className={`inline-flex items-center gap-1.5 mt-1.5 px-3 py-0.5 rounded-full ${tc.roleBg} text-[6px] sm:text-[6.5px] font-mono font-black tracking-widest uppercase shadow-md`} style={{ color: tc.accentColor }}>
                   <span>✹</span>
                   <span>{role.toUpperCase()}</span>
                   <span>✹</span>
@@ -726,14 +738,14 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               </div>
 
               {/* Pass Identifier */}
-              <div className="relative z-10 mt-2 px-3 py-0.5 rounded-full bg-[#024d29] border border-[#FFE600]/30 text-center text-[5px] sm:text-[5.5px] font-mono font-black text-white/95 tracking-widest uppercase">
+              <div className="relative z-10 mt-2 px-3 py-0.5 rounded-full text-center text-[5px] sm:text-[5.5px] font-mono font-black text-white/95 tracking-widest uppercase" style={{ backgroundColor: tc.squadBg, borderColor: `${tc.accentColor}4D`, borderWidth: '1px' }}>
                 ZENITH SQUAD  •  #GOA-2026-{cardId || '0199A'}
               </div>
 
               {/* Footer details & QR */}
               <div className="relative z-10 w-full mt-2 flex flex-col items-center gap-1.5">
                 {/* Centered QR with center emblem overlay */}
-                <div className="relative p-[1.5px] rounded bg-[#FFE600] shadow-md">
+                <div className="relative p-[1.5px] rounded shadow-md" style={{ backgroundColor: tc.accentColor }}>
                   {cardId ? (
                     <div className="relative">
                       <img
@@ -759,11 +771,11 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 </div>
 
                 {/* Marigold garland bottom strip */}
-                <div className="absolute -bottom-4 inset-x-0 h-2 bg-[#024d29] border-t border-[#FFE600]/30 flex justify-between px-1 overflow-hidden select-none">
+                <div className="absolute -bottom-4 inset-x-0 h-2 flex justify-between px-1 overflow-hidden select-none" style={{ backgroundColor: tc.garlandBg, borderTopColor: `${tc.accentColor}4D`, borderTopWidth: '1px' }}>
                   {Array.from({ length: 24 }).map((_, i) => (
                     <div key={i} className="flex items-center justify-center flex-shrink-0 w-2.5 h-full">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#FFE600] relative flex items-center justify-center shadow-sm">
-                        <div className="absolute w-0.5 h-0.5 rounded-full bg-[#FF007A]" />
+                      <div className="w-1.5 h-1.5 rounded-full relative flex items-center justify-center shadow-sm" style={{ backgroundColor: tc.flowerPetal }}>
+                        <div className="absolute w-0.5 h-0.5 rounded-full" style={{ backgroundColor: tc.flowerCore }} />
                       </div>
                     </div>
                   ))}
@@ -775,13 +787,13 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
       </div>
 
       {/* ===========================================================
-          HIDDEN OFF-SCREEN 1080x1600 CANVAS FOR PNG EXPORT
+          HIDDEN OFF-SCREEN 1080x1920 CANVAS FOR PNG EXPORT
           ==================================================== */}
       <div className="badge-canvas-container">
         <div
           ref={highResRef}
           style={{}}
-          className="w-[1080px] h-[1600px] bg-white text-white flex flex-col justify-between p-6 font-sans relative overflow-hidden select-none"
+          className="w-[1080px] h-[1920px] bg-white text-white flex flex-col justify-between p-6 font-sans relative overflow-hidden select-none"
         >
           {/* Lanyard punch hole (High-Res) */}
           <div className="absolute top-[28px] left-1/2 -translate-x-1/2 w-44 h-11 rounded-full bg-white border-2 border-slate-350 shadow-inner z-20 pointer-events-none" />
@@ -795,13 +807,25 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             }}
             className="w-full h-full rounded-[48px] overflow-hidden flex flex-col justify-between p-12 pt-16 pb-12 relative z-10"
           >
+            {/* Holographic Security Microprint Overlay (High-Res) */}
+            <div className="absolute inset-0 z-30 pointer-events-none opacity-[0.04] select-none overflow-hidden" aria-hidden="true">
+              <div className="w-full h-full" style={{ backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 24px, currentColor 24px, currentColor 25.5px)`, color: tc.accentColor }} />
+            </div>
+
+            {/* Theme Color Overlay (High-Res) */}
+            <div className={tc.overlayClass} />
+
+            {/* Club-suit ♧ decorative motif (High-Res) */}
+            <div className="absolute top-8 right-8 z-20 pointer-events-none select-none opacity-15 text-7xl" style={{ color: tc.accentColor }}>♧</div>
+            <div className="absolute bottom-8 left-8 z-20 pointer-events-none select-none opacity-10 text-5xl rotate-180" style={{ color: tc.accentColor }}>♧</div>
+
             {/* Top Header Metadata Row */}
-            <div className="relative z-10 flex justify-between items-center pb-4 border-b-2 border-[#FFE600]/25">
-              <div className="flex flex-col items-start text-left leading-none font-extrabold text-[#FFE600]">
+            <div className="relative z-10 flex justify-between items-center pb-4" style={{ borderBottomColor: `${tc.accentColor}40`, borderBottomWidth: '2px' }}>
+              <div className="flex flex-col items-start text-left leading-none font-extrabold" style={{ color: tc.accentColor }}>
                 <span className="text-3xl font-mono tracking-tighter">2:47PM</span>
                 <span className="text-sm tracking-[0.2em] font-sans mt-1 opacity-90">STUDIO</span>
               </div>
-              <div className="flex flex-col items-end text-right leading-none font-extrabold text-[#FFE600]">
+              <div className="flex flex-col items-end text-right leading-none font-extrabold" style={{ color: tc.accentColor }}>
                 <span className="text-2xl tracking-tight font-mono">28 - 31 OCT 2026</span>
                 <span className="text-sm tracking-widest font-sans mt-1 opacity-90">GOA, INDIA</span>
               </div>
@@ -816,19 +840,19 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   className="h-full w-full object-contain"
                 />
                 {/* Hot-pink Devanagari emblem "गोवा" badge overlaid */}
-                <div className="absolute top-[38%] left-[49.5%] -translate-x-1/2 -translate-y-1/2 bg-[#FF007A] text-white text-2xl font-sans font-black px-4 py-1 rounded-xl border-2 border-white/20 rotate-[-4deg] shadow-lg select-none whitespace-nowrap uppercase tracking-wider">
+                <div className="absolute top-[38%] left-[49.5%] -translate-x-1/2 -translate-y-1/2 text-white text-2xl font-sans font-black px-4 py-1 rounded-xl border-2 border-white/20 rotate-[-4deg] shadow-lg select-none whitespace-nowrap uppercase tracking-wider" style={{ backgroundColor: tc.pinkColor }}>
                   गोवा
                 </div>
               </div>
               <p className="text-sm font-sans font-black text-white/95 tracking-[0.2em] uppercase mt-3">
-                4 DAYS. ONE RHYTHM. EVERYTHING INTENTIONAL.
+                BUILD · BEACH · BELONG · HHG/26
               </p>
             </div>
 
             {/* Arch Photo Frame & Overlay */}
             <div className="relative z-10 my-auto flex flex-col items-center">
               {/* Rounded arch frame window */}
-              <div className="relative p-[6px] rounded-t-full bg-[#FFE600] shadow-[0_0_40px_rgba(255,230,0,0.35)]">
+              <div className="relative p-[6px] rounded-t-full" style={{ backgroundColor: tc.accentColor, boxShadow: `0 0 40px ${tc.accentColor}50` }}>
                 <div className="relative h-[320px] w-[260px] overflow-hidden rounded-t-full bg-slate-900 border-2 border-slate-950 flex items-center justify-center">
                   {croppedImage ? (
                     <img
@@ -850,7 +874,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 </div>
 
                 {/* Frame Badge tag attached at bottom center */}
-                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-6 py-1.5 bg-[#036838] border border-[#FFE600]/40 rounded-full shadow-lg z-20 text-xs font-mono font-black text-white tracking-widest uppercase whitespace-nowrap">
+                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-6 py-1.5 rounded-full shadow-lg z-20 text-xs font-mono font-black text-white tracking-widest uppercase whitespace-nowrap" style={{ backgroundColor: tc.bgColor, borderColor: `${tc.accentColor}66`, borderWidth: '1px' }}>
                   #FrameInGoa
                 </div>
               </div>
@@ -859,13 +883,13 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             {/* Name Box & Role Badge */}
             <div className="relative z-10 flex flex-col items-center mt-6">
               {/* Name Box */}
-              <div className="w-full max-w-[550px] px-8 py-3.5 bg-[#FFFEE0] border-4 border-[#FFE600] rounded-3xl text-center shadow-lg">
-                <div className="font-serif font-black text-2xl text-[#0A3A22] uppercase tracking-wider truncate">
+              <div className="w-full max-w-[550px] px-8 py-3.5 border-4 rounded-3xl text-center shadow-lg" style={{ backgroundColor: tc.nameBg, borderColor: tc.accentColor }}>
+                <div className="font-serif font-black text-2xl uppercase tracking-wider truncate" style={{ color: tc.nameText }}>
                   {name || 'SMRUTISWARUPA PRIYADARSINI'}
                 </div>
               </div>
               {/* Role Tag decorated with marigold stars */}
-              <div className="inline-flex items-center gap-3 mt-4 px-8 py-2.5 rounded-full bg-[#FF007A] text-[#FFE600] text-base font-mono font-black tracking-widest uppercase shadow-lg">
+              <div className={`inline-flex items-center gap-3 mt-4 px-8 py-2.5 rounded-full ${tc.roleBg} text-base font-mono font-black tracking-widest uppercase shadow-lg`} style={{ color: tc.accentColor }}>
                 <span>✹</span>
                 <span>{role.toUpperCase()}</span>
                 <span>✹</span>
@@ -873,14 +897,14 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             </div>
 
             {/* Pass Identifier */}
-            <div className="relative z-10 mt-6 px-8 py-2.5 rounded-full bg-[#024d29] border border-[#FFE600]/30 text-center text-xs font-mono font-black text-white/90 tracking-widest uppercase">
+            <div className="relative z-10 mt-6 px-8 py-2.5 rounded-full text-center text-xs font-mono font-black text-white/90 tracking-widest uppercase" style={{ backgroundColor: tc.squadBg, borderColor: `${tc.accentColor}4D`, borderWidth: '1px' }}>
               ZENITH SQUAD  •  #GOA-2026-{cardId || '0199A'}
             </div>
 
             {/* Footer details & QR */}
             <div className="relative z-10 w-full mt-6 flex flex-col items-center gap-4">
               {/* Centered QR with center emblem overlay */}
-              <div className="relative p-[3px] rounded bg-[#FFE600] shadow-lg">
+              <div className="relative p-[3px] rounded shadow-lg" style={{ backgroundColor: tc.accentColor }}>
                 {cardId ? (
                   <div className="relative">
                     <img
@@ -906,11 +930,11 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               </div>
 
               {/* Marigold garland bottom strip */}
-              <div className="absolute -bottom-12 inset-x-0 h-6 bg-[#024d29] border-t border-[#FFE600]/30 flex justify-between px-2 overflow-hidden select-none">
+              <div className="absolute -bottom-12 inset-x-0 h-6 flex justify-between px-2 overflow-hidden select-none" style={{ backgroundColor: tc.garlandBg, borderTopColor: `${tc.accentColor}4D`, borderTopWidth: '1px' }}>
                 {Array.from({ length: 24 }).map((_, i) => (
                   <div key={i} className="flex items-center justify-center flex-shrink-0 w-8 h-full">
-                    <div className="w-5 h-5 rounded-full bg-[#FFE600] relative flex items-center justify-center shadow-sm">
-                      <div className="absolute w-1.5 h-1.5 rounded-full bg-[#FF007A]" />
+                    <div className="w-5 h-5 rounded-full relative flex items-center justify-center shadow-sm" style={{ backgroundColor: tc.flowerPetal }}>
+                      <div className="absolute w-1.5 h-1.5 rounded-full" style={{ backgroundColor: tc.flowerCore }} />
                     </div>
                   </div>
                 ))}
