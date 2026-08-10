@@ -56,7 +56,7 @@ function VerifyContent() {
   const displayRole = profileData?.role || urlRole;
   const displayTitle = profileData?.title || urlTitle;
   const displayImage = profileData?.image;
-  const displayTimestamp = profileData?.timestamp || 'FEB 2026';
+  const displayTimestamp = profileData?.timestamp || 'OCT 2026';
 
   return (
     <div className="min-h-screen flex flex-col justify-between overflow-x-hidden bg-[#020617] text-slate-100 font-sans relative">

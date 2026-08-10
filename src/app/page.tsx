@@ -161,7 +161,7 @@ export default function Home() {
               VERIFIED BUILDER
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-400">
-              PORT ENTRY: FEB 2026
+              PORT ENTRY: OCT 2026
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-[#00D9F6]/30 bg-[#00D9F6]/10 px-3 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#00D9F6] animate-pulse">
               #FrameInGoa

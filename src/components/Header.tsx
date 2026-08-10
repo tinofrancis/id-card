@@ -60,7 +60,7 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-[9px] sm:text-xs font-bold uppercase tracking-wider text-[#00F5A0] shadow-[0_0_15px_rgba(0,245,160,0.15)]">
             <span className="h-2 w-2 rounded-full bg-[#00F5A0] shadow-[0_0_8px_#00F5A0] animate-ping" />
-            <span>PORT OF GOA • FEB 2026 🌴</span>
+            <span>PORT OF GOA • OCT 2026 🌴</span>
           </div>
 
           {/* Sound FX Toggle Button */}
