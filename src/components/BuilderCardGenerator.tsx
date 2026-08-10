@@ -101,6 +101,119 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
   const highResRef = useRef<HTMLDivElement | null>(null);
   const activeTheme = THEMES.find((t) => t.id === activeThemeId) || THEMES[0];
 
+  const getThemeConfig = (themeId: Theme['id']) => {
+    switch (themeId) {
+      case 'sunset':
+        return {
+          bgColor: '#7a1919',
+          overlayClass: 'absolute inset-0 bg-gradient-to-t from-red-600/35 via-amber-500/25 to-yellow-400/20 mix-blend-color-burn pointer-events-none z-10',
+          accentColor: '#FFE600',
+          pinkColor: '#FF5E62',
+          roleBg: 'bg-[#FF5E62]',
+          roleText: 'text-[#FFE600]',
+          nameBg: '#FFFEE0',
+          nameText: '#7a1919',
+          squadBg: '#5c0e0e',
+          garlandBg: '#5c0e0e',
+          flowerPetal: '#FFE600',
+          flowerCore: '#FF5E62',
+        };
+      case 'matrix':
+        return {
+          bgColor: '#022c22',
+          overlayClass: 'absolute inset-0 bg-emerald-500/25 mix-blend-color pointer-events-none z-10',
+          accentColor: '#00FF66',
+          pinkColor: '#ffffff',
+          roleBg: 'bg-[#00FF66]',
+          roleText: 'text-slate-950',
+          nameBg: '#f0fdf4',
+          nameText: '#022c22',
+          squadBg: '#01251c',
+          garlandBg: '#01251c',
+          flowerPetal: '#00FF66',
+          flowerCore: '#ffffff',
+        };
+      case 'synthwave':
+        return {
+          bgColor: '#3b0764',
+          overlayClass: 'absolute inset-0 bg-gradient-to-tr from-fuchsia-600/30 to-cyan-500/20 mix-blend-color-dodge pointer-events-none z-10',
+          accentColor: '#00D9F6',
+          pinkColor: '#FF007A',
+          roleBg: 'bg-[#FF007A]',
+          roleText: 'text-[#00D9F6]',
+          nameBg: '#fae8ff',
+          nameText: '#3b0764',
+          squadBg: '#22003c',
+          garlandBg: '#22003c',
+          flowerPetal: '#FF007A',
+          flowerCore: '#00D9F6',
+        };
+      case 'midnight':
+        return {
+          bgColor: '#0f172a',
+          overlayClass: 'absolute inset-0 bg-slate-950/50 mix-blend-multiply pointer-events-none z-10',
+          accentColor: '#00FF66',
+          pinkColor: '#94a3b8',
+          roleBg: 'bg-[#1e293b]',
+          roleText: 'text-[#00FF66]',
+          nameBg: '#f8fafc',
+          nameText: '#0f172a',
+          squadBg: '#020617',
+          garlandBg: '#020617',
+          flowerPetal: '#94a3b8',
+          flowerCore: '#00FF66',
+        };
+      case 'holo':
+        return {
+          bgColor: '#1e293b',
+          overlayClass: 'absolute inset-0 bg-indigo-300/25 mix-blend-color-dodge pointer-events-none z-10',
+          accentColor: '#cbd5e1',
+          pinkColor: '#ffffff',
+          roleBg: 'bg-[#cbd5e1]',
+          roleText: 'text-slate-950',
+          nameBg: '#ffffff',
+          nameText: '#1e293b',
+          squadBg: '#0f172a',
+          garlandBg: '#0f172a',
+          flowerPetal: '#ffffff',
+          flowerCore: '#94a3b8',
+        };
+      case 'antigravity':
+        return {
+          bgColor: '#03001e',
+          overlayClass: 'absolute inset-0 bg-gradient-to-b from-indigo-950/60 via-[#7303c0]/40 to-[#ec38bc]/20 mix-blend-color-dodge pointer-events-none z-10',
+          accentColor: '#00F2FE',
+          pinkColor: '#FF007A',
+          roleBg: 'bg-[#FF007A]',
+          roleText: 'text-[#00F2FE]',
+          nameBg: '#fae8ff',
+          nameText: '#03001e',
+          squadBg: '#1c002c',
+          garlandBg: '#1c002c',
+          flowerPetal: '#00F2FE',
+          flowerCore: '#FF007A',
+        };
+      case 'tropic':
+      default:
+        return {
+          bgColor: '#036838',
+          overlayClass: 'absolute inset-0 bg-emerald-950/10 mix-blend-multiply pointer-events-none z-10',
+          accentColor: '#FFE600',
+          pinkColor: '#FF007A',
+          roleBg: 'bg-[#FF007A]',
+          roleText: '#FFE600',
+          nameBg: '#FFFEE0',
+          nameText: '#0A3A22',
+          squadBg: '#024d29',
+          garlandBg: '#024d29',
+          flowerPetal: '#FFE600',
+          flowerCore: '#FF007A',
+        };
+    }
+  };
+
+  const tc = getThemeConfig(activeThemeId);
+
   const getTextureStyle = (texture: 'glass' | 'brushed' | 'carbon' | 'grid' | 'holo', isHighRes: boolean = false) => {
     const scaleFactor = isHighRes ? 3 : 1;
     switch (texture) {

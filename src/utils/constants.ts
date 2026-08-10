@@ -1,5 +1,5 @@
 export interface Theme {
-  id: 'tropic' | 'sunset' | 'matrix' | 'synthwave' | 'midnight' | 'holo';
+  id: 'tropic' | 'sunset' | 'matrix' | 'synthwave' | 'midnight' | 'holo' | 'antigravity';
   name: string;
   gradient: string;
   textGradient: string;
@@ -12,6 +12,18 @@ export interface Theme {
 }
 
 export const THEMES: Theme[] = [
+  {
+    id: 'antigravity',
+    name: 'Antigravity Space 🌌',
+    gradient: 'from-[#00F2FE] via-[#7303c0] to-[#FF007A]',
+    textGradient: 'bg-gradient-to-r from-[#00F2FE] to-[#FF007A] bg-clip-text text-transparent',
+    from: '#00F2FE',
+    to: '#FF007A',
+    glow: 'shadow-[0_0_30px_rgba(0,242,254,0.45)]',
+    borderClass: 'border-[#00F2FE]/30 focus:border-[#00F2FE]',
+    accentText: 'text-[#00F2FE]',
+    bgHex: '#03001e',
+  },
   {
     id: 'tropic',
     name: 'Goa Tropic 🌴',
