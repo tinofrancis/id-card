@@ -12,7 +12,7 @@ export default function Footer() {
           {/* Left copyright */}
           <div className="text-center sm:text-left">
             <p className="text-xs text-slate-300 font-medium">
-              © {new Date().getFullYear()} HH Goa 2026. Built with 🌴 for hackers worldwide.
+              © {new Date().getFullYear()} HH Goa 2026. Built with ✦ for hackers worldwide.
             </p>
             <p className="mt-1 text-[10px] text-slate-500">
               All image processing runs client-side. Your photos never touch our servers.
@@ -30,7 +30,7 @@ export default function Footer() {
               <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
-              <span>Follow @HHGoa2026 🌴</span>
+              <span>Follow @HHGoa2026</span>
               <ArrowUpRight className="h-3 w-3 opacity-60" />
             </a>
             <a
@@ -39,7 +39,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-[#00F5A0] transition-all duration-200"
             >
-              <span>📧 Contact Build Studio</span>
+              <span>✉ Contact Build Studio</span>
               <ArrowUpRight className="h-3 w-3 opacity-60" />
             </a>
             <a
@@ -48,7 +48,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-[#00F5A0] transition-all duration-200"
             >
-              <span>Official Event Site 🌴</span>
+              <span>Official Event Site</span>
               <ArrowUpRight className="h-3 w-3 opacity-60" />
             </a>
           </div>

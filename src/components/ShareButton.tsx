@@ -12,7 +12,7 @@ export default function ShareButton({ mode }: ShareButtonProps) {
 
   const getShareText = () => {
     const item = mode === 'frame' ? 'Profile Frame' : 'Builder Card';
-    return `Ready for HH Goa 2026 🌴🚀\n\nJust generated my official ${item}.\n\nCan't wait to build with everyone!\n\n#FrameInGoa`;
+    return `Ready for HH Goa 2026!\n\nJust generated my official ${item}.\n\nCan't wait to build with everyone!\n\n#FrameInGoa`;
   };
 
   const handleShareToX = () => {

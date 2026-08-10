@@ -101,7 +101,7 @@ export default function Home() {
               transition={{ duration: 0.4 }}
               className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-3.5 py-1 text-[10px] font-bold text-[#00F5A0] shadow-[0_0_15px_rgba(0,245,160,0.05)]"
             >
-              <span>PALM TREE HACKATHON 🌴</span>
+              <span>PALM TREE HACKATHON ✦</span>
             </motion.div>
 
             {/* Goa Location Badge */}

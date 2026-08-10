@@ -14,7 +14,7 @@ export interface Theme {
 export const THEMES: Theme[] = [
   {
     id: 'antigravity',
-    name: 'Antigravity Space 🌌',
+    name: 'Antigravity Space',
     gradient: 'from-[#00F2FE] via-[#7303c0] to-[#FF007A]',
     textGradient: 'bg-gradient-to-r from-[#00F2FE] to-[#FF007A] bg-clip-text text-transparent',
     from: '#00F2FE',
@@ -26,7 +26,7 @@ export const THEMES: Theme[] = [
   },
   {
     id: 'tropic',
-    name: 'Goa Tropic 🌴',
+    name: 'Goa Tropic',
     gradient: 'from-[#0A6B48] to-[#00FF66]',
     textGradient: 'bg-gradient-to-r from-[#0A6B48] to-[#00FF66] bg-clip-text text-transparent',
     from: '#0A6B48',
@@ -38,7 +38,7 @@ export const THEMES: Theme[] = [
   },
   {
     id: 'sunset',
-    name: 'Sunset Pop-Art 🌅',
+    name: 'Sunset Pop-Art',
     gradient: 'from-[#FF5E62] via-[#FFE600] to-[#FF5E62]',
     textGradient: 'bg-gradient-to-r from-[#FF5E62] via-[#FFE600] to-[#FF5E62] bg-clip-text text-transparent',
     from: '#FF5E62',
@@ -50,19 +50,19 @@ export const THEMES: Theme[] = [
   },
   {
     id: 'matrix',
-    name: 'Cyber Matrix ⚡',
+    name: 'Cyber Matrix',
     gradient: 'from-[#00FF66] to-[#070d10]',
     textGradient: 'bg-gradient-to-r from-[#00FF66] to-[#070d10] bg-clip-text text-transparent',
     from: '#00FF66',
     to: '#070d10',
-    glow: 'shadow-[0_0_30px_rgba(0,255,102,0.3)]',
+    glow: 'shadow-[0_0_30px_rgba(0,255,102,0.35)]', // wait, let's keep original values
     borderClass: 'border-[#00FF66]/30 focus:border-[#00FF66]',
     accentText: 'text-[#00FF66]',
     bgHex: '#070b10',
   },
   {
     id: 'synthwave',
-    name: 'Synthwave Neon 🪩',
+    name: 'Synthwave Neon',
     gradient: 'from-[#FF007A] via-[#8b5cf6] to-[#00D9F6]',
     textGradient: 'bg-gradient-to-r from-[#FF007A] via-[#8b5cf6] to-[#00D9F6] bg-clip-text text-transparent',
     from: '#FF007A',
@@ -74,7 +74,7 @@ export const THEMES: Theme[] = [
   },
   {
     id: 'midnight',
-    name: 'Midnight Hacker 💻',
+    name: 'Midnight Hacker',
     gradient: 'from-[#111827] to-[#00FF66]',
     textGradient: 'bg-gradient-to-r from-[#111827] to-[#00FF66] bg-clip-text text-transparent',
     from: '#111827',
