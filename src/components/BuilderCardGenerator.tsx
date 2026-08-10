@@ -533,14 +533,19 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               </div>
 
               {/* Official Brand Title Block */}
-              <div className="relative z-10 flex flex-col items-center mt-2.5 text-center">
-                <h1 className="font-serif font-black text-[25px] sm:text-[29px] tracking-tight text-[#FFE600] leading-none uppercase select-none flex items-center gap-1.5 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
-                  <span>HACKER</span>
-                  <span className="bg-[#FF007A] text-white text-[9px] sm:text-[10px] font-sans font-black px-1.5 py-0.5 rounded border border-white/20 rotate-[-4deg] shadow-md select-none transform translate-y-[-2px]">
+              <div className="relative z-10 flex flex-col items-center mt-2.5 text-center w-full">
+                {/* Base yellow logo text with Devanagari badge overlaid */}
+                <div className="relative h-7 w-52 sm:h-8 sm:w-60 flex items-center justify-center pointer-events-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.55)]">
+                  <img
+                    src="/hacker-house-text.png"
+                    alt="Hacker House Logo"
+                    className="h-full w-full object-contain"
+                  />
+                  {/* Hot-pink Devanagari emblem "गोवा" badge overlaid */}
+                  <div className="absolute top-[38%] left-[49.5%] -translate-x-1/2 -translate-y-1/2 bg-[#FF007A] text-white text-[9px] sm:text-[10px] font-sans font-black px-1.5 py-0.5 rounded border border-white/20 rotate-[-4deg] shadow-md select-none whitespace-nowrap uppercase tracking-wider">
                     गोवा
-                  </span>
-                  <span>HOUSE</span>
-                </h1>
+                  </div>
+                </div>
                 <p className="text-[5.5px] sm:text-[6px] font-sans font-black text-white/95 tracking-wider uppercase mt-1.5">
                   4 DAYS. ONE RHYTHM. EVERYTHING INTENTIONAL.
                 </p>
@@ -690,14 +695,18 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             </div>
 
             {/* Official Brand Title Block */}
-            <div className="relative z-10 flex flex-col items-center mt-6 text-center">
-              <h1 className="font-serif font-black text-6xl tracking-tight text-[#FFE600] leading-none uppercase select-none flex items-center gap-4 drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]">
-                <span>HACKER</span>
-                <span className="bg-[#FF007A] text-white text-2xl font-sans font-black px-4 py-1 rounded-xl border-2 border-white/20 rotate-[-4deg] shadow-lg select-none transform translate-y-[-4px]">
+            <div className="relative z-10 flex flex-col items-center mt-6 text-center w-full">
+              <div className="relative h-20 w-[600px] flex items-center justify-center pointer-events-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]">
+                <img
+                  src="/hacker-house-text.png"
+                  alt="Hacker House Logo"
+                  className="h-full w-full object-contain"
+                />
+                {/* Hot-pink Devanagari emblem "गोवा" badge overlaid */}
+                <div className="absolute top-[38%] left-[49.5%] -translate-x-1/2 -translate-y-1/2 bg-[#FF007A] text-white text-2xl font-sans font-black px-4 py-1 rounded-xl border-2 border-white/20 rotate-[-4deg] shadow-lg select-none whitespace-nowrap uppercase tracking-wider">
                   गोवा
-                </span>
-                <span>HOUSE</span>
-              </h1>
+                </div>
+              </div>
               <p className="text-sm font-sans font-black text-white/95 tracking-[0.2em] uppercase mt-3">
                 4 DAYS. ONE RHYTHM. EVERYTHING INTENTIONAL.
               </p>
