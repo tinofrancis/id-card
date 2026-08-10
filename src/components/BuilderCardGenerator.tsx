@@ -496,7 +496,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 text-center block">
             Live Preview
           </span>
-          {/* Visible badge card (Ticket Style aspect-[10/16]) */}
+          {/* Visible badge card (Ticket Style aspect-[9/16]) */}
           <div
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
@@ -507,7 +507,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               backgroundPosition: 'center',
               imageRendering: '-webkit-optimize-contrast',
             }}
-            className="relative aspect-[10/16] w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-emerald-500/5 flex flex-col justify-between pt-9 transition-transform duration-200 ease-out will-change-transform cursor-crosshair z-0"
+            className="relative aspect-[9/16] w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-emerald-500/5 flex flex-col justify-between pt-9 transition-transform duration-200 ease-out will-change-transform cursor-crosshair z-0"
           >
             {/* Texture blend overlay */}
             {cardTexture !== 'glass' && (
@@ -539,10 +539,10 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             {/* Grid background */}
             <div className="absolute inset-0 opacity-10 digital-grid pointer-events-none z-0" />
 
-            {/* Avatar Photo Frame in the upper-middle green area */}
-            <div className="absolute top-[12%] left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
+            {/* TOP SPACE: Avatar Circle in the top center of the sky space */}
+            <div className="absolute top-[6%] left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
               <div className="relative p-[3px] rounded-full bg-gradient-to-tr from-[#FFE600] via-[#FF007A] to-[#FFE600] shadow-[0_0_20px_rgba(255,0,122,0.45)]">
-                <div className="relative h-[95px] w-[95px] sm:h-[105px] sm:w-[105px] overflow-hidden rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center">
+                <div className="relative h-[85px] w-[85px] sm:h-[95px] sm:w-[95px] overflow-hidden rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center">
                   <AnimatePresence mode="wait">
                     {croppedImage ? (
                       <motion.img
@@ -580,46 +580,33 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               </div>
             </div>
 
-            {/* Name & Role Tag around/above laptop workspace area */}
-            <div className="absolute top-[44%] inset-x-4 z-10 text-center flex flex-col items-center gap-1">
-              <h3 className="font-display font-black text-base sm:text-lg uppercase tracking-wider text-white drop-shadow-[0_2px_10px_rgba(255,0,122,0.85)] filter drop-shadow(0 2px 4px rgba(0,0,0,0.8)) truncate max-w-full">
+            {/* Builder Name & Role Pill in the top sky space below avatar */}
+            <div className="absolute top-[23%] inset-x-4 z-10 text-center flex flex-col items-center gap-1.5">
+              <h3 className="font-display font-black text-xs sm:text-sm uppercase tracking-wider text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] truncate max-w-full">
                 {name || 'HACKER'}
               </h3>
-              <div className="inline-block px-2.5 py-0.5 rounded-full bg-[#00FF66] text-slate-950 text-[6px] sm:text-[7px] font-mono font-black tracking-wider uppercase shadow-[0_0_10px_rgba(0,255,102,0.3)]">
+              <div className="inline-block px-2 py-0.5 rounded-full bg-[#00FF66] text-slate-950 text-[5px] sm:text-[6px] font-mono font-black tracking-wider uppercase shadow-[0_0_10px_rgba(0,255,102,0.3)]">
                 {role.toUpperCase()} BUILDER
               </div>
             </div>
 
-            {/* Glassmorphic Metadata Container overlying the laptop screen area */}
-            <div className="absolute top-[56%] inset-x-6 z-10 p-2.5 sm:p-3 rounded-xl bg-slate-900/85 backdrop-blur-md border border-emerald-400/40 text-left text-[7.5px] sm:text-[8px] font-mono leading-relaxed space-y-0.5 sm:space-y-1 shadow-lg">
-              <div className="grid grid-cols-2 gap-x-2">
-                <span className="text-slate-400 uppercase font-black">STATUS</span>
-                <span className="text-[#00FF66] font-black flex items-center gap-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#00FF66] animate-pulse" />
-                  VERIFIED BUILDER
-                </span>
-              </div>
-              <div className="grid grid-cols-2 gap-x-2">
-                <span className="text-slate-400 uppercase font-black">PORT ENTRY</span>
-                <span className="text-white font-bold">FEB 2026</span>
-              </div>
-              <div className="grid grid-cols-2 gap-x-2">
-                <span className="text-slate-400 uppercase font-black">GPS LOC</span>
-                <span className="text-white font-bold">15.4967° N, 73.8278° E</span>
-              </div>
-              <div className="grid grid-cols-2 gap-x-2">
-                <span className="text-slate-400 uppercase font-black">TRACK</span>
-                <span className="text-[#FFE600] font-black truncate">AI & DATA SCIENCE</span>
+            {/* MIDDLE SPACE: Compact Metadata Card sitting over the house palms */}
+            <div className="absolute top-[36%] inset-x-8 z-10 p-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-yellow-400/30 text-left text-[7px] sm:text-[8px] font-mono leading-relaxed shadow-lg">
+              <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-white">
+                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[5.5px] sm:text-[6px]">STATUS</span><span className="text-[#00FF66] font-extrabold flex items-center gap-0.5"><span className="h-1 w-1 rounded-full bg-[#00FF66] animate-pulse" />VERIFIED</span></div>
+                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[5.5px] sm:text-[6px]">ENTRY</span><span className="font-bold">FEB 2026</span></div>
+                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[5.5px] sm:text-[6px]">GPS</span><span className="font-bold">15.4967° N</span></div>
+                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[5.5px] sm:text-[6px]">TRACK</span><span className="text-[#FFE600] font-bold truncate">AI & DEV</span></div>
               </div>
             </div>
 
-            {/* Ticket Notches */}
-            <div className="absolute left-0 top-[79%] -translate-x-1/2 w-4 h-4 rounded-full bg-slate-950 border border-white/10 z-30" />
-            <div className="absolute right-0 top-[79%] translate-x-1/2 w-4 h-4 rounded-full bg-slate-950 border border-white/10 z-30" />
+            {/* Ticket Notches - Positioned at bottom dividing laptop keyboard from wooden desk */}
+            <div className="absolute left-0 top-[84.5%] -translate-x-1/2 w-4 h-4 rounded-full bg-slate-950 border border-white/10 z-30" />
+            <div className="absolute right-0 top-[84.5%] translate-x-1/2 w-4 h-4 rounded-full bg-slate-950 border border-white/10 z-30" />
             {/* Ticket Dash line */}
-            <div className="absolute inset-x-0 top-[79%] border-t-2 border-dashed border-[#FF007A]/50 z-20 pointer-events-none shadow-[0_0_8px_rgba(255,0,122,0.35)]" />
+            <div className="absolute inset-x-0 top-[84.5%] border-t-2 border-dashed border-[#FF007A]/50 z-20 pointer-events-none shadow-[0_0_8px_rgba(255,0,122,0.35)]" />
 
-            {/* Bottom Bar: QR, Barcode, Details */}
+            {/* BOTTOM SPACE: Anchored neatly on the wooden desk bottom area */}
             <div className="absolute bottom-[2%] inset-x-6 z-10 flex justify-between items-center pt-2">
               {/* Holographic Security Seal (Bottom Left) */}
               <div className="flex items-center">
@@ -645,7 +632,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                     <span className="h-0.5 w-0.5 rounded-full bg-[#00F5A0] animate-ping" />
                     TICKET VIP
                   </span>
-                  <span className="text-[6px] font-mono text-slate-300 font-bold leading-none mt-0.5">#GOA-{cardId || '2026-BND'}</span>
+                  <span className="text-[6px] font-mono text-[#FFE600] font-bold leading-none mt-0.5">#GOA-{cardId || '2026-BND'}</span>
                 </div>
                 {/* QR representation with glowing pink border */}
                 <div className="relative p-[1px] rounded bg-gradient-to-tr from-[#FF007A] to-[#FFE600] shadow-[0_0_8px_rgba(255,0,122,0.25)]">
@@ -666,31 +653,24 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
         </div>
       </div>
       {/* ===========================================================
-          HIDDEN OFF-SCREEN 1080x1350 CANVAS FOR PNG EXPORT
+          HIDDEN OFF-SCREEN 1080x1920 CANVAS FOR PNG EXPORT
           ==================================================== */}
       <div className="badge-canvas-container">
         <div
           ref={highResRef}
-          style={{}}
-          className="w-[1080px] h-[1728px] border-[16px] border-solid border-slate-900 text-white flex flex-col justify-between p-20 pt-28 font-sans relative overflow-hidden"
+          style={{
+            backgroundImage: "url('/builder-bg.jpg')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            imageRendering: '-webkit-optimize-contrast',
+          }}
+          className="w-[1080px] h-[1920px] border-[16px] border-solid border-slate-900 text-white flex flex-col justify-between p-20 pt-28 font-sans relative overflow-hidden"
         >
-          {/* Layer 0: Goa Beach Scene Backdrop */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#FF7E5F] to-[#FEB47B] z-0" />
-          {/* Tropical Sun */}
-          <div className="absolute top-[10%] left-[55%] w-[350px] h-[350px] rounded-full bg-gradient-to-t from-[#FFE600] to-[#FF007A] opacity-80 blur-[6px] shadow-[0_0_150px_rgba(255,230,0,0.4)] z-0" />
-          {/* Arabian Sea Ocean */}
-          <div className="absolute bottom-0 inset-x-0 h-[42%] bg-gradient-to-t from-[#0083B0] to-[#00B4DB] z-0 border-t-2 border-cyan-300/30" />
-          {/* Ocean Waves Wavelet overlay */}
-          <div className="absolute bottom-0 inset-x-0 h-[42%] opacity-15 bg-[radial-gradient(ellipse_at_50%_0%,_#ffffff_0%,_transparent_70%)] z-0" />
-
-          {/* Glass backdrop overlay */}
-          <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-md z-0" />
-
           {/* Texture blend overlay */}
           {cardTexture !== 'glass' && (
             <div
               style={getTextureStyle(cardTexture, true)}
-              className="absolute inset-0 z-10 pointer-events-none opacity-30 mix-blend-overlay"
+              className="absolute inset-0 z-10 pointer-events-none opacity-20 mix-blend-overlay"
             />
           )}
 
@@ -712,10 +692,10 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           <div className={`absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-25 blur-[120px]`} />
           <div className={`absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-slate-900 opacity-20 blur-[80px]`} />
 
-          {/* Avatar Photo Frame in the upper-middle green area */}
-          <div className="absolute top-[12%] left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
+          {/* TOP SPACE: Avatar Circle in the top center of the sky space */}
+          <div className="absolute top-[6%] left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
             <div className="relative p-[9px] rounded-full bg-gradient-to-tr from-[#FFE600] via-[#FF007A] to-[#FFE600] shadow-[0_0_60px_rgba(255,0,122,0.45)]">
-              <div className="relative h-[290px] w-[290px] overflow-hidden rounded-full bg-slate-900 border-[3px] border-slate-950 flex items-center justify-center">
+              <div className="relative h-[270px] w-[270px] overflow-hidden rounded-full bg-slate-900 border-[3px] border-slate-950 flex items-center justify-center">
                 {croppedImage ? (
                   <img
                     src={croppedImage}
@@ -737,9 +717,9 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             </div>
           </div>
 
-          {/* Name & Role Tag around/above laptop workspace area */}
-          <div className="absolute top-[44%] inset-x-12 z-10 text-center flex flex-col items-center gap-3">
-            <h3 className="font-display font-black text-6xl uppercase tracking-[0.05em] text-white drop-shadow-[0_4px_24px_rgba(255,0,122,0.85)] filter drop-shadow(0 4px 8px rgba(0,0,0,0.8)) truncate px-4 max-w-full">
+          {/* Builder Name & Role Pill in the top sky space below avatar */}
+          <div className="absolute top-[23%] inset-x-12 z-10 text-center flex flex-col items-center gap-3">
+            <h3 className="font-display font-black text-5xl uppercase tracking-[0.05em] text-white drop-shadow-[0_6px_24px_rgba(0,0,0,0.8)] truncate px-4 max-w-full">
               {name || 'HACKER'}
             </h3>
             <div className="inline-block px-6 py-1.5 rounded-full bg-[#00FF66] text-slate-950 text-base font-mono font-black tracking-wider uppercase shadow-[0_0_20px_rgba(0,255,102,0.4)]">
@@ -747,34 +727,21 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             </div>
           </div>
 
-          {/* Glassmorphic Metadata Container overlying the laptop screen area */}
-          <div className="absolute top-[56%] inset-x-20 z-10 p-8 rounded-2xl bg-slate-900/85 border-2 border-emerald-400/30 text-left text-sm font-mono leading-relaxed space-y-2.5 shadow-2xl">
-            <div className="grid grid-cols-2 gap-x-4">
-              <span className="text-slate-500 uppercase font-black">STATUS</span>
-              <span className="text-[#00FF66] font-black flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full bg-[#00FF66] animate-pulse" />
-                VERIFIED BUILDER
-              </span>
-            </div>
-            <div className="grid grid-cols-2 gap-x-4">
-              <span className="text-slate-500 uppercase font-black">PORT ENTRY</span>
-              <span className="text-white font-bold">FEB 2026</span>
-            </div>
-            <div className="grid grid-cols-2 gap-x-4">
-              <span className="text-slate-500 uppercase font-black">GPS LOC</span>
-              <span className="text-white font-bold">15.4967° N, 73.8278° E</span>
-            </div>
-            <div className="grid grid-cols-2 gap-x-4">
-              <span className="text-slate-500 uppercase font-black">TRACK</span>
-              <span className="text-[#FFE600] font-black truncate">AI & DATA SCIENCE</span>
+          {/* MIDDLE SPACE: Compact Metadata Card sitting over the house palms */}
+          <div className="absolute top-[36%] inset-x-24 z-10 p-8 rounded-3xl bg-black/60 border-2 border-yellow-400/30 text-left text-sm font-mono leading-relaxed shadow-2xl">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-white text-lg">
+              <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-xs">STATUS</span><span className="text-[#00FF66] font-extrabold flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-[#00FF66] animate-pulse" />VERIFIED</span></div>
+              <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-xs">ENTRY</span><span className="font-bold">FEB 2026</span></div>
+              <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-xs">GPS</span><span className="font-bold">15.4967° N</span></div>
+              <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-xs">TRACK</span><span className="text-[#FFE600] font-bold truncate">AI & DATA SCIENCE</span></div>
             </div>
           </div>
 
           {/* Ticket Notches */}
-          <div className="absolute left-0 top-[79%] -translate-x-1/2 w-12 h-12 rounded-full bg-slate-950 border border-white/10 z-30" />
-          <div className="absolute right-0 top-[79%] translate-x-1/2 w-12 h-12 rounded-full bg-slate-950 border border-white/10 z-30" />
+          <div className="absolute left-0 top-[84.5%] -translate-x-1/2 w-12 h-12 rounded-full bg-slate-950 border border-white/10 z-30" />
+          <div className="absolute right-0 top-[84.5%] translate-x-1/2 w-12 h-12 rounded-full bg-slate-950 border border-white/10 z-30" />
           {/* Ticket Dash line */}
-          <div className="absolute inset-x-0 top-[79%] border-t-4 border-dashed border-[#FF007A]/50 z-20 pointer-events-none shadow-[0_0_24px_rgba(255,0,122,0.35)]" />
+          <div className="absolute inset-x-0 top-[84.5%] border-t-4 border-dashed border-[#FF007A]/50 z-20 pointer-events-none shadow-[0_0_24px_rgba(255,0,122,0.35)]" />
 
           {/* Footer of card */}
           <div className="absolute bottom-[2%] inset-x-20 z-10 flex justify-between items-center pt-8">
@@ -802,7 +769,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   <span className="h-2 w-2 rounded-full bg-[#00F5A0]" />
                   TICKET VIP
                 </span>
-                <span className="text-lg font-mono text-white leading-none tracking-widest font-bold">#GOA-{cardId || '2026-BUILD'}</span>
+                <span className="text-lg font-mono text-[#FFE600] leading-none tracking-widest font-bold">#GOA-{cardId || '2026-BUILD'}</span>
               </div>
               {/* QR block with gradient border */}
               <div className="relative p-[3px] rounded-xl bg-gradient-to-tr from-[#FF007A] to-[#FFE600] shadow-[0_0_24px_rgba(255,0,122,0.25)]">
