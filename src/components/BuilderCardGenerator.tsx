@@ -495,54 +495,86 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
         <div className="w-full max-w-[400px] flex flex-col gap-4">
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 text-center block">
             Live Preview
-          </span>
-          {/* Visible badge card (Ticket Style aspect-[9/16]) */}
+          </span>          {/* Visible badge card (VIP Festival Pass aspect-[10/16]) */}
           <div
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={{ 
               ...tiltStyle, 
-              backgroundImage: "url('/builder-bg.jpg')",
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              imageRendering: '-webkit-optimize-contrast',
+              boxShadow: '0 0 30px rgba(255,0,122,0.15), inset 0 0 0 1px rgba(255,230,0,0.3)'
             }}
-            className="relative aspect-[9/16] w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-emerald-500/5 flex flex-col justify-between pt-9 transition-transform duration-200 ease-out will-change-transform cursor-crosshair z-0"
+            className="relative aspect-[10/16] w-full overflow-hidden rounded-3xl border border-white/10 flex flex-col justify-between transition-transform duration-200 ease-out will-change-transform cursor-crosshair z-0 bg-slate-950"
           >
-            {/* Texture blend overlay */}
-            {cardTexture !== 'glass' && (
-              <div
-                style={getTextureStyle(cardTexture)}
-                className="absolute inset-0 z-10 pointer-events-none opacity-20 mix-blend-overlay"
-              />
-            )}
-
-            {/* VIP Header Ribbon overlying/aligning with the bamboo beam */}
-            <div className="absolute top-0 inset-x-0 bg-gradient-to-r from-[#FF007A] via-[#FFE600] to-[#FF007A] text-[6px] sm:text-[7px] font-mono font-black tracking-widest text-slate-950 text-center py-1 uppercase z-30 shadow-md">
-              HH GOA 2026 • OFFICIAL BUILDER PASS
-            </div>
-
-            {/* Holographic foil overlay sheen */}
-            {cardTexture === 'holo' && (
-              <div
-                style={holoStyle}
-                className="absolute inset-0 z-10 pointer-events-none transition-opacity duration-300"
-              />
-            )}
-
             {/* 3D Reflection Glare Overlay */}
             <div
               style={glareStyle}
-              className="absolute inset-0 z-20 pointer-events-none opacity-40 transition-opacity duration-300"
+              className="absolute inset-0 z-40 pointer-events-none opacity-40 transition-opacity duration-300"
             />
-            
-            {/* Grid background */}
-            <div className="absolute inset-0 opacity-10 digital-grid pointer-events-none z-0" />
 
-            {/* TOP SPACE: Avatar Circle in the top center of the sky space */}
-            <div className="absolute top-[6%] left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
+            {/* TOP PORTION (Illustration Canvas - 55% Height) */}
+            <div className="relative h-[55%] w-full overflow-hidden border-b border-yellow-400/20 z-0">
+              <img 
+                src="/builder-bg.jpg" 
+                alt="Goa Beach Shack Pop-Art" 
+                className="w-full h-full object-cover"
+                style={{ imageRendering: '-webkit-optimize-contrast' }}
+              />
+              {/* TOP Ribbon */}
+              <div className="absolute top-0 inset-x-0 bg-gradient-to-r from-[#FF007A] via-[#FFE600] to-[#FF007A] text-[6px] sm:text-[7px] font-mono font-black tracking-widest text-slate-950 text-center py-1 uppercase z-30 shadow-md">
+                HH GOA 2026 • VIP BUILDER PASS
+              </div>
+            </div>
+
+            {/* BOTTOM PORTION (Builder Metadata Panel - 45% Height) */}
+            <div className="relative h-[45%] w-full bg-slate-900/95 backdrop-blur-xl flex flex-col justify-between p-4 pt-10 pb-2 z-10">
+              
+              {/* Builder Info Section */}
+              <div className="flex flex-col items-center text-center gap-1.5 mt-2">
+                <h3 className="font-display font-black text-sm sm:text-base uppercase tracking-wider text-[#FFE600] drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] filter drop-shadow(0 2px 4px rgba(255,230,0,0.3)) truncate max-w-full">
+                  {name || 'HACKER'}
+                </h3>
+                <div className="inline-block px-2.5 py-0.5 rounded-full bg-[#00FF66] text-slate-950 text-[6px] sm:text-[7px] font-mono font-black tracking-wider uppercase shadow-[0_0_10px_rgba(0,255,102,0.3)]">
+                  {role.toUpperCase()} BUILDER
+                </div>
+              </div>
+
+              {/* Key-Value Metadata Grid (2-column layout) */}
+              <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 p-2 rounded-xl bg-slate-950/60 border border-white/5 text-left text-[6.5px] sm:text-[7px] font-mono leading-relaxed text-white">
+                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[5.5px] sm:text-[6px]">STATUS</span><span className="text-[#00FF66] font-extrabold flex items-center gap-0.5"><span className="h-1 w-1 rounded-full bg-[#00FF66] animate-pulse" />VERIFIED</span></div>
+                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[5.5px] sm:text-[6px]">ENTRY</span><span className="font-bold">FEB 2026</span></div>
+                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[5.5px] sm:text-[6px]">GPS LOC</span><span className="font-bold">15.4967° N</span></div>
+                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[5.5px] sm:text-[6px]">TRACK</span><span className="text-[#FFE600] font-bold truncate">AI & DATA SCI</span></div>
+              </div>
+
+              {/* Bottom ticket bar stub area split by dashed perforation line */}
+              <div className="w-full border-t border-dashed border-[#FF007A]/40 pt-2 flex justify-between items-center">
+                <div className="flex flex-col text-left">
+                  <span className="text-[4px] font-mono font-bold tracking-widest text-[#00F5A0] flex items-center gap-0.5">
+                    <span className="h-0.5 w-0.5 rounded-full bg-[#00F5A0] animate-ping" />
+                    TICKET VIP
+                  </span>
+                  <span className="text-[5.5px] font-mono text-[#FFE600] font-bold leading-none mt-0.5">#GOA-{cardId || 'B05RLYHO'}</span>
+                </div>
+                {/* QR block with gradient border */}
+                <div className="relative p-[1px] rounded bg-gradient-to-tr from-[#FF007A] to-[#FFE600] shadow-[0_0_8px_rgba(255,0,122,0.25)]">
+                  {cardId ? (
+                    <img
+                      src={qrImageUrl}
+                      alt="QR Verification Link"
+                      crossOrigin="anonymous"
+                      className="h-6 w-6 object-contain rounded bg-slate-950"
+                    />
+                  ) : (
+                    <QRCodeSVG className="h-6 w-6 text-white animate-pulse" />
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* OVERLAPPING AVATAR FRAME: Positioned exactly at the boundary line */}
+            <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
               <div className="relative p-[3px] rounded-full bg-gradient-to-tr from-[#FFE600] via-[#FF007A] to-[#FFE600] shadow-[0_0_20px_rgba(255,0,122,0.45)]">
-                <div className="relative h-[85px] w-[85px] sm:h-[95px] sm:w-[95px] overflow-hidden rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center">
+                <div className="relative h-[68px] w-[68px] sm:h-[76px] sm:w-[76px] overflow-hidden rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center">
                   <AnimatePresence mode="wait">
                     {croppedImage ? (
                       <motion.img
@@ -565,12 +597,12 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.25, ease: 'easeOut' }}
-                        className="flex flex-col items-center justify-center p-3 text-center opacity-40"
+                        className="flex flex-col items-center justify-center p-2 text-center opacity-40"
                       >
-                        <svg className="h-7 w-7 text-slate-400 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="h-5 w-5 text-slate-400 mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
-                        <p className="text-[6px] font-mono font-bold text-slate-400 uppercase tracking-wider">
+                        <p className="text-[5px] font-mono font-bold text-slate-400 uppercase tracking-wider">
                           NO PHOTO
                         </p>
                       </motion.div>
@@ -579,123 +611,82 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 </div>
               </div>
             </div>
-
-            {/* Builder Name & Role Pill in the top sky space below avatar */}
-            <div className="absolute top-[23%] inset-x-4 z-10 text-center flex flex-col items-center gap-1.5">
-              <h3 className="font-display font-black text-xs sm:text-sm uppercase tracking-wider text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] truncate max-w-full">
-                {name || 'HACKER'}
-              </h3>
-              <div className="inline-block px-2 py-0.5 rounded-full bg-[#00FF66] text-slate-950 text-[5px] sm:text-[6px] font-mono font-black tracking-wider uppercase shadow-[0_0_10px_rgba(0,255,102,0.3)]">
-                {role.toUpperCase()} BUILDER
-              </div>
-            </div>
-
-            {/* MIDDLE SPACE: Compact Metadata Card sitting over the house palms */}
-            <div className="absolute top-[36%] inset-x-8 z-10 p-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-yellow-400/30 text-left text-[7px] sm:text-[8px] font-mono leading-relaxed shadow-lg">
-              <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-white">
-                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[5.5px] sm:text-[6px]">STATUS</span><span className="text-[#00FF66] font-extrabold flex items-center gap-0.5"><span className="h-1 w-1 rounded-full bg-[#00FF66] animate-pulse" />VERIFIED</span></div>
-                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[5.5px] sm:text-[6px]">ENTRY</span><span className="font-bold">FEB 2026</span></div>
-                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[5.5px] sm:text-[6px]">GPS</span><span className="font-bold">15.4967° N</span></div>
-                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[5.5px] sm:text-[6px]">TRACK</span><span className="text-[#FFE600] font-bold truncate">AI & DEV</span></div>
-              </div>
-            </div>
-
-            {/* Ticket Notches - Positioned at bottom dividing laptop keyboard from wooden desk */}
-            <div className="absolute left-0 top-[84.5%] -translate-x-1/2 w-4 h-4 rounded-full bg-slate-950 border border-white/10 z-30" />
-            <div className="absolute right-0 top-[84.5%] translate-x-1/2 w-4 h-4 rounded-full bg-slate-950 border border-white/10 z-30" />
-            {/* Ticket Dash line */}
-            <div className="absolute inset-x-0 top-[84.5%] border-t-2 border-dashed border-[#FF007A]/50 z-20 pointer-events-none shadow-[0_0_8px_rgba(255,0,122,0.35)]" />
-
-            {/* BOTTOM SPACE: Anchored neatly on the wooden desk bottom area */}
-            <div className="absolute bottom-[2%] inset-x-6 z-10 flex justify-between items-center pt-2">
-              {/* Holographic Security Seal (Bottom Left) */}
-              <div className="flex items-center">
-                <div 
-                  style={{
-                    background: 'linear-gradient(135deg, #FF007A 0%, #00F0FF 50%, #00F5A0 100%)',
-                    boxShadow: '0 0 10px rgba(0, 240, 255, 0.4)'
-                  }}
-                  className="relative h-8 w-8 rounded-full flex items-center justify-center p-[1px] border border-white/20 select-none animate-pulse"
-                >
-                  <div className="h-full w-full rounded-full bg-slate-950/90 flex flex-col items-center justify-center text-center p-0.5">
-                    <span className="text-[3px] font-black tracking-wider text-[#00F5A0] font-mono leading-none">HH GOA</span>
-                    <span className="text-[3.5px] font-black tracking-widest text-white font-mono leading-none mt-0.5">2026</span>
-                    <span className="text-[2.5px] font-mono font-bold text-slate-400 mt-0.5 uppercase tracking-wider leading-none">VIP SEAL</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Badge Code & Coordinate Micro-typography (Right) */}
-              <div className="flex items-center gap-1.5">
-                <div className="flex flex-col text-right">
-                  <span className="text-[4.5px] font-mono font-bold tracking-widest text-[#00F5A0] flex items-center gap-0.5 justify-end">
-                    <span className="h-0.5 w-0.5 rounded-full bg-[#00F5A0] animate-ping" />
-                    TICKET VIP
-                  </span>
-                  <span className="text-[6px] font-mono text-[#FFE600] font-bold leading-none mt-0.5">#GOA-{cardId || '2026-BND'}</span>
-                </div>
-                {/* QR representation with glowing pink border */}
-                <div className="relative p-[1px] rounded bg-gradient-to-tr from-[#FF007A] to-[#FFE600] shadow-[0_0_8px_rgba(255,0,122,0.25)]">
-                  {cardId ? (
-                    <img
-                      src={qrImageUrl}
-                      alt="QR Verification Link"
-                      crossOrigin="anonymous"
-                      className="h-7 w-7 object-contain rounded bg-slate-950"
-                    />
-                  ) : (
-                    <QRCodeSVG className="h-7 w-7 text-white animate-pulse" />
-                  )}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
+
       {/* ===========================================================
-          HIDDEN OFF-SCREEN 1080x1920 CANVAS FOR PNG EXPORT
+          HIDDEN OFF-SCREEN 1080x1728 CANVAS FOR PNG EXPORT
           ==================================================== */}
       <div className="badge-canvas-container">
         <div
           ref={highResRef}
-          style={{
-            backgroundImage: "url('/builder-bg.jpg')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            imageRendering: '-webkit-optimize-contrast',
-          }}
-          className="w-[1080px] h-[1920px] border-[16px] border-solid border-slate-900 text-white flex flex-col justify-between p-20 pt-28 font-sans relative overflow-hidden"
+          style={{}}
+          className="w-[1080px] h-[1728px] border-[16px] border-solid border-slate-900 text-white flex flex-col justify-between font-sans relative overflow-hidden bg-slate-950"
         >
-          {/* Texture blend overlay */}
-          {cardTexture !== 'glass' && (
-            <div
-              style={getTextureStyle(cardTexture, true)}
-              className="absolute inset-0 z-10 pointer-events-none opacity-20 mix-blend-overlay"
+          {/* TOP PORTION */}
+          <div className="relative h-[55%] w-full overflow-hidden border-b-4 border-yellow-400/20 z-0">
+            <img 
+              src="/builder-bg.jpg" 
+              alt="Goa Beach Shack Pop-Art" 
+              className="w-full h-full object-cover"
+              style={{ imageRendering: '-webkit-optimize-contrast' }}
             />
-          )}
-
-          {/* VIP Header Ribbon overlying/aligning with the bamboo beam */}
-          <div className="absolute top-0 inset-x-0 bg-gradient-to-r from-[#FF007A] via-[#FFE600] to-[#FF007A] text-[20px] font-mono font-black tracking-widest text-slate-950 text-center py-2 uppercase z-30 shadow-md">
-            HH GOA 2026 • OFFICIAL BUILDER PASS
+            {/* VIP Header Ribbon */}
+            <div className="absolute top-0 inset-x-0 bg-gradient-to-r from-[#FF007A] via-[#FFE600] to-[#FF007A] text-[20px] font-mono font-black tracking-widest text-slate-950 text-center py-2 uppercase z-30 shadow-md">
+              HH GOA 2026 • VIP BUILDER PASS
+            </div>
           </div>
 
-          {/* Grid Pattern */}
-          <div
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: 'radial-gradient(rgba(255,255,255,0.2) 2px, transparent 2px)',
-              backgroundSize: '60px 60px',
-            }}
-          />
+          {/* BOTTOM PORTION */}
+          <div className="relative h-[45%] w-full bg-slate-900/95 flex flex-col justify-between p-12 pt-28 pb-6 z-10">
+            
+            {/* Name & Role tag */}
+            <div className="flex flex-col items-center text-center gap-4 mt-4">
+              <h3 className="font-display font-black text-5xl uppercase tracking-[0.05em] text-[#FFE600] drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)] filter drop-shadow(0 4px 6px rgba(255,230,0,0.3)) truncate px-4 max-w-full">
+                {name || 'HACKER'}
+              </h3>
+              <div className="inline-block px-6 py-1.5 rounded-full bg-[#00FF66] text-slate-950 text-base font-mono font-black tracking-wider uppercase shadow-[0_0_20px_rgba(0,255,102,0.4)]">
+                {role.toUpperCase()} BUILDER
+              </div>
+            </div>
 
-          {/* Glow blobs */}
-          <div className={`absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-gradient-to-br ${activeTheme.gradient} opacity-25 blur-[120px]`} />
-          <div className={`absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-slate-900 opacity-20 blur-[80px]`} />
+            {/* Metadata Grid */}
+            <div className="grid grid-cols-2 gap-x-8 gap-y-4 p-6 rounded-2xl bg-slate-950/60 border border-white/5 text-left text-sm font-mono leading-relaxed text-white">
+              <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-xs">STATUS</span><span className="text-[#00FF66] font-extrabold flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-[#00FF66] animate-pulse" />VERIFIED</span></div>
+              <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-xs">ENTRY</span><span className="font-bold">FEB 2026</span></div>
+              <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-xs">GPS LOC</span><span className="font-bold">15.4967° N</span></div>
+              <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-xs">TRACK</span><span className="text-[#FFE600] font-bold truncate">AI & DATA SCIENCE</span></div>
+            </div>
 
-          {/* TOP SPACE: Avatar Circle in the top center of the sky space */}
-          <div className="absolute top-[6%] left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
+            {/* Bottom Ticket Bar */}
+            <div className="w-full border-t-2 border-dashed border-[#FF007A]/40 pt-4 flex justify-between items-center">
+              <div className="flex flex-col text-left gap-1">
+                <span className="text-[10px] font-mono font-bold tracking-widest text-[#00F5A0] flex items-center gap-1.5">
+                  <span className="h-2 w-2 rounded-full bg-[#00F5A0]" />
+                  TICKET VIP
+                </span>
+                <span className="text-lg font-mono text-[#FFE600] leading-none tracking-widest font-bold">#GOA-{cardId || 'B05RLYHO'}</span>
+              </div>
+              <div className="relative p-[3px] rounded-xl bg-gradient-to-tr from-[#FF007A] to-[#FFE600] shadow-[0_0_24px_rgba(255,0,122,0.25)]">
+                {cardId ? (
+                  <img
+                    src={qrImageUrl}
+                    alt="QR Verification Link"
+                    crossOrigin="anonymous"
+                    className="h-20 w-20 object-contain rounded bg-slate-950"
+                  />
+                ) : (
+                  <QRCodeSVG className={`h-20 w-20 text-white`} />
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Overlapping Avatar Photo Frame */}
+          <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
             <div className="relative p-[9px] rounded-full bg-gradient-to-tr from-[#FFE600] via-[#FF007A] to-[#FFE600] shadow-[0_0_60px_rgba(255,0,122,0.45)]">
-              <div className="relative h-[270px] w-[270px] overflow-hidden rounded-full bg-slate-900 border-[3px] border-slate-950 flex items-center justify-center">
+              <div className="relative h-[220px] w-[220px] overflow-hidden rounded-full bg-slate-900 border-[3px] border-slate-950 flex items-center justify-center">
                 {croppedImage ? (
                   <img
                     src={croppedImage}
@@ -707,81 +698,11 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center opacity-40 select-none">
-                    <svg className="h-24 w-24 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="h-16 w-16 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                     <span className="text-xs font-mono font-bold text-slate-400 tracking-wider mt-2">NO PHOTO</span>
                   </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Builder Name & Role Pill in the top sky space below avatar */}
-          <div className="absolute top-[23%] inset-x-12 z-10 text-center flex flex-col items-center gap-3">
-            <h3 className="font-display font-black text-5xl uppercase tracking-[0.05em] text-white drop-shadow-[0_6px_24px_rgba(0,0,0,0.8)] truncate px-4 max-w-full">
-              {name || 'HACKER'}
-            </h3>
-            <div className="inline-block px-6 py-1.5 rounded-full bg-[#00FF66] text-slate-950 text-base font-mono font-black tracking-wider uppercase shadow-[0_0_20px_rgba(0,255,102,0.4)]">
-              {role.toUpperCase()} BUILDER
-            </div>
-          </div>
-
-          {/* MIDDLE SPACE: Compact Metadata Card sitting over the house palms */}
-          <div className="absolute top-[36%] inset-x-24 z-10 p-8 rounded-3xl bg-black/60 border-2 border-yellow-400/30 text-left text-sm font-mono leading-relaxed shadow-2xl">
-            <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-white text-lg">
-              <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-xs">STATUS</span><span className="text-[#00FF66] font-extrabold flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-[#00FF66] animate-pulse" />VERIFIED</span></div>
-              <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-xs">ENTRY</span><span className="font-bold">FEB 2026</span></div>
-              <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-xs">GPS</span><span className="font-bold">15.4967° N</span></div>
-              <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-xs">TRACK</span><span className="text-[#FFE600] font-bold truncate">AI & DATA SCIENCE</span></div>
-            </div>
-          </div>
-
-          {/* Ticket Notches */}
-          <div className="absolute left-0 top-[84.5%] -translate-x-1/2 w-12 h-12 rounded-full bg-slate-950 border border-white/10 z-30" />
-          <div className="absolute right-0 top-[84.5%] translate-x-1/2 w-12 h-12 rounded-full bg-slate-950 border border-white/10 z-30" />
-          {/* Ticket Dash line */}
-          <div className="absolute inset-x-0 top-[84.5%] border-t-4 border-dashed border-[#FF007A]/50 z-20 pointer-events-none shadow-[0_0_24px_rgba(255,0,122,0.35)]" />
-
-          {/* Footer of card */}
-          <div className="absolute bottom-[2%] inset-x-20 z-10 flex justify-between items-center pt-8">
-            {/* Holographic Security Seal (Bottom Left) */}
-            <div className="flex items-center">
-              <div 
-                style={{
-                  background: 'linear-gradient(135deg, #FF007A 0%, #00F0FF 50%, #00F5A0 100%)',
-                  boxShadow: '0 0 30px rgba(0, 240, 255, 0.4)'
-                }}
-                className="relative h-28 w-28 rounded-full flex items-center justify-center p-[3px] border border-white/20 select-none animate-pulse"
-              >
-                <div className="h-full w-full rounded-full bg-slate-950/90 flex flex-col items-center justify-center text-center p-1.5">
-                  <span className="text-[9px] font-black tracking-widest text-[#00F5A0] font-mono leading-none">HH GOA</span>
-                  <span className="text-[10px] font-black tracking-widest text-white font-mono leading-none mt-1.5">2026</span>
-                  <span className="text-[7px] font-mono font-bold text-slate-400 mt-1.5 uppercase tracking-widest leading-none">VIP SEAL</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Badge Code & Coordinate Micro-typography (Right) */}
-            <div className="flex items-center gap-5">
-              <div className="flex flex-col text-right gap-1">
-                <span className="text-[10px] font-mono font-bold tracking-widest text-[#00F5A0] flex items-center gap-1.5 justify-end">
-                  <span className="h-2 w-2 rounded-full bg-[#00F5A0]" />
-                  TICKET VIP
-                </span>
-                <span className="text-lg font-mono text-[#FFE600] leading-none tracking-widest font-bold">#GOA-{cardId || '2026-BUILD'}</span>
-              </div>
-              {/* QR block with gradient border */}
-              <div className="relative p-[3px] rounded-xl bg-gradient-to-tr from-[#FF007A] to-[#FFE600] shadow-[0_0_24px_rgba(255,0,122,0.25)]">
-                {cardId ? (
-                  <img
-                    src={qrImageUrl}
-                    alt="QR Verification Link"
-                    crossOrigin="anonymous"
-                    className="h-24 w-24 object-contain rounded-md bg-slate-950"
-                  />
-                ) : (
-                  <QRCodeSVG className={`h-24 w-24 text-white`} />
                 )}
               </div>
             </div>
