@@ -89,6 +89,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
   const [cardId, setCardId] = useState('');
   const [domain, setDomain] = useState('');
   const [cardTexture, setCardTexture] = useState<'glass' | 'brushed' | 'carbon' | 'grid' | 'holo'>('glass');
+  const [cardLayout, setCardLayout] = useState<'classic' | 'beach'>('classic');
   const [holoStyle, setHoloStyle] = useState<React.CSSProperties>({});
 
   const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({
@@ -347,6 +348,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           role,
           title: builderTitle,
           theme: activeThemeId,
+          layout: cardLayout,
           image: img,
         }),
       });
@@ -469,6 +471,41 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               onRegenerate={handleRegenerateTitle}
               accentClass={activeTheme.accentText}
             />
+
+            {/* Card Layout Selector */}
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Badge Design Layout
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => {
+                    audio.playClick();
+                    setCardLayout('classic');
+                  }}
+                  className={`py-2.5 px-3 text-xs font-bold uppercase tracking-wider rounded-xl border transition-all duration-200 cursor-pointer text-center ${
+                    cardLayout === 'classic'
+                      ? 'border-[#00F5A0] bg-emerald-500/10 text-[#00F5A0] shadow-[0_0_15px_rgba(0,245,160,0.1)]'
+                      : 'border-slate-200 dark:border-white/5 bg-slate-50/60 dark:bg-slate-950/40 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100/60 dark:hover:bg-slate-950/60'
+                  }`}
+                >
+                  Classic Lanyard Pass
+                </button>
+                <button
+                  onClick={() => {
+                    audio.playClick();
+                    setCardLayout('beach');
+                  }}
+                  className={`py-2.5 px-3 text-xs font-bold uppercase tracking-wider rounded-xl border transition-all duration-200 cursor-pointer text-center ${
+                    cardLayout === 'beach'
+                      ? 'border-[#00F5A0] bg-emerald-500/10 text-[#00F5A0] shadow-[0_0_15px_rgba(0,245,160,0.1)]'
+                      : 'border-slate-200 dark:border-white/5 bg-slate-50/60 dark:bg-slate-950/40 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-100/60 dark:hover:bg-slate-950/60'
+                  }`}
+                >
+                  Goa Beach Pop-Art
+                </button>
+              </div>
+            </div>
 
             {/* Theme Selector */}
             <ThemeSelector activeThemeId={activeThemeId} onChange={setActiveThemeId} />
@@ -609,179 +646,292 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 text-center block">
             Live Preview
           </span>          {/* Lanyard punch hole (White rounded pill shape centered at the top) */}
-          <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-14 h-3.5 rounded-full bg-white border border-slate-300 shadow-inner z-20 pointer-events-none" />
+          {cardLayout === 'classic' && (
+            <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-14 h-3.5 rounded-full bg-white border border-slate-300 shadow-inner z-20 pointer-events-none" />
+          )}
 
           {/* White outer margin badge card container */}
           <div 
             style={tiltStyle}
-            className="p-[10px] rounded-[32px] bg-white border border-slate-200/50 shadow-2xl transition-transform duration-200 ease-out will-change-transform z-10"
+            className="p-[10px] rounded-[32px] bg-white border border-slate-200/50 shadow-2xl transition-transform duration-200 ease-out will-change-transform z-10 w-full"
           >
-            {/* Visible badge card (Ticket Style aspect-[10/16]) */}
-            <div
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              style={{ 
-                backgroundImage: "url('/hero-bg.jpg')",
-                backgroundSize: 'cover',
-                backgroundPosition: 'center bottom'
-              }}
-              className="relative aspect-[10/16] w-full overflow-hidden rounded-[24px] flex flex-col justify-between p-4 pt-8 pb-4 select-none cursor-crosshair z-0"
-            >
-              {/* 3D Reflection Glare Overlay */}
+            {cardLayout === 'beach' ? (
+              /* Visible badge card (Goa Beach Style aspect-[3/4]) */
               <div
-                style={glareStyle}
-                className="absolute inset-0 z-40 pointer-events-none opacity-20 transition-opacity duration-300"
-              />
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                style={{ 
+                  backgroundImage: "url('/goa-beach-frame.jpg')",
+                  backgroundSize: '100% 100%',
+                  backgroundPosition: 'center'
+                }}
+                className="relative aspect-[3/4] w-full overflow-hidden rounded-[24px] select-none cursor-crosshair z-0"
+              >
+                {/* 3D Reflection Glare Overlay */}
+                <div
+                  style={glareStyle}
+                  className="absolute inset-0 z-40 pointer-events-none opacity-20 transition-opacity duration-300"
+                />
 
-              {/* Holographic Security Microprint Overlay */}
-              <div className="absolute inset-0 z-30 pointer-events-none opacity-[0.04] select-none overflow-hidden" aria-hidden="true">
-                <div className="w-full h-full" style={{ backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 8px, currentColor 8px, currentColor 8.5px)`, color: tc.accentColor }} />
-              </div>
-
-              {/* Theme Color Overlay */}
-              <div className={tc.overlayClass} />
-
-              {/* Club-suit ♧ decorative motif */}
-              <div className="absolute top-3 right-3 z-20 pointer-events-none select-none opacity-15 text-[28px]" style={{ color: tc.accentColor }}>♧</div>
-              <div className="absolute bottom-3 left-3 z-20 pointer-events-none select-none opacity-10 text-[22px] rotate-180" style={{ color: tc.accentColor }}>♧</div>
-
-              {/* Top Header Metadata Row */}
-              <div className="relative z-10 flex justify-between items-center pb-2" style={{ borderBottomColor: `${tc.accentColor}40`, borderBottomWidth: '1px' }}>
-                <div className="flex flex-col items-start text-left leading-none font-extrabold" style={{ color: tc.accentColor }}>
-                  <span className="text-[10px] sm:text-[11px] font-mono tracking-tighter">2:47PM</span>
-                  <span className="text-[5px] sm:text-[5.5px] tracking-widest font-sans mt-0.5 opacity-90">STUDIO</span>
+                {/* Holographic Security Microprint Overlay */}
+                <div className="absolute inset-0 z-30 pointer-events-none opacity-[0.03] select-none overflow-hidden" aria-hidden="true">
+                  <div className="w-full h-full" style={{ backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 8px, currentColor 8px, currentColor 8.5px)`, color: tc.accentColor }} />
                 </div>
-                <div className="flex flex-col items-end text-right leading-none font-extrabold" style={{ color: tc.accentColor }}>
-                  <span className="text-[7.5px] sm:text-[8px] tracking-tight font-mono">28 - 31 OCT 2026</span>
-                  <span className="text-[5px] sm:text-[5.5px] tracking-wider font-sans mt-0.5 opacity-90">GOA, INDIA</span>
-                </div>
-              </div>
 
-              {/* Official Brand Title Block */}
-              <div className="relative z-10 flex flex-col items-center mt-2.5 text-center w-full">
-                {/* Base yellow logo text with Devanagari badge overlaid */}
-                <div className="relative h-7 w-52 sm:h-8 sm:w-60 flex items-center justify-center pointer-events-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.55)]">
-                  <img
-                    src="/hacker-house-text.png"
-                    alt="Hacker House Logo"
-                    className="h-full w-full object-contain"
-                  />
-                  {/* Hot-pink Devanagari emblem "गोवा" badge overlaid */}
-                  <div className="absolute top-[38%] left-[49.5%] -translate-x-1/2 -translate-y-1/2 text-white text-[9px] sm:text-[10px] font-sans font-black px-1.5 py-0.5 rounded border border-white/20 rotate-[-4deg] shadow-md select-none whitespace-nowrap uppercase tracking-wider" style={{ backgroundColor: tc.pinkColor }}>
-                    गोवा
+                {/* Theme Color Overlay */}
+                <div className={`${tc.overlayClass} opacity-20`} />
+
+                {/* 1. HH GOA 2026 branding top-left */}
+                <div className="absolute left-[9%] top-[9%] flex flex-col items-start leading-[1.1] z-10">
+                  <span className="font-sans font-black text-slate-900 text-[10px] sm:text-xs tracking-tight">HH GOA</span>
+                  <span className="font-sans font-black text-slate-900 text-xs sm:text-sm">2026</span>
+                  <span className="mt-0.5 px-1 py-0.25 rounded bg-[#FF007A] text-white font-sans font-black text-[5px] sm:text-[6px] tracking-wider uppercase scale-90 origin-left">BUILDER ID</span>
+                </div>
+
+                {/* 2. Less noise quote top-right */}
+                <div className="absolute right-[9%] top-[10.5%] flex flex-col items-end leading-tight z-10">
+                  <span className="font-mono font-black text-slate-800 text-[6.5px] sm:text-[7.5px] tracking-tighter">LESS NOISE.</span>
+                  <span className="font-mono font-black text-[#FF007A] text-[6.5px] sm:text-[7.5px] tracking-tighter">MORE SIGNAL.</span>
+                  <div className="w-8 h-[1px] bg-[#FF007A] mt-0.5" />
+                </div>
+
+                {/* 3. Photo Frame Overlay */}
+                <div className="absolute left-[21.8%] top-[34.1%] w-[25.2%] h-[24.2%] overflow-hidden rounded-[4px] bg-slate-900 border border-slate-950 flex items-center justify-center z-10">
+                  <AnimatePresence mode="wait">
+                    {croppedImage ? (
+                      <motion.img
+                        key="cropped"
+                        initial={{ opacity: 0, scale: 0.92 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.92 }}
+                        transition={{ duration: 0.25, ease: 'easeOut' }}
+                        src={croppedImage}
+                        alt="Cropped profile avatar"
+                        className="h-full w-full object-cover"
+                        style={{
+                          transform: `scale(${zoom}) translate(${panX}px, ${panY}px) rotate(${rotation}deg)`
+                        }}
+                      />
+                    ) : (
+                      <motion.div
+                        key="placeholder"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.25, ease: 'easeOut' }}
+                        className="flex flex-col items-center justify-center p-2 text-center opacity-40"
+                      >
+                        <svg className="h-4 w-4 text-slate-400 mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        <span className="text-[4px] font-mono font-bold uppercase tracking-wider text-slate-400 scale-75">NO PHOTO</span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* 4. Name Box */}
+                <div className="absolute left-[50%] top-[48.5%] w-[42%] z-10 flex flex-col gap-0.5">
+                  <div className="px-1.5 py-0.5 bg-[#FF007A] border border-black rounded-[4px] shadow-sm transform -rotate-[1deg] text-center">
+                    <div className="font-sans font-black text-[9px] sm:text-[10px] text-white uppercase tracking-wider truncate">
+                      {name || 'K. KISHORE'}
+                    </div>
+                  </div>
+                  <div className="font-sans font-extrabold text-[6px] sm:text-[7px] text-slate-800 tracking-wider uppercase text-center mt-0.5">
+                    {role.toUpperCase()}
                   </div>
                 </div>
-                <p className="text-[5.5px] sm:text-[6px] font-sans font-black text-white/95 tracking-wider uppercase mt-1.5">
-                  BUILD · BEACH · BELONG · HHG/26
-                </p>
-              </div>
 
-              {/* Arch Photo Frame & Overlay */}
-              <div className="relative z-10 my-auto flex flex-col items-center">
-                {/* Rounded arch frame window */}
-                <div className="relative p-[2.5px] rounded-t-full" style={{ backgroundColor: tc.accentColor, boxShadow: `0 0 15px ${tc.accentColor}50` }}>
-                  <div className="relative h-[105px] w-[85px] sm:h-[115px] sm:w-[95px] overflow-hidden rounded-t-full bg-slate-900 border border-slate-950 flex items-center justify-center">
-                    <AnimatePresence mode="wait">
-                      {croppedImage ? (
-                        <motion.img
-                          key="cropped"
-                          initial={{ opacity: 0, scale: 0.92 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.92 }}
-                          transition={{ duration: 0.25, ease: 'easeOut' }}
-                          src={croppedImage}
-                          alt="Cropped profile avatar"
-                          className="h-full w-full object-cover"
-                          style={{
-                            transform: `scale(${zoom}) translate(${panX}px, ${panY}px) rotate(${rotation}deg)`
-                          }}
-                        />
-                      ) : (
-                        <motion.div
-                          key="placeholder"
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.95 }}
-                          transition={{ duration: 0.25, ease: 'easeOut' }}
-                          className="flex flex-col items-center justify-center p-2 text-center opacity-40"
-                        >
-                          <svg className="h-6 w-6 text-slate-400 mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                          </svg>
-                          <span className="text-[4px] font-mono font-bold uppercase tracking-wider text-slate-400">NO PHOTO</span>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                {/* 5. Builder Class Yellow Brush */}
+                <div className="absolute left-[48%] top-[65%] w-[44%] z-10 flex flex-col items-center">
+                  <span className="font-mono font-black text-slate-500 text-[5px] sm:text-[5.5px] tracking-wider uppercase">BUILDER CLASS:</span>
+                  <div className="relative mt-0.5 px-2 py-0.5 bg-[#FFE600] rounded-sm transform rotate-[1.5deg] shadow-[1px_1px_4px_rgba(0,0,0,0.15)] text-center">
+                    <span className="font-serif italic font-black text-[#FF007A] text-[7.5px] sm:text-[8.5px] tracking-tight uppercase whitespace-nowrap">
+                      {builderTitle || 'THE SHIPPER'}
+                    </span>
                   </div>
+                </div>
 
-                  {/* Frame Badge tag attached at bottom center */}
-                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full shadow-md z-20 text-[5px] font-mono font-black text-white tracking-widest uppercase whitespace-nowrap" style={{ backgroundColor: tc.bgColor, borderColor: `${tc.accentColor}66`, borderWidth: '1px' }}>
+                {/* 6. Hashtag Pink Ribbon */}
+                <div className="absolute right-[13.5%] bottom-[11.5%] z-10">
+                  <div className="px-2 py-0.5 bg-[#FF007A] rounded-full shadow-md text-white font-mono font-black text-[5px] sm:text-[5.5px] tracking-widest uppercase">
                     #FrameInGoa
                   </div>
                 </div>
-              </div>
 
-              {/* Name Box & Role Badge */}
-              <div className="relative z-10 flex flex-col items-center mt-2">
-                {/* Name Box */}
-                <div className="w-full max-w-[220px] px-3 py-1 border-[2px] rounded-xl text-center shadow-md" style={{ backgroundColor: tc.nameBg, borderColor: tc.accentColor }}>
-                  <div className="font-serif font-black text-[10px] sm:text-xs uppercase tracking-wider truncate" style={{ color: tc.nameText }}>
-                    {name || 'SMRUTISWARUPA PRIYADARSINI'}
+                {/* 7. Bottom Date */}
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-[4.5%] z-10 font-sans font-black text-slate-800 text-[6.5px] sm:text-[7px] tracking-widest uppercase whitespace-nowrap">
+                  — 28 - 31 OCT 2026 —
+                </div>
+              </div>
+            ) : (
+              /* Visible badge card (Ticket Style aspect-[10/16]) */
+              <div
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                style={{ 
+                  backgroundImage: "url('/hero-bg.jpg')",
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center bottom'
+                }}
+                className="relative aspect-[10/16] w-full overflow-hidden rounded-[24px] flex flex-col justify-between p-4 pt-8 pb-4 select-none cursor-crosshair z-0"
+              >
+                {/* 3D Reflection Glare Overlay */}
+                <div
+                  style={glareStyle}
+                  className="absolute inset-0 z-40 pointer-events-none opacity-20 transition-opacity duration-300"
+                />
+
+                {/* Holographic Security Microprint Overlay */}
+                <div className="absolute inset-0 z-30 pointer-events-none opacity-[0.04] select-none overflow-hidden" aria-hidden="true">
+                  <div className="w-full h-full" style={{ backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 8px, currentColor 8px, currentColor 8.5px)`, color: tc.accentColor }} />
+                </div>
+
+                {/* Theme Color Overlay */}
+                <div className={tc.overlayClass} />
+
+                {/* Club-suit ♧ decorative motif */}
+                <div className="absolute top-3 right-3 z-20 pointer-events-none select-none opacity-15 text-[28px]" style={{ color: tc.accentColor }}>♧</div>
+                <div className="absolute bottom-3 left-3 z-20 pointer-events-none select-none opacity-10 text-[22px] rotate-180" style={{ color: tc.accentColor }}>♧</div>
+
+                {/* Top Header Metadata Row */}
+                <div className="relative z-10 flex justify-between items-center pb-2" style={{ borderBottomColor: `${tc.accentColor}40`, borderBottomWidth: '1px' }}>
+                  <div className="flex flex-col items-start text-left leading-none font-extrabold" style={{ color: tc.accentColor }}>
+                    <span className="text-[10px] sm:text-[11px] font-mono tracking-tighter">2:47PM</span>
+                    <span className="text-[5px] sm:text-[5.5px] tracking-widest font-sans mt-0.5 opacity-90">STUDIO</span>
+                  </div>
+                  <div className="flex flex-col items-end text-right leading-none font-extrabold" style={{ color: tc.accentColor }}>
+                    <span className="text-[7.5px] sm:text-[8px] tracking-tight font-mono">28 - 31 OCT 2026</span>
+                    <span className="text-[5px] sm:text-[5.5px] tracking-wider font-sans mt-0.5 opacity-90">GOA, INDIA</span>
                   </div>
                 </div>
-                {/* Role Tag decorated with marigold stars */}
-                <div className={`inline-flex items-center gap-1.5 mt-1.5 px-3 py-0.5 rounded-full ${tc.roleBg} text-[6px] sm:text-[6.5px] font-mono font-black tracking-widest uppercase shadow-md`} style={{ color: tc.accentColor }}>
-                  <span>✹</span>
-                  <span>{role.toUpperCase()}</span>
-                  <span>✹</span>
-                </div>
-              </div>
 
-              {/* Pass Identifier */}
-              <div className="relative z-10 mt-2 px-3 py-0.5 rounded-full text-center text-[5px] sm:text-[5.5px] font-mono font-black text-white/95 tracking-widest uppercase" style={{ backgroundColor: tc.squadBg, borderColor: `${tc.accentColor}4D`, borderWidth: '1px' }}>
-                ZENITH SQUAD  •  #GOA-2026-{cardId || '0199A'}
-              </div>
-
-              {/* Footer details & QR */}
-              <div className="relative z-10 w-full mt-2 flex flex-col items-center gap-1.5">
-                {/* Centered QR with center emblem overlay */}
-                <div className="relative p-[1.5px] rounded shadow-md" style={{ backgroundColor: tc.accentColor }}>
-                  {cardId ? (
-                    <div className="relative">
-                      <img
-                        src={qrImageUrl}
-                        alt="QR Link"
-                        crossOrigin="anonymous"
-                        className="h-10 w-10 object-contain rounded bg-white"
-                      />
-                      {/* Center emblem overlay */}
-                      <div className="absolute inset-0 m-auto h-3 w-3 rounded-sm bg-white p-[0.5px] shadow-sm flex items-center justify-center">
-                        <img src="/hacker-house-goa-logo.png" className="h-full w-full object-contain" />
-                      </div>
+                {/* Official Brand Title Block */}
+                <div className="relative z-10 flex flex-col items-center mt-2.5 text-center w-full">
+                  {/* Base yellow logo text with Devanagari badge overlaid */}
+                  <div className="relative h-7 w-52 sm:h-8 sm:w-60 flex items-center justify-center pointer-events-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.55)]">
+                    <img
+                      src="/hacker-house-text.png"
+                      alt="Hacker House Logo"
+                      className="h-full w-full object-contain"
+                    />
+                    {/* Hot-pink Devanagari emblem "गोवा" badge overlaid */}
+                    <div className="absolute top-[38%] left-[49.5%] -translate-x-1/2 -translate-y-1/2 text-white text-[9px] sm:text-[10px] font-sans font-black px-1.5 py-0.5 rounded border border-white/20 rotate-[-4deg] shadow-md select-none whitespace-nowrap uppercase tracking-wider" style={{ backgroundColor: tc.pinkColor }}>
+                      गोवा
                     </div>
-                  ) : (
-                    <div className="relative">
-                      <QRCodeSVG className="h-10 w-10 text-slate-900 bg-white p-0.5 animate-pulse" />
-                      {/* Center emblem overlay */}
-                      <div className="absolute inset-0 m-auto h-3 w-3 rounded-sm bg-white p-[0.5px] shadow-sm flex items-center justify-center">
-                        <img src="/hacker-house-goa-logo.png" className="h-full w-full object-contain" />
-                      </div>
-                    </div>
-                  )}
+                  </div>
+                  <p className="text-[5.5px] sm:text-[6px] font-sans font-black text-white/95 tracking-wider uppercase mt-1.5">
+                    BUILD · BEACH · BELONG · HHG/26
+                  </p>
                 </div>
 
-                {/* Marigold garland bottom strip */}
-                <div className="absolute -bottom-4 inset-x-0 h-2 flex justify-between px-1 overflow-hidden select-none" style={{ backgroundColor: tc.garlandBg, borderTopColor: `${tc.accentColor}4D`, borderTopWidth: '1px' }}>
-                  {Array.from({ length: 24 }).map((_, i) => (
-                    <div key={i} className="flex items-center justify-center flex-shrink-0 w-2.5 h-full">
-                      <div className="w-1.5 h-1.5 rounded-full relative flex items-center justify-center shadow-sm" style={{ backgroundColor: tc.flowerPetal }}>
-                        <div className="absolute w-0.5 h-0.5 rounded-full" style={{ backgroundColor: tc.flowerCore }} />
-                      </div>
+                {/* Arch Photo Frame & Overlay */}
+                <div className="relative z-10 my-auto flex flex-col items-center">
+                  {/* Rounded arch frame window */}
+                  <div className="relative p-[2.5px] rounded-t-full" style={{ backgroundColor: tc.accentColor, boxShadow: `0 0 15px ${tc.accentColor}50` }}>
+                    <div className="relative h-[105px] w-[85px] sm:h-[115px] sm:w-[95px] overflow-hidden rounded-t-full bg-slate-900 border border-slate-950 flex items-center justify-center">
+                      <AnimatePresence mode="wait">
+                        {croppedImage ? (
+                          <motion.img
+                            key="cropped"
+                            initial={{ opacity: 0, scale: 0.92 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.92 }}
+                            transition={{ duration: 0.25, ease: 'easeOut' }}
+                            src={croppedImage}
+                            alt="Cropped profile avatar"
+                            className="h-full w-full object-cover"
+                            style={{
+                              transform: `scale(${zoom}) translate(${panX}px, ${panY}px) rotate(${rotation}deg)`
+                            }}
+                          />
+                        ) : (
+                          <motion.div
+                            key="placeholder"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.25, ease: 'easeOut' }}
+                            className="flex flex-col items-center justify-center p-2 text-center opacity-40"
+                          >
+                            <svg className="h-6 w-6 text-slate-400 mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            <span className="text-[4px] font-mono font-bold uppercase tracking-wider text-slate-400">NO PHOTO</span>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                  ))}
+
+                    {/* Frame Badge tag attached at bottom center */}
+                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full shadow-md z-20 text-[5px] font-mono font-black text-white tracking-widest uppercase whitespace-nowrap" style={{ backgroundColor: tc.bgColor, borderColor: `${tc.accentColor}66`, borderWidth: '1px' }}>
+                      #FrameInGoa
+                    </div>
+                  </div>
+                </div>
+
+                {/* Name Box & Role Badge */}
+                <div className="relative z-10 flex flex-col items-center mt-2">
+                  {/* Name Box */}
+                  <div className="w-full max-w-[220px] px-3 py-1 border-[2px] rounded-xl text-center shadow-md" style={{ backgroundColor: tc.nameBg, borderColor: tc.accentColor }}>
+                    <div className="font-serif font-black text-[10px] sm:text-xs uppercase tracking-wider truncate" style={{ color: tc.nameText }}>
+                      {name || 'SMRUTISWARUPA PRIYADARSINI'}
+                    </div>
+                  </div>
+                  {/* Role Tag decorated with marigold stars */}
+                  <div className={`inline-flex items-center gap-1.5 mt-1.5 px-3 py-0.5 rounded-full ${tc.roleBg} text-[6px] sm:text-[6.5px] font-mono font-black tracking-widest uppercase shadow-md`} style={{ color: tc.accentColor }}>
+                    <span>✹</span>
+                    <span>{role.toUpperCase()}</span>
+                    <span>✹</span>
+                  </div>
+                </div>
+
+                {/* Pass Identifier */}
+                <div className="relative z-10 mt-2 px-3 py-0.5 rounded-full text-center text-[5px] sm:text-[5.5px] font-mono font-black text-white/95 tracking-widest uppercase" style={{ backgroundColor: tc.squadBg, borderColor: `${tc.accentColor}4D`, borderWidth: '1px' }}>
+                  ZENITH SQUAD  •  #GOA-2026-{cardId || '0199A'}
+                </div>
+
+                {/* Footer details & QR */}
+                <div className="relative z-10 w-full mt-2 flex flex-col items-center gap-1.5">
+                  {/* Centered QR with center emblem overlay */}
+                  <div className="relative p-[1.5px] rounded shadow-md" style={{ backgroundColor: tc.accentColor }}>
+                    {cardId ? (
+                      <div className="relative">
+                        <img
+                          src={qrImageUrl}
+                          alt="QR Link"
+                          crossOrigin="anonymous"
+                          className="h-10 w-10 object-contain rounded bg-white"
+                        />
+                        {/* Center emblem overlay */}
+                        <div className="absolute inset-0 m-auto h-3 w-3 rounded-sm bg-white p-[0.5px] shadow-sm flex items-center justify-center">
+                          <img src="/hacker-house-goa-logo.png" className="h-full w-full object-contain" />
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="relative">
+                        <QRCodeSVG className="h-10 w-10 text-slate-900 bg-white p-0.5 animate-pulse" />
+                        {/* Center emblem overlay */}
+                        <div className="absolute inset-0 m-auto h-3 w-3 rounded-sm bg-white p-[0.5px] shadow-sm flex items-center justify-center">
+                          <img src="/hacker-house-goa-logo.png" className="h-full w-full object-contain" />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Marigold garland bottom strip */}
+                  <div className="absolute -bottom-4 inset-x-0 h-2 flex justify-between px-1 overflow-hidden select-none" style={{ backgroundColor: tc.garlandBg, borderTopColor: `${tc.accentColor}4D`, borderTopWidth: '1px' }}>
+                    {Array.from({ length: 24 }).map((_, i) => (
+                      <div key={i} className="flex items-center justify-center flex-shrink-0 w-2.5 h-full">
+                        <div className="w-1.5 h-1.5 rounded-full relative flex items-center justify-center shadow-sm" style={{ backgroundColor: tc.flowerPetal }}>
+                          <div className="absolute w-0.5 h-0.5 rounded-full" style={{ backgroundColor: tc.flowerCore }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -793,154 +943,244 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
         <div
           ref={highResRef}
           style={{}}
-          className="w-[1080px] h-[1920px] bg-white text-white flex flex-col justify-between p-6 font-sans relative overflow-hidden select-none"
+          className={`${cardLayout === 'beach' ? 'w-[1080px] h-[1440px]' : 'w-[1080px] h-[1920px]'} bg-white text-white flex flex-col justify-between p-6 font-sans relative overflow-hidden select-none`}
         >
           {/* Lanyard punch hole (High-Res) */}
-          <div className="absolute top-[28px] left-1/2 -translate-x-1/2 w-44 h-11 rounded-full bg-white border-2 border-slate-350 shadow-inner z-20 pointer-events-none" />
+          {cardLayout === 'classic' && (
+            <div className="absolute top-[28px] left-1/2 -translate-x-1/2 w-44 h-11 rounded-full bg-white border-2 border-slate-350 shadow-inner z-20 pointer-events-none" />
+          )}
 
           {/* Deep jungle green badge body wrapper */}
-          <div 
-            style={{ 
-              backgroundImage: "url('/hero-bg.jpg')",
-              backgroundSize: 'cover',
-              backgroundPosition: 'center bottom'
-            }}
-            className="w-full h-full rounded-[48px] overflow-hidden flex flex-col justify-between p-12 pt-16 pb-12 relative z-10"
-          >
-            {/* Holographic Security Microprint Overlay (High-Res) */}
-            <div className="absolute inset-0 z-30 pointer-events-none opacity-[0.04] select-none overflow-hidden" aria-hidden="true">
-              <div className="w-full h-full" style={{ backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 24px, currentColor 24px, currentColor 25.5px)`, color: tc.accentColor }} />
-            </div>
-
-            {/* Theme Color Overlay (High-Res) */}
-            <div className={tc.overlayClass} />
-
-            {/* Club-suit ♧ decorative motif (High-Res) */}
-            <div className="absolute top-8 right-8 z-20 pointer-events-none select-none opacity-15 text-7xl" style={{ color: tc.accentColor }}>♧</div>
-            <div className="absolute bottom-8 left-8 z-20 pointer-events-none select-none opacity-10 text-5xl rotate-180" style={{ color: tc.accentColor }}>♧</div>
-
-            {/* Top Header Metadata Row */}
-            <div className="relative z-10 flex justify-between items-center pb-4" style={{ borderBottomColor: `${tc.accentColor}40`, borderBottomWidth: '2px' }}>
-              <div className="flex flex-col items-start text-left leading-none font-extrabold" style={{ color: tc.accentColor }}>
-                <span className="text-3xl font-mono tracking-tighter">2:47PM</span>
-                <span className="text-sm tracking-[0.2em] font-sans mt-1 opacity-90">STUDIO</span>
+          {cardLayout === 'beach' ? (
+            <div 
+              style={{ 
+                backgroundImage: "url('/goa-beach-frame.jpg')",
+                backgroundSize: '100% 100%',
+                backgroundPosition: 'center'
+              }}
+              className="w-full h-full rounded-[48px] overflow-hidden relative z-10 select-none"
+            >
+              {/* Holographic Security Microprint Overlay (High-Res) */}
+              <div className="absolute inset-0 z-30 pointer-events-none opacity-[0.03] select-none overflow-hidden" aria-hidden="true">
+                <div className="w-full h-full" style={{ backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 24px, currentColor 24px, currentColor 25.5px)`, color: tc.accentColor }} />
               </div>
-              <div className="flex flex-col items-end text-right leading-none font-extrabold" style={{ color: tc.accentColor }}>
-                <span className="text-2xl tracking-tight font-mono">28 - 31 OCT 2026</span>
-                <span className="text-sm tracking-widest font-sans mt-1 opacity-90">GOA, INDIA</span>
+
+              {/* Theme Color Overlay (High-Res) */}
+              <div className={`${tc.overlayClass} opacity-20`} />
+
+              {/* 1. HH GOA 2026 branding top-left */}
+              <div className="absolute left-[9%] top-[9%] flex flex-col items-start leading-[1.1] z-10">
+                <span className="font-sans font-black text-slate-900 text-[48px] tracking-tight">HH GOA</span>
+                <span className="font-sans font-black text-slate-900 text-[56px]">2026</span>
+                <span className="mt-2 px-5 py-1.5 rounded-lg bg-[#FF007A] text-white font-sans font-black text-sm tracking-wider uppercase">BUILDER ID</span>
               </div>
-            </div>
 
-            {/* Official Brand Title Block */}
-            <div className="relative z-10 flex flex-col items-center mt-6 text-center w-full">
-              <div className="relative h-20 w-[600px] flex items-center justify-center pointer-events-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]">
-                <img
-                  src="/hacker-house-text.png"
-                  alt="Hacker House Logo"
-                  className="h-full w-full object-contain"
-                />
-                {/* Hot-pink Devanagari emblem "गोवा" badge overlaid */}
-                <div className="absolute top-[38%] left-[49.5%] -translate-x-1/2 -translate-y-1/2 text-white text-2xl font-sans font-black px-4 py-1 rounded-xl border-2 border-white/20 rotate-[-4deg] shadow-lg select-none whitespace-nowrap uppercase tracking-wider" style={{ backgroundColor: tc.pinkColor }}>
-                  गोवा
-                </div>
+              {/* 2. Less noise quote top-right */}
+              <div className="absolute right-[9%] top-[10.5%] flex flex-col items-end leading-tight z-10">
+                <span className="font-mono font-black text-slate-800 text-xl tracking-tighter">LESS NOISE.</span>
+                <span className="font-mono font-black text-[#FF007A] text-xl tracking-tighter">MORE SIGNAL.</span>
+                <div className="w-24 h-[3px] bg-[#FF007A] mt-1.5" />
               </div>
-              <p className="text-sm font-sans font-black text-white/95 tracking-[0.2em] uppercase mt-3">
-                BUILD · BEACH · BELONG · HHG/26
-              </p>
-            </div>
 
-            {/* Arch Photo Frame & Overlay */}
-            <div className="relative z-10 my-auto flex flex-col items-center">
-              {/* Rounded arch frame window */}
-              <div className="relative p-[6px] rounded-t-full" style={{ backgroundColor: tc.accentColor, boxShadow: `0 0 40px ${tc.accentColor}50` }}>
-                <div className="relative h-[320px] w-[260px] overflow-hidden rounded-t-full bg-slate-900 border-2 border-slate-950 flex items-center justify-center">
-                  {croppedImage ? (
-                    <img
-                      src={croppedImage}
-                      alt="Cropped face high-res"
-                      className="h-full w-full object-cover"
-                      style={{
-                        transform: `scale(${zoom}) translate(${panX * 3.375}px, ${panY * 3.375}px) rotate(${rotation}deg)`
-                      }}
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center justify-center opacity-40 select-none">
-                      <svg className="h-16 w-16 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                      <span className="text-xs font-mono font-bold text-slate-400 tracking-wider mt-2">NO PHOTO</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Frame Badge tag attached at bottom center */}
-                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-6 py-1.5 rounded-full shadow-lg z-20 text-xs font-mono font-black text-white tracking-widest uppercase whitespace-nowrap" style={{ backgroundColor: tc.bgColor, borderColor: `${tc.accentColor}66`, borderWidth: '1px' }}>
-                  #FrameInGoa
-                </div>
-              </div>
-            </div>
-
-            {/* Name Box & Role Badge */}
-            <div className="relative z-10 flex flex-col items-center mt-6">
-              {/* Name Box */}
-              <div className="w-full max-w-[550px] px-8 py-3.5 border-4 rounded-3xl text-center shadow-lg" style={{ backgroundColor: tc.nameBg, borderColor: tc.accentColor }}>
-                <div className="font-serif font-black text-2xl uppercase tracking-wider truncate" style={{ color: tc.nameText }}>
-                  {name || 'SMRUTISWARUPA PRIYADARSINI'}
-                </div>
-              </div>
-              {/* Role Tag decorated with marigold stars */}
-              <div className={`inline-flex items-center gap-3 mt-4 px-8 py-2.5 rounded-full ${tc.roleBg} text-base font-mono font-black tracking-widest uppercase shadow-lg`} style={{ color: tc.accentColor }}>
-                <span>✹</span>
-                <span>{role.toUpperCase()}</span>
-                <span>✹</span>
-              </div>
-            </div>
-
-            {/* Pass Identifier */}
-            <div className="relative z-10 mt-6 px-8 py-2.5 rounded-full text-center text-xs font-mono font-black text-white/90 tracking-widest uppercase" style={{ backgroundColor: tc.squadBg, borderColor: `${tc.accentColor}4D`, borderWidth: '1px' }}>
-              ZENITH SQUAD  •  #GOA-2026-{cardId || '0199A'}
-            </div>
-
-            {/* Footer details & QR */}
-            <div className="relative z-10 w-full mt-6 flex flex-col items-center gap-4">
-              {/* Centered QR with center emblem overlay */}
-              <div className="relative p-[3px] rounded shadow-lg" style={{ backgroundColor: tc.accentColor }}>
-                {cardId ? (
-                  <div className="relative">
-                    <img
-                      src={qrImageUrl}
-                      alt="QR Link"
-                      crossOrigin="anonymous"
-                      className="h-28 w-28 object-contain rounded bg-white"
-                    />
-                    {/* Center emblem overlay */}
-                    <div className="absolute inset-0 m-auto h-8 w-8 rounded-sm bg-white p-[1px] shadow-sm flex items-center justify-center">
-                      <img src="/hacker-house-goa-logo.png" className="h-full w-full object-contain" />
-                    </div>
-                  </div>
+              {/* 3. Photo Frame Overlay */}
+              <div className="absolute left-[21.8%] top-[34.1%] w-[25.2%] h-[24.2%] overflow-hidden rounded-[24px] bg-slate-900 border-2 border-slate-950 flex items-center justify-center z-10">
+                {croppedImage ? (
+                  <img
+                    src={croppedImage}
+                    alt="Cropped face high-res"
+                    className="h-full w-full object-cover"
+                    style={{
+                      transform: `scale(${zoom}) translate(${panX * 3.375}px, ${panY * 3.375}px) rotate(${rotation}deg)`
+                    }}
+                  />
                 ) : (
-                  <div className="relative">
-                    <QRCodeSVG className="h-28 w-28 text-slate-900 bg-white p-2" />
-                    {/* Center emblem overlay */}
-                    <div className="absolute inset-0 m-auto h-8 w-8 rounded-sm bg-white p-[1px] shadow-sm flex items-center justify-center">
-                      <img src="/hacker-house-goa-logo.png" className="h-full w-full object-contain" />
-                    </div>
+                  <div className="flex flex-col items-center justify-center opacity-40 select-none">
+                    <svg className="h-16 w-16 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    <span className="text-xs font-mono font-bold text-slate-400 tracking-wider mt-2">NO PHOTO</span>
                   </div>
                 )}
               </div>
 
-              {/* Marigold garland bottom strip */}
-              <div className="absolute -bottom-12 inset-x-0 h-6 flex justify-between px-2 overflow-hidden select-none" style={{ backgroundColor: tc.garlandBg, borderTopColor: `${tc.accentColor}4D`, borderTopWidth: '1px' }}>
-                {Array.from({ length: 24 }).map((_, i) => (
-                  <div key={i} className="flex items-center justify-center flex-shrink-0 w-8 h-full">
-                    <div className="w-5 h-5 rounded-full relative flex items-center justify-center shadow-sm" style={{ backgroundColor: tc.flowerPetal }}>
-                      <div className="absolute w-1.5 h-1.5 rounded-full" style={{ backgroundColor: tc.flowerCore }} />
-                    </div>
+              {/* 4. Name Box */}
+              <div className="absolute left-[50%] top-[48.5%] w-[42%] z-10 flex flex-col gap-1.5 text-center">
+                <div className="px-8 py-3.5 bg-[#FF007A] border-2 border-black rounded-[12px] shadow-md transform -rotate-[1deg]">
+                  <div className="font-sans font-black text-[36px] text-white uppercase tracking-wider truncate">
+                    {name || 'K. KISHORE'}
                   </div>
-                ))}
+                </div>
+                <div className="font-sans font-extrabold text-[22px] text-slate-800 tracking-wider uppercase mt-1.5">
+                  {role.toUpperCase()}
+                </div>
+              </div>
+
+              {/* 5. Builder Class Yellow Brush */}
+              <div className="absolute left-[48%] top-[65%] w-[44%] z-10 flex flex-col items-center">
+                <span className="font-mono font-black text-slate-500 text-xs tracking-wider uppercase">BUILDER CLASS:</span>
+                <div className="relative mt-1.5 px-6 py-1.5 bg-[#FFE600] rounded-sm transform rotate-[1.5deg] shadow-[2px_2px_8px_rgba(0,0,0,0.15)] text-center">
+                  <span className="font-serif italic font-black text-[#FF007A] text-[24px] tracking-tight uppercase whitespace-nowrap">
+                    {builderTitle || 'THE SHIPPER'}
+                  </span>
+                </div>
+              </div>
+
+              {/* 6. Hashtag Pink Ribbon */}
+              <div className="absolute right-[13.5%] bottom-[11.5%] z-10">
+                <div className="px-8 py-2 bg-[#FF007A] rounded-full shadow-lg text-white font-mono font-black text-sm tracking-widest uppercase">
+                  #FrameInGoa
+                </div>
+              </div>
+
+              {/* 7. Bottom Date */}
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-[4.5%] z-10 font-sans font-black text-slate-800 text-[24px] tracking-widest uppercase whitespace-nowrap">
+                — 28 - 31 OCT 2026 —
               </div>
             </div>
-          </div>
+          ) : (
+            <div 
+              style={{ 
+                backgroundImage: "url('/hero-bg.jpg')",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center bottom'
+              }}
+              className="w-full h-full rounded-[48px] overflow-hidden flex flex-col justify-between p-12 pt-16 pb-12 relative z-10"
+            >
+              {/* Holographic Security Microprint Overlay (High-Res) */}
+              <div className="absolute inset-0 z-30 pointer-events-none opacity-[0.04] select-none overflow-hidden" aria-hidden="true">
+                <div className="w-full h-full" style={{ backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 24px, currentColor 24px, currentColor 25.5px)`, color: tc.accentColor }} />
+              </div>
+
+              {/* Theme Color Overlay (High-Res) */}
+              <div className={tc.overlayClass} />
+
+              {/* Club-suit ♧ decorative motif (High-Res) */}
+              <div className="absolute top-8 right-8 z-20 pointer-events-none select-none opacity-15 text-7xl" style={{ color: tc.accentColor }}>♧</div>
+              <div className="absolute bottom-8 left-8 z-20 pointer-events-none select-none opacity-10 text-5xl rotate-180" style={{ color: tc.accentColor }}>♧</div>
+
+              {/* Top Header Metadata Row */}
+              <div className="relative z-10 flex justify-between items-center pb-4" style={{ borderBottomColor: `${tc.accentColor}40`, borderBottomWidth: '2px' }}>
+                <div className="flex flex-col items-start text-left leading-none font-extrabold" style={{ color: tc.accentColor }}>
+                  <span className="text-3xl font-mono tracking-tighter">2:47PM</span>
+                  <span className="text-sm tracking-[0.2em] font-sans mt-1 opacity-90">STUDIO</span>
+                </div>
+                <div className="flex flex-col items-end text-right leading-none font-extrabold" style={{ color: tc.accentColor }}>
+                  <span className="text-2xl tracking-tight font-mono">28 - 31 OCT 2026</span>
+                  <span className="text-sm tracking-widest font-sans mt-1 opacity-90">GOA, INDIA</span>
+                </div>
+              </div>
+
+              {/* Official Brand Title Block */}
+              <div className="relative z-10 flex flex-col items-center mt-6 text-center w-full">
+                <div className="relative h-20 w-[600px] flex items-center justify-center pointer-events-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]">
+                  <img
+                    src="/hacker-house-text.png"
+                    alt="Hacker House Logo"
+                    className="h-full w-full object-contain"
+                  />
+                  {/* Hot-pink Devanagari emblem "गोवा" badge overlaid */}
+                  <div className="absolute top-[38%] left-[49.5%] -translate-x-1/2 -translate-y-1/2 text-white text-2xl font-sans font-black px-4 py-1 rounded-xl border-2 border-white/20 rotate-[-4deg] shadow-lg select-none whitespace-nowrap uppercase tracking-wider" style={{ backgroundColor: tc.pinkColor }}>
+                    गोवा
+                  </div>
+                </div>
+                <p className="text-sm font-sans font-black text-white/95 tracking-[0.2em] uppercase mt-3">
+                  BUILD · BEACH · BELONG · HHG/26
+                </p>
+              </div>
+
+              {/* Arch Photo Frame & Overlay */}
+              <div className="relative z-10 my-auto flex flex-col items-center">
+                {/* Rounded arch frame window */}
+                <div className="relative p-[6px] rounded-t-full" style={{ backgroundColor: tc.accentColor, boxShadow: `0 0 40px ${tc.accentColor}50` }}>
+                  <div className="relative h-[320px] w-[260px] overflow-hidden rounded-t-full bg-slate-900 border-2 border-slate-950 flex items-center justify-center">
+                    {croppedImage ? (
+                      <img
+                        src={croppedImage}
+                        alt="Cropped face high-res"
+                        className="h-full w-full object-cover"
+                        style={{
+                          transform: `scale(${zoom}) translate(${panX * 3.375}px, ${panY * 3.375}px) rotate(${rotation}deg)`
+                        }}
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center opacity-40 select-none">
+                        <svg className="h-16 w-16 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        <span className="text-xs font-mono font-bold text-slate-400 tracking-wider mt-2">NO PHOTO</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Frame Badge tag attached at bottom center */}
+                  <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-6 py-1.5 rounded-full shadow-lg z-20 text-xs font-mono font-black text-white tracking-widest uppercase whitespace-nowrap" style={{ backgroundColor: tc.bgColor, borderColor: `${tc.accentColor}66`, borderWidth: '1px' }}>
+                    #FrameInGoa
+                  </div>
+                </div>
+              </div>
+
+              {/* Name Box & Role Badge */}
+              <div className="relative z-10 flex flex-col items-center mt-6">
+                {/* Name Box */}
+                <div className="w-full max-w-[550px] px-8 py-3.5 border-4 rounded-3xl text-center shadow-lg" style={{ backgroundColor: tc.nameBg, borderColor: tc.accentColor }}>
+                  <div className="font-serif font-black text-2xl uppercase tracking-wider truncate" style={{ color: tc.nameText }}>
+                    {name || 'SMRUTISWARUPA PRIYADARSINI'}
+                  </div>
+                </div>
+                {/* Role Tag decorated with marigold stars */}
+                <div className={`inline-flex items-center gap-3 mt-4 px-8 py-2.5 rounded-full ${tc.roleBg} text-base font-mono font-black tracking-widest uppercase shadow-lg`} style={{ color: tc.accentColor }}>
+                  <span>✹</span>
+                  <span>{role.toUpperCase()}</span>
+                  <span>✹</span>
+                </div>
+              </div>
+
+              {/* Pass Identifier */}
+              <div className="relative z-10 mt-6 px-8 py-2.5 rounded-full text-center text-xs font-mono font-black text-white/90 tracking-widest uppercase" style={{ backgroundColor: tc.squadBg, borderColor: `${tc.accentColor}4D`, borderWidth: '1px' }}>
+                ZENITH SQUAD  •  #GOA-2026-{cardId || '0199A'}
+              </div>
+
+              {/* Footer details & QR */}
+              <div className="relative z-10 w-full mt-6 flex flex-col items-center gap-4">
+                {/* Centered QR with center emblem overlay */}
+                <div className="relative p-[3px] rounded shadow-lg" style={{ backgroundColor: tc.accentColor }}>
+                  {cardId ? (
+                    <div className="relative">
+                      <img
+                        src={qrImageUrl}
+                        alt="QR Link"
+                        crossOrigin="anonymous"
+                        className="h-28 w-28 object-contain rounded bg-white"
+                      />
+                      {/* Center emblem overlay */}
+                      <div className="absolute inset-0 m-auto h-8 w-8 rounded-sm bg-white p-[1px] shadow-sm flex items-center justify-center">
+                        <img src="/hacker-house-goa-logo.png" className="h-full w-full object-contain" />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="relative">
+                      <QRCodeSVG className="h-28 w-28 text-slate-900 bg-white p-2" />
+                      {/* Center emblem overlay */}
+                      <div className="absolute inset-0 m-auto h-8 w-8 rounded-sm bg-white p-[1px] shadow-sm flex items-center justify-center">
+                        <img src="/hacker-house-goa-logo.png" className="h-full w-full object-contain" />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Marigold garland bottom strip */}
+                <div className="absolute -bottom-12 inset-x-0 h-6 flex justify-between px-2 overflow-hidden select-none" style={{ backgroundColor: tc.garlandBg, borderTopColor: `${tc.accentColor}4D`, borderTopWidth: '1px' }}>
+                  {Array.from({ length: 24 }).map((_, i) => (
+                    <div key={i} className="flex items-center justify-center flex-shrink-0 w-8 h-full">
+                      <div className="w-5 h-5 rounded-full relative flex items-center justify-center shadow-sm" style={{ backgroundColor: tc.flowerPetal }}>
+                        <div className="absolute w-1.5 h-1.5 rounded-full" style={{ backgroundColor: tc.flowerCore }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
