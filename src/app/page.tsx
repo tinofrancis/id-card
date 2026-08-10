@@ -130,10 +130,10 @@ export default function Home() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="relative mb-6 max-w-xs sm:max-w-sm w-full flex items-center justify-center pointer-events-none drop-shadow-[0_0_35px_rgba(255,230,0,0.22)]"
+            className="relative mb-6 max-w-sm sm:max-w-md w-full flex items-center justify-center pointer-events-none drop-shadow-[0_0_35px_rgba(255,230,0,0.22)]"
           >
             <img
-              src="/hacker-house-text.png"
+              src="/hacker-house-goa-logo.png"
               alt="Hacker House Goa 2026"
               className="w-full object-contain"
             />
