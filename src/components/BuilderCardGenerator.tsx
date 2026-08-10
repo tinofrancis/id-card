@@ -497,16 +497,20 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           <div
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            style={{ 
-              ...tiltStyle, 
-              backgroundImage: "url('/palm-frame-bg.jpg')",
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-            className="relative aspect-[10/16] w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-emerald-500/5 flex flex-col justify-between p-6 sm:p-7 pt-9 transition-transform duration-200 ease-out will-change-transform cursor-crosshair"
+            style={tiltStyle}
+            className="relative aspect-[10/16] w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-emerald-500/5 flex flex-col justify-between p-6 sm:p-7 pt-9 transition-transform duration-200 ease-out will-change-transform cursor-crosshair z-0"
           >
+            {/* Layer 0: Goa Beach Scene Backdrop */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#FF7E5F] to-[#FEB47B] z-0" />
+            {/* Tropical Sun */}
+            <div className="absolute top-[10%] left-[55%] w-32 h-32 rounded-full bg-gradient-to-t from-[#FFE600] to-[#FF007A] opacity-80 blur-[2px] shadow-[0_0_50px_rgba(255,230,0,0.4)] z-0" />
+            {/* Arabian Sea Ocean */}
+            <div className="absolute bottom-0 inset-x-0 h-[42%] bg-gradient-to-t from-[#0083B0] to-[#00B4DB] z-0 border-t border-cyan-300/30" />
+            {/* Ocean Waves Wavelet overlay */}
+            <div className="absolute bottom-0 inset-x-0 h-[42%] opacity-15 bg-[radial-gradient(ellipse_at_50%_0%,_#ffffff_0%,_transparent_70%)] z-0" />
+
             {/* Glass backdrop overlay */}
-            <div className="absolute inset-0 bg-slate-950/45 backdrop-blur-sm z-0" />
+            <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px] z-0" />
 
             {/* Texture blend overlay */}
             {cardTexture !== 'glass' && (
@@ -564,7 +568,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             <div className="relative z-10 flex flex-col items-center gap-3 my-auto">
               
               {/* Photo Area with circular pop-art neon border */}
-              <div className="relative p-[3px] rounded-full bg-gradient-to-tr from-[#00F5A0] via-[#FFE600] to-[#00F5A0] shadow-[0_0_25px_rgba(0,245,160,0.4)]">
+              <div className="relative p-[3px] rounded-full bg-gradient-to-tr from-[#FFE600] via-[#FF007A] to-[#FFE600] shadow-[0_0_25px_rgba(255,0,122,0.45)]">
                 <div className="relative h-[120px] w-[120px] overflow-hidden rounded-full bg-slate-900 border border-slate-950 flex items-center justify-center">
                   <AnimatePresence mode="wait">
                     {croppedImage ? (
@@ -698,15 +702,20 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
       <div className="badge-canvas-container">
         <div
           ref={highResRef}
-          style={{
-            backgroundImage: "url('/palm-frame-bg.jpg')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
+          style={{}}
           className="w-[1080px] h-[1728px] border-[16px] border-solid border-slate-900 text-white flex flex-col justify-between p-20 pt-28 font-sans relative overflow-hidden"
         >
+          {/* Layer 0: Goa Beach Scene Backdrop */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#FF7E5F] to-[#FEB47B] z-0" />
+          {/* Tropical Sun */}
+          <div className="absolute top-[10%] left-[55%] w-[350px] h-[350px] rounded-full bg-gradient-to-t from-[#FFE600] to-[#FF007A] opacity-80 blur-[6px] shadow-[0_0_150px_rgba(255,230,0,0.4)] z-0" />
+          {/* Arabian Sea Ocean */}
+          <div className="absolute bottom-0 inset-x-0 h-[42%] bg-gradient-to-t from-[#0083B0] to-[#00B4DB] z-0 border-t-2 border-cyan-300/30" />
+          {/* Ocean Waves Wavelet overlay */}
+          <div className="absolute bottom-0 inset-x-0 h-[42%] opacity-15 bg-[radial-gradient(ellipse_at_50%_0%,_#ffffff_0%,_transparent_70%)] z-0" />
+
           {/* Glass backdrop overlay */}
-          <div className="absolute inset-0 bg-slate-950/45 backdrop-blur-md z-0" />
+          <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-md z-0" />
 
           {/* Texture blend overlay */}
           {cardTexture !== 'glass' && (
@@ -759,7 +768,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           {/* Central Body Content */}
           <div className="relative z-10 flex flex-col items-center gap-10 my-auto">
             {/* Developer photo frame */}
-            <div className="relative p-[9px] rounded-full bg-gradient-to-tr from-[#00F5A0] via-[#FFE600] to-[#00F5A0] shadow-[0_0_40px_rgba(0,245,160,0.4)]">
+            <div className="relative p-[9px] rounded-full bg-gradient-to-tr from-[#FFE600] via-[#FF007A] to-[#FFE600] shadow-[0_0_60px_rgba(255,0,122,0.45)]">
               <div className="relative h-[380px] w-[380px] overflow-hidden rounded-full bg-slate-900 border-[3px] border-slate-950 flex items-center justify-center">
                 {croppedImage ? (
                   <img

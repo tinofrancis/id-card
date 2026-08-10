@@ -301,9 +301,18 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
               className="absolute inset-0 z-40 pointer-events-none opacity-60 transition-opacity duration-300"
             />
 
-            <div className="absolute inset-0 w-full h-full">
-              {/* Layer 0: Base card background */}
-              <div className="absolute inset-0 bg-[#0f172a]" />
+            <div className="absolute inset-0 w-full h-full z-0">
+              {/* Layer 0: Goa Beach Scene Backdrop */}
+              <div className="absolute inset-0 bg-gradient-to-b from-[#FF7E5F] to-[#FEB47B] z-0" />
+              {/* Tropical Sun */}
+              <div className="absolute top-[10%] left-[55%] w-32 h-32 rounded-full bg-gradient-to-t from-[#FFE600] to-[#FF007A] opacity-80 blur-[2px] shadow-[0_0_50px_rgba(255,230,0,0.4)] z-0" />
+              {/* Arabian Sea Ocean */}
+              <div className="absolute bottom-0 inset-x-0 h-[42%] bg-gradient-to-t from-[#0083B0] to-[#00B4DB] z-0 border-t border-cyan-300/30" />
+              {/* Ocean Waves Wavelet overlay */}
+              <div className="absolute bottom-0 inset-x-0 h-[42%] opacity-15 bg-[radial-gradient(ellipse_at_50%_0%,_#ffffff_0%,_transparent_70%)] z-0" />
+
+              {/* Glass backdrop overlay */}
+              <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px] z-0" />
 
               {/* Layer 1: User avatar */}
               <div className="absolute inset-0 z-10 overflow-hidden flex items-center justify-center">
@@ -362,7 +371,7 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
               </div>
 
               {/* Layer 4: Footer event tag */}
-              <div className="absolute bottom-4 inset-x-4 z-30 p-2.5 rounded-xl border border-[#FFE600]/30 bg-slate-950/90 backdrop-blur-md text-center shadow-lg pointer-events-none">
+              <div className="absolute bottom-4 inset-x-4 z-30 p-2.5 rounded-xl border border-emerald-400/40 bg-slate-900/85 backdrop-blur-md text-center shadow-lg pointer-events-none">
                 <div className="text-[10px] font-black tracking-widest text-[#FFE600] font-display">HH GOA 2026 • BUILDER</div>
                 <div className="text-[7px] font-mono tracking-widest text-slate-400 mt-0.5 flex justify-center gap-1.5 uppercase">
                   <span>15.4967° N, 73.8278° E</span>
@@ -382,8 +391,20 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
         <div
           ref={highResRef}
           className="w-[1080px] h-[1080px] text-white relative overflow-hidden"
-          style={{ backgroundColor: '#070d10' }}
+          style={{}}
         >
+          {/* Layer 0: Goa Beach Scene Backdrop */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#FF7E5F] to-[#FEB47B] z-0" />
+          {/* Tropical Sun */}
+          <div className="absolute top-[10%] left-[55%] w-[350px] h-[350px] rounded-full bg-gradient-to-t from-[#FFE600] to-[#FF007A] opacity-80 blur-[6px] shadow-[0_0_150px_rgba(255,230,0,0.4)] z-0" />
+          {/* Arabian Sea Ocean */}
+          <div className="absolute bottom-0 inset-x-0 h-[42%] bg-gradient-to-t from-[#0083B0] to-[#00B4DB] z-0 border-t-2 border-cyan-300/30" />
+          {/* Ocean Waves Wavelet overlay */}
+          <div className="absolute bottom-0 inset-x-0 h-[42%] opacity-15 bg-[radial-gradient(ellipse_at_50%_0%,_#ffffff_0%,_transparent_70%)] z-0" />
+
+          {/* Glass backdrop overlay */}
+          <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-md z-0" />
+
           {croppedImage && (
             <>
               {/* Layer 1: User avatar (high-res scale calculations) */}
@@ -431,7 +452,7 @@ export default function FrameGenerator({ activeThemeId, setActiveThemeId }: Fram
               </div>
 
               {/* Layer 4: Footer event tag */}
-              <div className="absolute bottom-12 inset-x-12 z-30 p-8 rounded-3xl border-2 border-[#FFE600]/30 bg-slate-950/95 text-center shadow-2xl">
+              <div className="absolute bottom-12 inset-x-12 z-30 p-8 rounded-3xl border-2 border-emerald-400/40 bg-slate-900/85 text-center shadow-2xl">
                 <div className="text-3xl font-black tracking-widest text-[#FFE600] font-display">HH GOA 2026 • BUILDER</div>
                 <div className="text-lg font-mono tracking-widest text-slate-400 mt-2 flex justify-center gap-4 uppercase">
                   <span>15.4967° N, 73.8278° E</span>
