@@ -620,8 +620,6 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
               {/* Clean Key-Value Data Grid */}
               <div className="relative z-10 mt-3 p-3 rounded-2xl bg-white/[0.03] border border-white/10 text-left text-[7px] sm:text-[7.5px] font-mono leading-relaxed text-white space-y-1.5">
-                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[6px]">STATUS</span><span className="text-[#00FF66] font-extrabold flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-[#00FF66] animate-pulse" />VERIFIED BUILDER</span></div>
-                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[6px]">PORT ENTRY</span><span className="font-bold text-slate-200">FEB 2026</span></div>
                 <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[6px]">GPS COORDS</span><span className="font-bold text-slate-200">15.4967° N, 73.8278° E</span></div>
                 <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-[6px]">HACKATHON</span><span className="text-[#FFE600] font-black">HH GOA 2026</span></div>
               </div>
@@ -763,8 +761,6 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
               {/* Clean Key-Value Data Grid */}
               <div className="relative z-10 mt-6 p-8 rounded-[32px] bg-white/[0.03] border border-white/10 text-left text-lg font-mono leading-relaxed text-white space-y-4">
-                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-sm">STATUS</span><span className="text-[#00FF66] font-extrabold flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-[#00FF66] animate-pulse" />VERIFIED BUILDER</span></div>
-                <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-sm">PORT ENTRY</span><span className="font-bold text-slate-200">FEB 2026</span></div>
                 <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-sm">GPS COORDS</span><span className="font-bold text-slate-200">15.4967° N, 73.8278° E</span></div>
                 <div className="flex justify-between items-center"><span className="text-slate-400 font-bold uppercase text-sm">HACKATHON</span><span className="text-[#FFE600] font-black">HH GOA 2026</span></div>
               </div>
