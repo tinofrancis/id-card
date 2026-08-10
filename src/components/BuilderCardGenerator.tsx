@@ -495,9 +495,8 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
         <div className="w-full max-w-[400px] flex flex-col gap-4">
           <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 text-center block">
             Live Preview
-          </span>
-          {/* Lanyard Punch Hole centered in the top white margin */}
-          <div className="absolute top-[3px] left-1/2 -translate-x-1/2 w-9 h-2.5 rounded-full bg-slate-950 border border-slate-700 shadow-inner z-20 pointer-events-none" />
+          </span>          {/* Lanyard punch hole (White rounded pill shape centered at the top) */}
+          <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-14 h-3.5 rounded-full bg-white border border-slate-300 shadow-inner z-20 pointer-events-none" />
 
           {/* White outer margin badge card container */}
           <div 
@@ -508,51 +507,50 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             <div
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
-              style={{ backgroundColor: '#036838' }}
-              className="relative aspect-[10/16] w-full overflow-hidden rounded-[24px] flex flex-col justify-between p-4 pt-6 pb-4 select-none cursor-crosshair z-0"
+              style={{ 
+                backgroundImage: "url('/hero-bg.jpg')",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center bottom'
+              }}
+              className="relative aspect-[10/16] w-full overflow-hidden rounded-[24px] flex flex-col justify-between p-4 pt-8 pb-4 select-none cursor-crosshair z-0"
             >
               {/* 3D Reflection Glare Overlay */}
               <div
                 style={glareStyle}
-                className="absolute inset-0 z-40 pointer-events-none opacity-30 transition-opacity duration-300"
+                className="absolute inset-0 z-40 pointer-events-none opacity-20 transition-opacity duration-300"
               />
 
               {/* Top Header Metadata Row */}
-              <div className="relative z-10 flex justify-between items-center text-[5.5px] sm:text-[6px] font-mono font-black text-[#FFE600] tracking-wider pb-1.5 border-b border-[#FFE600]/25">
-                <span>2:47 PM STUDIO</span>
-                <span>28 - 31 OCT 2026 / GOA, INDIA</span>
+              <div className="relative z-10 flex justify-between items-center pb-2 border-b border-[#FFE600]/25">
+                <div className="flex flex-col items-start text-left leading-none font-extrabold text-[#FFE600]">
+                  <span className="text-[10px] sm:text-[11px] font-mono tracking-tighter">2:47PM</span>
+                  <span className="text-[5px] sm:text-[5.5px] tracking-widest font-sans mt-0.5 opacity-90">STUDIO</span>
+                </div>
+                <div className="flex flex-col items-end text-right leading-none font-extrabold text-[#FFE600]">
+                  <span className="text-[7.5px] sm:text-[8px] tracking-tight font-mono">28 - 31 OCT 2026</span>
+                  <span className="text-[5px] sm:text-[5.5px] tracking-wider font-sans mt-0.5 opacity-90">GOA, INDIA</span>
+                </div>
               </div>
 
               {/* Official Brand Title Block */}
-              <div className="relative z-10 flex flex-col items-center mt-2 text-center">
-                <h1 className="font-display font-black text-xl sm:text-2xl tracking-tighter text-[#FFE600] leading-none uppercase select-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-                  HACKER <span className="text-[#FF007A] font-sans text-xs sm:text-sm font-extrabold mx-0.5 bg-white/10 px-1 py-0.5 rounded border border-[#FF007A]/20 shadow-[0_0_8px_rgba(255,0,122,0.3)]">गोवा</span> HOUSE
+              <div className="relative z-10 flex flex-col items-center mt-2.5 text-center">
+                <h1 className="font-serif font-black text-[25px] sm:text-[29px] tracking-tight text-[#FFE600] leading-none uppercase select-none flex items-center gap-1.5 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                  <span>HACKER</span>
+                  <span className="bg-[#FF007A] text-white text-[9px] sm:text-[10px] font-sans font-black px-1.5 py-0.5 rounded border border-white/20 rotate-[-4deg] shadow-md select-none transform translate-y-[-2px]">
+                    गोवा
+                  </span>
+                  <span>HOUSE</span>
                 </h1>
-                <p className="text-[5px] sm:text-[5.5px] font-sans font-black text-white/95 tracking-widest uppercase mt-1">
+                <p className="text-[5.5px] sm:text-[6px] font-sans font-black text-white/95 tracking-wider uppercase mt-1.5">
                   4 DAYS. ONE RHYTHM. EVERYTHING INTENTIONAL.
                 </p>
               </div>
 
               {/* Arch Photo Frame & Overlay */}
               <div className="relative z-10 my-auto flex flex-col items-center">
-                {/* Subtle line-art backgrounds */}
-                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 opacity-15 pointer-events-none text-white w-full">
-                  {/* Beach Umbrellas SVG */}
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-                    <path d="M12 3v18M12 6a6 6 0 016 6M12 6a6 6 0 00-6 6" />
-                    <path strokeLinecap="round" d="M3 18c3 0 3-2 6-2s3 2 6 2" />
-                  </svg>
-                  {/* Scooter SVG */}
-                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-                    <circle cx="6" cy="18" r="3" />
-                    <circle cx="18" cy="18" r="3" />
-                    <path d="M6 18h12M9 18l3-6h6l-1 4" />
-                  </svg>
-                </div>
-
                 {/* Rounded arch frame window */}
-                <div className="relative p-[2px] rounded-t-full bg-[#FFE600] shadow-[0_0_15px_rgba(255,230,0,0.3)]">
-                  <div className="relative h-[95px] w-[75px] sm:h-[105px] sm:w-[85px] overflow-hidden rounded-t-full bg-slate-900 border border-slate-950 flex items-center justify-center">
+                <div className="relative p-[2.5px] rounded-t-full bg-[#FFE600] shadow-[0_0_15px_rgba(255,230,0,0.35)]">
+                  <div className="relative h-[105px] w-[85px] sm:h-[115px] sm:w-[95px] overflow-hidden rounded-t-full bg-slate-900 border border-slate-950 flex items-center justify-center">
                     <AnimatePresence mode="wait">
                       {croppedImage ? (
                         <motion.img
@@ -587,51 +585,69 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   </div>
 
                   {/* Frame Badge tag attached at bottom center */}
-                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-[#036838] border border-[#FFE600]/40 rounded-full shadow-md z-20 text-[4.5px] font-mono font-black text-white tracking-widest uppercase whitespace-nowrap">
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-[#036838] border border-[#FFE600]/40 rounded-full shadow-md z-20 text-[5px] font-mono font-black text-white tracking-widest uppercase whitespace-nowrap">
                     #FrameInGoa
                   </div>
                 </div>
               </div>
 
               {/* Name Box & Role Badge */}
-              <div className="relative z-10 flex flex-col items-center mt-2.5">
+              <div className="relative z-10 flex flex-col items-center mt-2">
                 {/* Name Box */}
-                <div className="w-full max-w-[200px] px-3 py-1 bg-[#FFFDE7] border border-[#FFE600] rounded-xl text-center shadow-md">
+                <div className="w-full max-w-[220px] px-3 py-1 bg-[#FFFEE0] border-[2px] border-[#FFE600] rounded-xl text-center shadow-md">
                   <div className="font-serif font-black text-[10px] sm:text-xs text-[#0A3A22] uppercase tracking-wider truncate">
-                    {name || 'HACKER'}
+                    {name || 'SMRUTISWARUPA PRIYADARSINI'}
                   </div>
                 </div>
-                {/* Role Tag */}
-                <div className="inline-block mt-1.5 px-3 py-0.5 rounded-full bg-[#FF007A] text-white text-[5.5px] sm:text-[6px] font-mono font-black tracking-wider uppercase shadow-[0_0_8px_rgba(255,0,122,0.35)]">
-                  {role.toUpperCase()} BUILDER
+                {/* Role Tag decorated with marigold stars */}
+                <div className="inline-flex items-center gap-1.5 mt-1.5 px-3 py-0.5 rounded-full bg-[#FF007A] text-[#FFE600] text-[6px] sm:text-[6.5px] font-mono font-black tracking-widest uppercase shadow-md">
+                  <span>✹</span>
+                  <span>{role.toUpperCase()}</span>
+                  <span>✹</span>
                 </div>
               </div>
 
               {/* Pass Identifier */}
-              <div className="relative z-10 mt-2 px-3 py-1 rounded-full bg-[#024d29] border border-white/5 text-center text-[5px] sm:text-[5.5px] font-mono font-black text-white/90 tracking-widest uppercase">
+              <div className="relative z-10 mt-2 px-3 py-0.5 rounded-full bg-[#024d29] border border-[#FFE600]/30 text-center text-[5px] sm:text-[5.5px] font-mono font-black text-white/95 tracking-widest uppercase">
                 ZENITH SQUAD  •  #GOA-2026-{cardId || '0199A'}
               </div>
 
               {/* Footer details & QR */}
               <div className="relative z-10 w-full mt-2 flex flex-col items-center gap-1.5">
-                {/* Centered QR */}
+                {/* Centered QR with center emblem overlay */}
                 <div className="relative p-[1.5px] rounded bg-[#FFE600] shadow-md">
                   {cardId ? (
-                    <img
-                      src={qrImageUrl}
-                      alt="QR Link"
-                      crossOrigin="anonymous"
-                      className="h-10 w-10 object-contain rounded bg-white"
-                    />
+                    <div className="relative">
+                      <img
+                        src={qrImageUrl}
+                        alt="QR Link"
+                        crossOrigin="anonymous"
+                        className="h-10 w-10 object-contain rounded bg-white"
+                      />
+                      {/* Center emblem overlay */}
+                      <div className="absolute inset-0 m-auto h-3 w-3 rounded-sm bg-white p-[0.5px] shadow-sm flex items-center justify-center">
+                        <img src="/hacker-house-goa-logo.png" className="h-full w-full object-contain" />
+                      </div>
+                    </div>
                   ) : (
-                    <QRCodeSVG className="h-10 w-10 text-slate-900 bg-white p-0.5" />
+                    <div className="relative">
+                      <QRCodeSVG className="h-10 w-10 text-slate-900 bg-white p-0.5 animate-pulse" />
+                      {/* Center emblem overlay */}
+                      <div className="absolute inset-0 m-auto h-3 w-3 rounded-sm bg-white p-[0.5px] shadow-sm flex items-center justify-center">
+                        <img src="/hacker-house-goa-logo.png" className="h-full w-full object-contain" />
+                      </div>
+                    </div>
                   )}
                 </div>
 
-                {/* Marigold pattern strip */}
-                <div className="absolute -bottom-4 inset-x-0 h-1.5 bg-gradient-to-r from-[#FFE600] via-[#FF007A] to-[#FFE600] flex justify-between overflow-hidden">
-                  {Array.from({ length: 16 }).map((_, i) => (
-                    <div key={i} className="w-2.5 h-2.5 rounded-full bg-[#FFE600] border-t border-[#FF007A] flex-shrink-0" />
+                {/* Marigold garland bottom strip */}
+                <div className="absolute -bottom-4 inset-x-0 h-2 bg-[#024d29] border-t border-[#FFE600]/30 flex justify-between px-1 overflow-hidden select-none">
+                  {Array.from({ length: 24 }).map((_, i) => (
+                    <div key={i} className="flex items-center justify-center flex-shrink-0 w-2.5 h-full">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#FFE600] relative flex items-center justify-center shadow-sm">
+                        <div className="absolute w-0.5 h-0.5 rounded-full bg-[#FF007A]" />
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -649,24 +665,38 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           style={{}}
           className="w-[1080px] h-[1600px] bg-white text-white flex flex-col justify-between p-6 font-sans relative overflow-hidden select-none"
         >
-          {/* Lanyard Punch Hole (High-Res) */}
-          <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-28 h-8 rounded-full bg-slate-950 border-2 border-slate-700 shadow-inner z-20 pointer-events-none" />
+          {/* Lanyard punch hole (High-Res) */}
+          <div className="absolute top-[28px] left-1/2 -translate-x-1/2 w-44 h-11 rounded-full bg-white border-2 border-slate-350 shadow-inner z-20 pointer-events-none" />
 
           {/* Deep jungle green badge body wrapper */}
           <div 
-            style={{ backgroundColor: '#036838' }}
+            style={{ 
+              backgroundImage: "url('/hero-bg.jpg')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center bottom'
+            }}
             className="w-full h-full rounded-[48px] overflow-hidden flex flex-col justify-between p-12 pt-16 pb-12 relative z-10"
           >
             {/* Top Header Metadata Row */}
-            <div className="relative z-10 flex justify-between items-center text-lg font-mono font-black text-[#FFE600] tracking-wider pb-4 border-b-2 border-[#FFE600]/25">
-              <span>2:47 PM STUDIO</span>
-              <span>28 - 31 OCT 2026 / GOA, INDIA</span>
+            <div className="relative z-10 flex justify-between items-center pb-4 border-b-2 border-[#FFE600]/25">
+              <div className="flex flex-col items-start text-left leading-none font-extrabold text-[#FFE600]">
+                <span className="text-3xl font-mono tracking-tighter">2:47PM</span>
+                <span className="text-sm tracking-[0.2em] font-sans mt-1 opacity-90">STUDIO</span>
+              </div>
+              <div className="flex flex-col items-end text-right leading-none font-extrabold text-[#FFE600]">
+                <span className="text-2xl tracking-tight font-mono">28 - 31 OCT 2026</span>
+                <span className="text-sm tracking-widest font-sans mt-1 opacity-90">GOA, INDIA</span>
+              </div>
             </div>
 
             {/* Official Brand Title Block */}
             <div className="relative z-10 flex flex-col items-center mt-6 text-center">
-              <h1 className="font-display font-black text-6xl tracking-tighter text-[#FFE600] leading-none uppercase drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
-                HACKER <span className="text-[#FF007A] font-sans text-4xl font-extrabold mx-2 bg-white/10 px-3 py-1 rounded-lg border-2 border-[#FF007A]/20 shadow-[0_0_24px_rgba(255,0,122,0.3)]">गोवा</span> HOUSE
+              <h1 className="font-serif font-black text-6xl tracking-tight text-[#FFE600] leading-none uppercase select-none flex items-center gap-4 drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]">
+                <span>HACKER</span>
+                <span className="bg-[#FF007A] text-white text-2xl font-sans font-black px-4 py-1 rounded-xl border-2 border-white/20 rotate-[-4deg] shadow-lg select-none transform translate-y-[-4px]">
+                  गोवा
+                </span>
+                <span>HOUSE</span>
               </h1>
               <p className="text-sm font-sans font-black text-white/95 tracking-[0.2em] uppercase mt-3">
                 4 DAYS. ONE RHYTHM. EVERYTHING INTENTIONAL.
@@ -675,23 +705,8 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
             {/* Arch Photo Frame & Overlay */}
             <div className="relative z-10 my-auto flex flex-col items-center">
-              {/* Subtle line-art backgrounds */}
-              <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-16 opacity-15 pointer-events-none text-white w-full">
-                {/* Beach Umbrellas SVG */}
-                <svg className="w-24 h-24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-                  <path d="M12 3v18M12 6a6 6 0 016 6M12 6a6 6 0 00-6 6" />
-                  <path strokeLinecap="round" d="M3 18c3 0 3-2 6-2s3 2 6 2" />
-                </svg>
-                {/* Scooter SVG */}
-                <svg className="w-24 h-24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-                  <circle cx="6" cy="18" r="3" />
-                  <circle cx="18" cy="18" r="3" />
-                  <path d="M6 18h12M9 18l3-6h6l-1 4" />
-                </svg>
-              </div>
-
               {/* Rounded arch frame window */}
-              <div className="relative p-[6px] rounded-t-full bg-[#FFE600] shadow-[0_0_40px_rgba(255,230,0,0.3)]">
+              <div className="relative p-[6px] rounded-t-full bg-[#FFE600] shadow-[0_0_40px_rgba(255,230,0,0.35)]">
                 <div className="relative h-[320px] w-[260px] overflow-hidden rounded-t-full bg-slate-900 border-2 border-slate-950 flex items-center justify-center">
                   {croppedImage ? (
                     <img
@@ -722,42 +737,60 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             {/* Name Box & Role Badge */}
             <div className="relative z-10 flex flex-col items-center mt-6">
               {/* Name Box */}
-              <div className="w-full max-w-[500px] px-8 py-3.5 bg-[#FFFDE7] border-2 border-[#FFE600] rounded-3xl text-center shadow-lg">
+              <div className="w-full max-w-[550px] px-8 py-3.5 bg-[#FFFEE0] border-4 border-[#FFE600] rounded-3xl text-center shadow-lg">
                 <div className="font-serif font-black text-2xl text-[#0A3A22] uppercase tracking-wider truncate">
-                  {name || 'HACKER'}
+                  {name || 'SMRUTISWARUPA PRIYADARSINI'}
                 </div>
               </div>
-              {/* Role Tag */}
-              <div className="inline-block mt-4 px-8 py-1.5 rounded-full bg-[#FF007A] text-white text-xs font-mono font-black tracking-wider uppercase shadow-[0_0_24px_rgba(255,0,122,0.35)]">
-                {role.toUpperCase()} BUILDER
+              {/* Role Tag decorated with marigold stars */}
+              <div className="inline-flex items-center gap-3 mt-4 px-8 py-2.5 rounded-full bg-[#FF007A] text-[#FFE600] text-base font-mono font-black tracking-widest uppercase shadow-lg">
+                <span>✹</span>
+                <span>{role.toUpperCase()}</span>
+                <span>✹</span>
               </div>
             </div>
 
             {/* Pass Identifier */}
-            <div className="relative z-10 mt-6 px-8 py-2.5 rounded-full bg-[#024d29] border border-white/5 text-center text-xs font-mono font-black text-white/90 tracking-widest uppercase">
+            <div className="relative z-10 mt-6 px-8 py-2.5 rounded-full bg-[#024d29] border border-[#FFE600]/30 text-center text-xs font-mono font-black text-white/90 tracking-widest uppercase">
               ZENITH SQUAD  •  #GOA-2026-{cardId || '0199A'}
             </div>
 
             {/* Footer details & QR */}
             <div className="relative z-10 w-full mt-6 flex flex-col items-center gap-4">
-              {/* Centered QR */}
+              {/* Centered QR with center emblem overlay */}
               <div className="relative p-[3px] rounded bg-[#FFE600] shadow-lg">
                 {cardId ? (
-                  <img
-                    src={qrImageUrl}
-                    alt="QR Link"
-                    crossOrigin="anonymous"
-                    className="h-28 w-28 object-contain rounded bg-white"
-                  />
+                  <div className="relative">
+                    <img
+                      src={qrImageUrl}
+                      alt="QR Link"
+                      crossOrigin="anonymous"
+                      className="h-28 w-28 object-contain rounded bg-white"
+                    />
+                    {/* Center emblem overlay */}
+                    <div className="absolute inset-0 m-auto h-8 w-8 rounded-sm bg-white p-[1px] shadow-sm flex items-center justify-center">
+                      <img src="/hacker-house-goa-logo.png" className="h-full w-full object-contain" />
+                    </div>
+                  </div>
                 ) : (
-                  <div className="h-28 w-28 text-slate-900 bg-white p-2" />
+                  <div className="relative">
+                    <QRCodeSVG className="h-28 w-28 text-slate-900 bg-white p-2" />
+                    {/* Center emblem overlay */}
+                    <div className="absolute inset-0 m-auto h-8 w-8 rounded-sm bg-white p-[1px] shadow-sm flex items-center justify-center">
+                      <img src="/hacker-house-goa-logo.png" className="h-full w-full object-contain" />
+                    </div>
+                  </div>
                 )}
               </div>
 
-              {/* Marigold pattern strip */}
-              <div className="absolute -bottom-12 inset-x-0 h-4 bg-gradient-to-r from-[#FFE600] via-[#FF007A] to-[#FFE600] flex justify-between overflow-hidden">
-                {Array.from({ length: 16 }).map((_, i) => (
-                  <div key={i} className="w-6 h-6 rounded-full bg-[#FFE600] border-t border-[#FF007A] flex-shrink-0" />
+              {/* Marigold garland bottom strip */}
+              <div className="absolute -bottom-12 inset-x-0 h-6 bg-[#024d29] border-t border-[#FFE600]/30 flex justify-between px-2 overflow-hidden select-none">
+                {Array.from({ length: 24 }).map((_, i) => (
+                  <div key={i} className="flex items-center justify-center flex-shrink-0 w-8 h-full">
+                    <div className="w-5 h-5 rounded-full bg-[#FFE600] relative flex items-center justify-center shadow-sm">
+                      <div className="absolute w-1.5 h-1.5 rounded-full bg-[#FF007A]" />
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
