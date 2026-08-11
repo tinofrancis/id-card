@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import QRCode from 'qrcode';
 import UploadBox from './UploadBox';
 import CropModal from './CropModal';
 import ThemeSelector from './ThemeSelector';
@@ -91,6 +92,33 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
   const [cardTexture, setCardTexture] = useState<'glass' | 'brushed' | 'carbon' | 'grid' | 'holo'>('glass');
   const [cardLayout, setCardLayout] = useState<'classic' | 'beach'>('beach');
   const [holoStyle, setHoloStyle] = useState<React.CSSProperties>({});
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    const generateQr = async () => {
+      try {
+        const url = `${domain || window.location.origin}/verify?id=${cardId}&name=${encodeURIComponent(name)}&role=${encodeURIComponent(role)}&title=${encodeURIComponent(builderTitle)}&theme=${activeThemeId}`;
+        const dataUrl = await QRCode.toDataURL(url, {
+          margin: 1,
+          width: 250,
+          color: {
+            dark: '#000000',
+            light: '#ffffff'
+          }
+        });
+        if (active) {
+          setQrCodeDataUrl(dataUrl);
+        }
+      } catch (err) {
+        console.error('Failed to generate QR code:', err);
+      }
+    };
+    generateQr();
+    return () => {
+      active = false;
+    };
+  }, [domain, cardId, name, role, builderTitle, activeThemeId]);
 
   const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({
     transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
@@ -763,6 +791,22 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   </div>
                 </div>
 
+                {/* QR Code Container (Visible Card) */}
+                {qrCodeDataUrl && (
+                  <div className="absolute right-[6%] bottom-[4.5%] z-10 flex flex-col items-center gap-[1px]">
+                    <div className="p-0.5 bg-white border border-black rounded-[4px] shadow-[1px_1px_3px_rgba(0,0,0,0.25)]">
+                      <img
+                        src={qrCodeDataUrl}
+                        alt="Verify Pass QR"
+                        className="h-8 w-8 sm:h-9 sm:w-9 object-contain"
+                      />
+                    </div>
+                    <span className="font-mono font-black text-white text-[3px] sm:text-[3.5px] tracking-wider uppercase drop-shadow-[0_1px_1px_rgba(0,0,0,0.85)]">
+                      VERIFY PASS
+                    </span>
+                  </div>
+                )}
+
                 {/* 7. Bottom Date */}
                 <div className="absolute left-1/2 -translate-x-1/2 bottom-[3.5%] z-10 font-sans font-black text-white text-[6.5px] sm:text-[7px] tracking-widest uppercase whitespace-nowrap drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.85)]">
                   — 28 - 31 OCT 2026 —
@@ -902,7 +946,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                     {cardId ? (
                       <div className="relative">
                         <img
-                          src={qrImageUrl}
+                          src={qrCodeDataUrl || qrImageUrl}
                           alt="QR Link"
                           crossOrigin="anonymous"
                           className="h-10 w-10 object-contain rounded bg-white"
@@ -1036,6 +1080,22 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 </div>
               </div>
 
+              {/* QR Code Container (High-Res) */}
+              {qrCodeDataUrl && (
+                <div className="absolute right-[6%] bottom-[4.5%] z-10 flex flex-col items-center gap-[3px]">
+                  <div className="p-1.5 bg-white border-2 border-black rounded-[12px] shadow-lg">
+                    <img
+                      src={qrCodeDataUrl}
+                      alt="Verify Pass QR"
+                      className="h-32 w-32 object-contain"
+                    />
+                  </div>
+                  <span className="font-mono font-black text-white text-[12px] tracking-wider uppercase drop-shadow-[0_3px_6px_rgba(0,0,0,0.85)]">
+                    VERIFY PASS
+                  </span>
+                </div>
+              )}
+
               {/* 7. Bottom Date */}
               <div className="absolute left-1/2 -translate-x-1/2 bottom-[3.5%] z-10 font-sans font-black text-white text-[24px] tracking-widest uppercase whitespace-nowrap drop-shadow-[0_4px_8px_rgba(0,0,0,0.85)]">
                 — 28 - 31 OCT 2026 —
@@ -1151,7 +1211,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   {cardId ? (
                     <div className="relative">
                       <img
-                        src={qrImageUrl}
+                        src={qrCodeDataUrl || qrImageUrl}
                         alt="QR Link"
                         crossOrigin="anonymous"
                         className="h-28 w-28 object-contain rounded bg-white"
