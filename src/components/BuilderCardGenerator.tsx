@@ -793,7 +793,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
                 {/* QR Code Container (Visible Card) */}
                 {qrCodeDataUrl && (
-                  <div className="absolute right-[6%] bottom-[4.5%] z-10 flex flex-col items-center gap-[1px]">
+                  <div className="absolute left-1/2 -translate-x-1/2 bottom-[7.5%] z-10 flex flex-col items-center gap-[1px]">
                     <div className="p-0.5 bg-white border border-black rounded-[4px] shadow-[1px_1px_3px_rgba(0,0,0,0.25)]">
                       <img
                         src={qrCodeDataUrl}
@@ -808,7 +808,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 )}
 
                 {/* 7. Bottom Date */}
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-[3.5%] z-10 font-sans font-black text-white text-[6.5px] sm:text-[7px] tracking-widest uppercase whitespace-nowrap drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.85)]">
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-[2.5%] z-10 font-sans font-black text-white text-[6.5px] sm:text-[7px] tracking-widest uppercase whitespace-nowrap drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.85)]">
                   — 28 - 31 OCT 2026 —
                 </div>
               </div>
@@ -1082,7 +1082,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
               {/* QR Code Container (High-Res) */}
               {qrCodeDataUrl && (
-                <div className="absolute right-[6%] bottom-[4.5%] z-10 flex flex-col items-center gap-[3px]">
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-[7.5%] z-10 flex flex-col items-center gap-[3px]">
                   <div className="p-1.5 bg-white border-2 border-black rounded-[12px] shadow-lg">
                     <img
                       src={qrCodeDataUrl}
@@ -1097,7 +1097,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               )}
 
               {/* 7. Bottom Date */}
-              <div className="absolute left-1/2 -translate-x-1/2 bottom-[3.5%] z-10 font-sans font-black text-white text-[24px] tracking-widest uppercase whitespace-nowrap drop-shadow-[0_4px_8px_rgba(0,0,0,0.85)]">
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-[2.5%] z-10 font-sans font-black text-white text-[24px] tracking-widest uppercase whitespace-nowrap drop-shadow-[0_4px_8px_rgba(0,0,0,0.85)]">
                 — 28 - 31 OCT 2026 —
               </div>
             </div>
