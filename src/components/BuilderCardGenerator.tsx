@@ -687,15 +687,15 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
                 {/* 1. HH GOA 2026 branding top-left */}
                 <div className="absolute left-[7.5%] top-[7.5%] flex flex-col items-start leading-[1.1] z-10">
-                  <span className="font-sans font-black text-slate-900 text-[10px] sm:text-xs tracking-tight">HH GOA</span>
-                  <span className="font-sans font-black text-slate-900 text-xs sm:text-sm">2026</span>
+                  <span className="font-sans font-black text-white text-[10px] sm:text-xs tracking-tight drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.85)]">HH GOA</span>
+                  <span className="font-sans font-black text-white text-xs sm:text-sm drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.85)]">2026</span>
                   <span className="mt-0.5 px-1 py-0.25 rounded bg-[#FF007A] text-white font-sans font-black text-[5px] sm:text-[6px] tracking-wider uppercase scale-90 origin-left">BUILDER ID</span>
                 </div>
 
                 {/* 2. Less noise quote top-right */}
                 <div className="absolute right-[7.5%] top-[8.5%] flex flex-col items-end leading-tight z-10">
-                  <span className="font-mono font-black text-slate-800 text-[6.5px] sm:text-[7.5px] tracking-tighter">LESS NOISE.</span>
-                  <span className="font-mono font-black text-[#FF007A] text-[6.5px] sm:text-[7.5px] tracking-tighter">MORE SIGNAL.</span>
+                  <span className="font-mono font-black text-white text-[6.5px] sm:text-[7.5px] tracking-tighter drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]">LESS NOISE.</span>
+                  <span className="font-mono font-black text-[#FF007A] text-[6.5px] sm:text-[7.5px] tracking-tighter drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]">MORE SIGNAL.</span>
                   <div className="w-8 h-[1px] bg-[#FF007A] mt-0.5" />
                 </div>
 
@@ -741,14 +741,14 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                       {name || 'K. KISHORE'}
                     </div>
                   </div>
-                  <div className="font-sans font-extrabold text-[6px] sm:text-[7px] text-slate-800 tracking-wider uppercase text-center mt-0.5">
+                  <div className="font-sans font-extrabold text-[6px] sm:text-[7px] text-white tracking-wider uppercase text-center mt-0.5 drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.85)]">
                     {role.toUpperCase()}
                   </div>
                 </div>
 
                 {/* 5. Builder Class Yellow Brush */}
                 <div className="absolute left-[52%] top-[63.5%] w-[42%] z-10 flex flex-col items-center">
-                  <span className="font-mono font-black text-slate-500 text-[5px] sm:text-[5.5px] tracking-wider uppercase">BUILDER CLASS:</span>
+                  <span className="font-mono font-black text-white text-[5px] sm:text-[5.5px] tracking-wider uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]">BUILDER CLASS:</span>
                   <div className="relative mt-0.5 px-2 py-0.5 bg-[#FFE600] rounded-sm transform rotate-[1.5deg] shadow-[1px_1px_4px_rgba(0,0,0,0.15)] text-center">
                     <span className="font-serif italic font-black text-[#FF007A] text-[7.5px] sm:text-[8.5px] tracking-tight uppercase whitespace-nowrap">
                       {builderTitle || 'THE SHIPPER'}
@@ -764,7 +764,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 </div>
 
                 {/* 7. Bottom Date */}
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-[3.5%] z-10 font-sans font-black text-slate-800 text-[6.5px] sm:text-[7px] tracking-widest uppercase whitespace-nowrap">
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-[3.5%] z-10 font-sans font-black text-white text-[6.5px] sm:text-[7px] tracking-widest uppercase whitespace-nowrap drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.85)]">
                   — 28 - 31 OCT 2026 —
                 </div>
               </div>
@@ -974,15 +974,15 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
 
               {/* 1. HH GOA 2026 branding top-left */}
               <div className="absolute left-[7.5%] top-[7.5%] flex flex-col items-start leading-[1.1] z-10">
-                <span className="font-sans font-black text-slate-900 text-[48px] tracking-tight">HH GOA</span>
-                <span className="font-sans font-black text-slate-900 text-[56px]">2026</span>
+                <span className="font-sans font-black text-white text-[48px] tracking-tight drop-shadow-[0_4px_8px_rgba(0,0,0,0.85)]">HH GOA</span>
+                <span className="font-sans font-black text-white text-[56px] drop-shadow-[0_4px_8px_rgba(0,0,0,0.85)]">2026</span>
                 <span className="mt-2 px-5 py-1.5 rounded-lg bg-[#FF007A] text-white font-sans font-black text-sm tracking-wider uppercase">BUILDER ID</span>
               </div>
 
               {/* 2. Less noise quote top-right */}
               <div className="absolute right-[7.5%] top-[8.5%] flex flex-col items-end leading-tight z-10">
-                <span className="font-mono font-black text-slate-800 text-[24px] tracking-tighter">LESS NOISE.</span>
-                <span className="font-mono font-black text-[#FF007A] text-[24px] tracking-tighter">MORE SIGNAL.</span>
+                <span className="font-mono font-black text-white text-[24px] tracking-tighter drop-shadow-[0_3px_6px_rgba(0,0,0,0.85)]">LESS NOISE.</span>
+                <span className="font-mono font-black text-[#FF007A] text-[24px] tracking-tighter drop-shadow-[0_3px_6px_rgba(0,0,0,0.85)]">MORE SIGNAL.</span>
                 <div className="w-24 h-[3px] bg-[#FF007A] mt-1.5" />
               </div>
 
@@ -1014,14 +1014,14 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                     {name || 'K. KISHORE'}
                   </div>
                 </div>
-                <div className="font-sans font-extrabold text-[22px] text-slate-800 tracking-wider uppercase mt-1.5">
+                <div className="font-sans font-extrabold text-[22px] text-white tracking-wider uppercase mt-1.5 drop-shadow-[0_4px_8px_rgba(0,0,0,0.85)]">
                   {role.toUpperCase()}
                 </div>
               </div>
 
               {/* 5. Builder Class Yellow Brush */}
               <div className="absolute left-[52%] top-[63.5%] w-[42%] z-10 flex flex-col items-center">
-                <span className="font-mono font-black text-slate-500 text-xs tracking-wider uppercase">BUILDER CLASS:</span>
+                <span className="font-mono font-black text-white text-xs tracking-wider uppercase drop-shadow-[0_3px_6px_rgba(0,0,0,0.85)]">BUILDER CLASS:</span>
                 <div className="relative mt-1.5 px-6 py-1.5 bg-[#FFE600] rounded-sm transform rotate-[1.5deg] shadow-[2px_2px_8px_rgba(0,0,0,0.15)] text-center">
                   <span className="font-serif italic font-black text-[#FF007A] text-[24px] tracking-tight uppercase whitespace-nowrap">
                     {builderTitle || 'THE SHIPPER'}
@@ -1037,7 +1037,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               </div>
 
               {/* 7. Bottom Date */}
-              <div className="absolute left-1/2 -translate-x-1/2 bottom-[3.5%] z-10 font-sans font-black text-slate-800 text-[24px] tracking-widest uppercase whitespace-nowrap">
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-[3.5%] z-10 font-sans font-black text-white text-[24px] tracking-widest uppercase whitespace-nowrap drop-shadow-[0_4px_8px_rgba(0,0,0,0.85)]">
                 — 28 - 31 OCT 2026 —
               </div>
             </div>
