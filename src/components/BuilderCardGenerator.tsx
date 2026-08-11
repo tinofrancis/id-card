@@ -76,8 +76,8 @@ interface BuilderCardGeneratorProps {
 }
 
 export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }: BuilderCardGeneratorProps) {
-  const [imageSrc, setImageSrc] = useState<string | null>('/default-avatar.jpg');
-  const [croppedImage, setCroppedImage] = useState<string | null>('/default-avatar.jpg');
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [croppedImage, setCroppedImage] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1.0);
   const [panX, setPanX] = useState(0);
   const [panY, setPanY] = useState(0);
@@ -364,8 +364,8 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
   };
 
   const handleReset = () => {
-    setImageSrc('/default-avatar.jpg');
-    setCroppedImage('/default-avatar.jpg');
+    setImageSrc(null);
+    setCroppedImage(null);
     setZoom(1.0);
     setPanX(0);
     setPanY(0);
