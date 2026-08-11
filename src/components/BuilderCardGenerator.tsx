@@ -89,7 +89,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
   const [cardId, setCardId] = useState('');
   const [domain, setDomain] = useState('');
   const [cardTexture, setCardTexture] = useState<'glass' | 'brushed' | 'carbon' | 'grid' | 'holo'>('glass');
-  const [cardLayout, setCardLayout] = useState<'classic' | 'beach'>('classic');
+  const [cardLayout, setCardLayout] = useState<'classic' | 'beach'>('beach');
   const [holoStyle, setHoloStyle] = useState<React.CSSProperties>({});
 
   const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({

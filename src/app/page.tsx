@@ -15,7 +15,7 @@ import { audio } from '@/utils/audio';
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(true);
-  const [activeTab, setActiveTab] = useState<'frame' | 'card'>('frame');
+  const [activeTab, setActiveTab] = useState<'frame' | 'card'>('card');
   const [activeThemeId, setActiveThemeId] = useState<Theme['id']>('sunset');
   const activeTheme = THEMES.find((t) => t.id === activeThemeId) || THEMES[0];
 
