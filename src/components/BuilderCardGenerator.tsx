@@ -82,7 +82,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
   const [panX, setPanX] = useState(0);
   const [panY, setPanY] = useState(0);
   const [rotation, setRotation] = useState(0);
-  const [name, setName] = useState('K. KISHORE');
+  const [name, setName] = useState('TINO FRANCIS');
   const [role, setRole] = useState('Full Stack Developer');
   const [builderTitle, setBuilderTitle] = useState('THE SHIPPER');
   const [showCropModal, setShowCropModal] = useState(false);
@@ -370,7 +370,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
     setPanX(0);
     setPanY(0);
     setRotation(0);
-    setName('K. KISHORE');
+    setName('TINO FRANCIS');
     setRole('Full Stack Developer');
     setBuilderTitle('THE SHIPPER');
   };
@@ -738,7 +738,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 <div className="absolute left-[53%] top-[46.5%] w-[40%] z-10 flex flex-col gap-0.5">
                   <div className="px-1.5 py-0.5 bg-[#FF007A] border border-black rounded-[4px] shadow-sm transform -rotate-[1deg] text-center">
                     <div className="font-sans font-black text-[9px] sm:text-[10px] text-white uppercase tracking-wider truncate">
-                      {name || 'K. KISHORE'}
+                      {name || 'TINO FRANCIS'}
                     </div>
                   </div>
                   <div className="font-sans font-extrabold text-[6px] sm:text-[7px] text-white tracking-wider uppercase text-center mt-0.5 drop-shadow-[0_1.5px_3px_rgba(0,0,0,0.85)]">
@@ -1011,7 +1011,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               <div className="absolute left-[53%] top-[46.5%] w-[40%] z-10 flex flex-col gap-1.5 text-center">
                 <div className="px-8 py-3.5 bg-[#FF007A] border-2 border-black rounded-[12px] shadow-md transform -rotate-[1deg]">
                   <div className="font-sans font-black text-[36px] text-white uppercase tracking-wider truncate">
-                    {name || 'K. KISHORE'}
+                    {name || 'TINO FRANCIS'}
                   </div>
                 </div>
                 <div className="font-sans font-extrabold text-[22px] text-white tracking-wider uppercase mt-1.5 drop-shadow-[0_4px_8px_rgba(0,0,0,0.85)]">
