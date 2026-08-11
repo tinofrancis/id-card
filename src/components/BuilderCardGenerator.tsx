@@ -659,16 +659,17 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
             className="p-[10px] rounded-[32px] bg-white border border-slate-200/50 shadow-2xl transition-transform duration-200 ease-out will-change-transform z-10 w-full"
           >
             {cardLayout === 'beach' ? (
-              /* Visible badge card (Goa Beach Style aspect-[3/4]) */
+              /* Visible badge card (Goa Beach Style aspect-[732/1014]) */
               <div
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
                 style={{ 
                   backgroundImage: "url('/goa-beach-frame.jpg')",
                   backgroundSize: '100% 100%',
-                  backgroundPosition: 'center'
+                  backgroundPosition: 'center',
+                  aspectRatio: '732/1014'
                 }}
-                className="relative aspect-[3/4] w-full overflow-hidden rounded-[24px] select-none cursor-crosshair z-0"
+                className="relative w-full overflow-hidden rounded-[24px] select-none cursor-crosshair z-0"
               >
                 {/* 3D Reflection Glare Overlay */}
                 <div
@@ -685,21 +686,21 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 <div className={`${tc.overlayClass} opacity-20`} />
 
                 {/* 1. HH GOA 2026 branding top-left */}
-                <div className="absolute left-[9%] top-[9%] flex flex-col items-start leading-[1.1] z-10">
+                <div className="absolute left-[7.5%] top-[7.5%] flex flex-col items-start leading-[1.1] z-10">
                   <span className="font-sans font-black text-slate-900 text-[10px] sm:text-xs tracking-tight">HH GOA</span>
                   <span className="font-sans font-black text-slate-900 text-xs sm:text-sm">2026</span>
                   <span className="mt-0.5 px-1 py-0.25 rounded bg-[#FF007A] text-white font-sans font-black text-[5px] sm:text-[6px] tracking-wider uppercase scale-90 origin-left">BUILDER ID</span>
                 </div>
 
                 {/* 2. Less noise quote top-right */}
-                <div className="absolute right-[9%] top-[10.5%] flex flex-col items-end leading-tight z-10">
+                <div className="absolute right-[7.5%] top-[8.5%] flex flex-col items-end leading-tight z-10">
                   <span className="font-mono font-black text-slate-800 text-[6.5px] sm:text-[7.5px] tracking-tighter">LESS NOISE.</span>
                   <span className="font-mono font-black text-[#FF007A] text-[6.5px] sm:text-[7.5px] tracking-tighter">MORE SIGNAL.</span>
                   <div className="w-8 h-[1px] bg-[#FF007A] mt-0.5" />
                 </div>
 
                 {/* 3. Photo Frame Overlay */}
-                <div className="absolute left-[21.8%] top-[34.1%] w-[25.2%] h-[24.2%] overflow-hidden rounded-[4px] bg-slate-900 border border-slate-950 flex items-center justify-center z-10">
+                <div className="absolute left-[17.6%] top-[30.1%] w-[26.2%] h-[26.3%] overflow-hidden rounded-[4px] bg-slate-900 border border-slate-950 flex items-center justify-center z-10">
                   <AnimatePresence mode="wait">
                     {croppedImage ? (
                       <motion.img
@@ -734,7 +735,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 </div>
 
                 {/* 4. Name Box */}
-                <div className="absolute left-[50%] top-[48.5%] w-[42%] z-10 flex flex-col gap-0.5">
+                <div className="absolute left-[53%] top-[46.5%] w-[40%] z-10 flex flex-col gap-0.5">
                   <div className="px-1.5 py-0.5 bg-[#FF007A] border border-black rounded-[4px] shadow-sm transform -rotate-[1deg] text-center">
                     <div className="font-sans font-black text-[9px] sm:text-[10px] text-white uppercase tracking-wider truncate">
                       {name || 'K. KISHORE'}
@@ -746,7 +747,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 </div>
 
                 {/* 5. Builder Class Yellow Brush */}
-                <div className="absolute left-[48%] top-[65%] w-[44%] z-10 flex flex-col items-center">
+                <div className="absolute left-[52%] top-[63.5%] w-[42%] z-10 flex flex-col items-center">
                   <span className="font-mono font-black text-slate-500 text-[5px] sm:text-[5.5px] tracking-wider uppercase">BUILDER CLASS:</span>
                   <div className="relative mt-0.5 px-2 py-0.5 bg-[#FFE600] rounded-sm transform rotate-[1.5deg] shadow-[1px_1px_4px_rgba(0,0,0,0.15)] text-center">
                     <span className="font-serif italic font-black text-[#FF007A] text-[7.5px] sm:text-[8.5px] tracking-tight uppercase whitespace-nowrap">
@@ -756,14 +757,14 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                 </div>
 
                 {/* 6. Hashtag Pink Ribbon */}
-                <div className="absolute right-[13.5%] bottom-[11.5%] z-10">
+                <div className="absolute right-[8%] bottom-[12.5%] z-10">
                   <div className="px-2 py-0.5 bg-[#FF007A] rounded-full shadow-md text-white font-mono font-black text-[5px] sm:text-[5.5px] tracking-widest uppercase">
                     #FrameInGoa
                   </div>
                 </div>
 
                 {/* 7. Bottom Date */}
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-[4.5%] z-10 font-sans font-black text-slate-800 text-[6.5px] sm:text-[7px] tracking-widest uppercase whitespace-nowrap">
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-[3.5%] z-10 font-sans font-black text-slate-800 text-[6.5px] sm:text-[7px] tracking-widest uppercase whitespace-nowrap">
                   — 28 - 31 OCT 2026 —
                 </div>
               </div>
@@ -946,7 +947,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
         <div
           ref={highResRef}
           style={{}}
-          className={`${cardLayout === 'beach' ? 'w-[1080px] h-[1440px]' : 'w-[1080px] h-[1920px]'} bg-white text-white flex flex-col justify-between p-6 font-sans relative overflow-hidden select-none`}
+          className={`${cardLayout === 'beach' ? 'w-[1080px] h-[1496px] p-0' : 'w-[1080px] h-[1920px] p-6'} bg-white text-white flex flex-col justify-between font-sans relative overflow-hidden select-none`}
         >
           {/* Lanyard punch hole (High-Res) */}
           {cardLayout === 'classic' && (
@@ -972,21 +973,21 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               <div className={`${tc.overlayClass} opacity-20`} />
 
               {/* 1. HH GOA 2026 branding top-left */}
-              <div className="absolute left-[9%] top-[9%] flex flex-col items-start leading-[1.1] z-10">
+              <div className="absolute left-[7.5%] top-[7.5%] flex flex-col items-start leading-[1.1] z-10">
                 <span className="font-sans font-black text-slate-900 text-[48px] tracking-tight">HH GOA</span>
                 <span className="font-sans font-black text-slate-900 text-[56px]">2026</span>
                 <span className="mt-2 px-5 py-1.5 rounded-lg bg-[#FF007A] text-white font-sans font-black text-sm tracking-wider uppercase">BUILDER ID</span>
               </div>
 
               {/* 2. Less noise quote top-right */}
-              <div className="absolute right-[9%] top-[10.5%] flex flex-col items-end leading-tight z-10">
-                <span className="font-mono font-black text-slate-800 text-xl tracking-tighter">LESS NOISE.</span>
-                <span className="font-mono font-black text-[#FF007A] text-xl tracking-tighter">MORE SIGNAL.</span>
+              <div className="absolute right-[7.5%] top-[8.5%] flex flex-col items-end leading-tight z-10">
+                <span className="font-mono font-black text-slate-800 text-[24px] tracking-tighter">LESS NOISE.</span>
+                <span className="font-mono font-black text-[#FF007A] text-[24px] tracking-tighter">MORE SIGNAL.</span>
                 <div className="w-24 h-[3px] bg-[#FF007A] mt-1.5" />
               </div>
 
               {/* 3. Photo Frame Overlay */}
-              <div className="absolute left-[21.8%] top-[34.1%] w-[25.2%] h-[24.2%] overflow-hidden rounded-[24px] bg-slate-900 border-2 border-slate-950 flex items-center justify-center z-10">
+              <div className="absolute left-[17.6%] top-[30.1%] w-[26.2%] h-[26.3%] overflow-hidden rounded-[16px] bg-slate-900 border-2 border-slate-950 flex items-center justify-center z-10">
                 {croppedImage ? (
                   <img
                     src={croppedImage}
@@ -1007,7 +1008,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               </div>
 
               {/* 4. Name Box */}
-              <div className="absolute left-[50%] top-[48.5%] w-[42%] z-10 flex flex-col gap-1.5 text-center">
+              <div className="absolute left-[53%] top-[46.5%] w-[40%] z-10 flex flex-col gap-1.5 text-center">
                 <div className="px-8 py-3.5 bg-[#FF007A] border-2 border-black rounded-[12px] shadow-md transform -rotate-[1deg]">
                   <div className="font-sans font-black text-[36px] text-white uppercase tracking-wider truncate">
                     {name || 'K. KISHORE'}
@@ -1019,7 +1020,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               </div>
 
               {/* 5. Builder Class Yellow Brush */}
-              <div className="absolute left-[48%] top-[65%] w-[44%] z-10 flex flex-col items-center">
+              <div className="absolute left-[52%] top-[63.5%] w-[42%] z-10 flex flex-col items-center">
                 <span className="font-mono font-black text-slate-500 text-xs tracking-wider uppercase">BUILDER CLASS:</span>
                 <div className="relative mt-1.5 px-6 py-1.5 bg-[#FFE600] rounded-sm transform rotate-[1.5deg] shadow-[2px_2px_8px_rgba(0,0,0,0.15)] text-center">
                   <span className="font-serif italic font-black text-[#FF007A] text-[24px] tracking-tight uppercase whitespace-nowrap">
@@ -1029,14 +1030,14 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
               </div>
 
               {/* 6. Hashtag Pink Ribbon */}
-              <div className="absolute right-[13.5%] bottom-[11.5%] z-10">
+              <div className="absolute right-[8%] bottom-[12.5%] z-10">
                 <div className="px-8 py-2 bg-[#FF007A] rounded-full shadow-lg text-white font-mono font-black text-sm tracking-widest uppercase">
                   #FrameInGoa
                 </div>
               </div>
 
               {/* 7. Bottom Date */}
-              <div className="absolute left-1/2 -translate-x-1/2 bottom-[4.5%] z-10 font-sans font-black text-slate-800 text-[24px] tracking-widest uppercase whitespace-nowrap">
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-[3.5%] z-10 font-sans font-black text-slate-800 text-[24px] tracking-widest uppercase whitespace-nowrap">
                 — 28 - 31 OCT 2026 —
               </div>
             </div>
