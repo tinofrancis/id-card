@@ -410,13 +410,17 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
       const { toPng } = await import('html-to-image');
       const dataUrl = await toPng(highResRef.current, {
         cacheBust: true,
+        skipFonts: true,
         style: {
           transform: 'scale(1)',
           transformOrigin: 'top left',
         },
-        pixelRatio: 2,
+        pixelRatio: 1.5,
       });
-      await saveProfileCard(undefined, dataUrl);
+      // Fire-and-forget saving in the background to prevent blocking Twitter popup
+      saveProfileCard(undefined, dataUrl).catch(err => {
+        console.error('Background card save failed:', err);
+      });
     } catch (err) {
       console.error('Failed to generate full card image for share preview:', err);
     }

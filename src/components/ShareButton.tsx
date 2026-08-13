@@ -21,15 +21,27 @@ export default function ShareButton({ mode, shareUrl, onShareClick }: ShareButto
 
   const handleShareToX = async () => {
     setIsSharing(true);
+    // Open window synchronously immediately on click to prevent browser popup blockers
+    const shareWindow = typeof window !== 'undefined' ? window.open('', '_blank') : null;
+    
     try {
       if (onShareClick) {
         await onShareClick();
       }
       const text = getShareText();
       const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank', 'noopener,noreferrer');
+      
+      if (shareWindow) {
+        shareWindow.location.href = url;
+      } else {
+        // Fallback in case window.open was blocked or not supported
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
     } catch (err) {
       console.error('Failed to share to X:', err);
+      if (shareWindow) {
+        shareWindow.close();
+      }
     } finally {
       setIsSharing(false);
     }
