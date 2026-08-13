@@ -1,24 +1,38 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Copy, Check } from 'lucide-react';
+import { Copy, Check, Loader2 } from 'lucide-react';
 
 interface ShareButtonProps {
   mode: 'frame' | 'card';
+  shareUrl?: string;
+  onShareClick?: () => Promise<void>;
 }
 
-export default function ShareButton({ mode }: ShareButtonProps) {
+export default function ShareButton({ mode, shareUrl, onShareClick }: ShareButtonProps) {
   const [copied, setCopied] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
 
   const getShareText = () => {
     const item = mode === 'frame' ? 'Profile Frame' : 'Builder Card';
-    return `Ready for HH Goa 2026!\n\nJust generated my official ${item}.\n\nCan't wait to build with everyone!\n\n#FrameInGoa`;
+    const linkSection = shareUrl ? `\n\nVerify my pass here: ${shareUrl}` : '';
+    return `Ready for HH Goa 2026!\n\nJust generated my official ${item}.${linkSection}\n\n#FrameInGoa`;
   };
 
-  const handleShareToX = () => {
-    const text = getShareText();
-    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
+  const handleShareToX = async () => {
+    setIsSharing(true);
+    try {
+      if (onShareClick) {
+        await onShareClick();
+      }
+      const text = getShareText();
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } catch (err) {
+      console.error('Failed to share to X:', err);
+    } finally {
+      setIsSharing(false);
+    }
   };
 
   const handleCopyCaption = async () => {
@@ -37,12 +51,22 @@ export default function ShareButton({ mode }: ShareButtonProps) {
       {/* Share to X Button */}
       <button
         onClick={handleShareToX}
-        className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-transparent bg-slate-900 text-white hover:bg-black hover:shadow-lg hover:shadow-black/10 dark:hover:shadow-black/40 px-5 py-3 text-xs font-semibold transition-all duration-200 active:scale-[0.96] cursor-pointer"
+        disabled={isSharing}
+        className="flex-1 flex items-center justify-center gap-2 rounded-xl border border-transparent bg-slate-900 text-white hover:bg-black hover:shadow-lg hover:shadow-black/10 dark:hover:shadow-black/40 px-5 py-3 text-xs font-semibold transition-all duration-200 active:scale-[0.96] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5 text-white">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-        </svg>
-        <span>Share to X (Twitter)</span>
+        {isSharing ? (
+          <>
+            <Loader2 className="h-3.5 w-3.5 animate-spin text-white" />
+            <span>Generating Preview...</span>
+          </>
+        ) : (
+          <>
+            <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5 text-white">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>Share to X (Twitter)</span>
+          </>
+        )}
       </button>
 
       {/* Copy Caption Button */}

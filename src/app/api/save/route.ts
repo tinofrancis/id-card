@@ -8,7 +8,7 @@ import ProfileFrame from '@/models/ProfileFrame';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { type, id, name, role, title, theme, image } = body;
+    const { type, id, name, role, title, theme, image, cardImage } = body;
 
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
     const logData = {
@@ -47,16 +47,23 @@ export async function POST(request: Request) {
     } else if (id) {
       try {
         await dbConnect();
+        const updateData: any = {
+          id,
+          name: name || 'N/A',
+          role: role || 'N/A',
+          title: title || 'N/A',
+          theme: theme || 'N/A',
+        };
+        if (image) {
+          updateData.imageUrl = image;
+        }
+        if (cardImage) {
+          updateData.cardImageUrl = cardImage;
+        }
+
         await Submission.findOneAndUpdate(
           { id },
-          {
-            id,
-            name: name || 'N/A',
-            role: role || 'N/A',
-            title: title || 'N/A',
-            theme: theme || 'N/A',
-            imageUrl: image || null,
-          },
+          updateData,
           { upsert: true, new: true }
         );
       } catch (err) {

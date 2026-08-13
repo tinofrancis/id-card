@@ -7,6 +7,7 @@ export interface ISubmission extends Document {
   title?: string;
   theme?: string;
   imageUrl?: string;
+  cardImageUrl?: string;
   createdAt: Date;
 }
 
@@ -17,6 +18,7 @@ const SubmissionSchema: Schema = new Schema({
   title: { type: String },
   theme: { type: String },
   imageUrl: { type: String },
+  cardImageUrl: { type: String },
   createdAt: { type: Date, default: Date.now },
 });
 

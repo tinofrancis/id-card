@@ -363,7 +363,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
     setShowCropModal(true);
   };
 
-  const saveProfileCard = async (imageToSave?: string | null) => {
+  const saveProfileCard = async (imageToSave?: string | null, cardImageToSave?: string | null) => {
     const img = imageToSave !== undefined ? imageToSave : croppedImage;
     if (!img) return;
     try {
@@ -378,6 +378,7 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
           theme: activeThemeId,
           layout: cardLayout,
           image: img,
+          cardImage: cardImageToSave || null,
         }),
       });
     } catch (err) {
@@ -401,6 +402,24 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
     setName('TINO FRANCIS');
     setRole('Full Stack Developer');
     setBuilderTitle('THE SHIPPER');
+  };
+
+  const handleShareClick = async () => {
+    if (!highResRef.current) return;
+    try {
+      const { toPng } = await import('html-to-image');
+      const dataUrl = await toPng(highResRef.current, {
+        cacheBust: true,
+        style: {
+          transform: 'scale(1)',
+          transformOrigin: 'top left',
+        },
+        pixelRatio: 2,
+      });
+      await saveProfileCard(null, dataUrl);
+    } catch (err) {
+      console.error('Failed to generate full card image for share preview:', err);
+    }
   };
 
   const verifyUrl = `${domain}/verify?id=${cardId}&name=${encodeURIComponent(name)}&role=${encodeURIComponent(role)}&title=${encodeURIComponent(builderTitle)}&theme=${activeThemeId}`;
@@ -660,11 +679,15 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
                   fileName={`hh-goa-builder-card-${activeThemeId}.png`}
                   label="Download Builder Pass"
                   variant="green"
-                  onDownloadCompleted={async () => {
-                    await saveProfileCard();
+                  onDownloadCompleted={async (dataUrl) => {
+                    await saveProfileCard(null, dataUrl);
                   }}
                 />
-                <ShareButton mode="card" />
+                <ShareButton
+                  mode="card"
+                  shareUrl={verifyUrl}
+                  onShareClick={handleShareClick}
+                />
               </div>
             )}
           </div>
