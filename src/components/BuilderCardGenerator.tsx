@@ -416,13 +416,13 @@ export default function BuilderCardGenerator({ activeThemeId, setActiveThemeId }
         },
         pixelRatio: 2,
       });
-      await saveProfileCard(null, dataUrl);
+      await saveProfileCard(undefined, dataUrl);
     } catch (err) {
       console.error('Failed to generate full card image for share preview:', err);
     }
   };
 
-  const verifyUrl = `${domain}/verify?id=${cardId}&name=${encodeURIComponent(name)}&role=${encodeURIComponent(role)}&title=${encodeURIComponent(builderTitle)}&theme=${activeThemeId}`;
+  const verifyUrl = `${domain}/verify?id=${cardId}`;
   const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&color=ffffff&bgcolor=020617&data=${encodeURIComponent(verifyUrl)}`;
 
   return (

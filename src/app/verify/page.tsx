@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
+import dbConnect from '@/lib/db';
+import Submission from '@/models/Submission';
 import VerifyClient from '@/components/VerifyClient';
 
 interface PageProps {
@@ -25,8 +27,21 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
     ? `${baseUrl}/api/verify/image?id=${id}`
     : `${baseUrl}/goa-beach-frame.jpg`;
 
-  const title = resolvedParams.name
-    ? `HH Goa 2026 Verified Pass — ${resolvedParams.name.toUpperCase()}`
+  let displayName = resolvedParams.name || '';
+  if (id && !displayName) {
+    try {
+      await dbConnect();
+      const submission = await Submission.findOne({ id });
+      if (submission?.name) {
+        displayName = submission.name;
+      }
+    } catch (err) {
+      console.error('Failed to fetch name for verify metadata:', err);
+    }
+  }
+
+  const title = displayName
+    ? `HH Goa 2026 Verified Pass — ${displayName.toUpperCase()}`
     : 'HH Goa 2026 | Verified Builder Pass';
 
   return {
