@@ -15,7 +15,7 @@ export default function ShareButton({ mode, shareUrl, onShareClick }: ShareButto
 
   const getShareText = () => {
     const item = mode === 'frame' ? 'Profile Frame' : 'Builder Card';
-    const linkSection = shareUrl ? `\n\nVerify my pass here: ${shareUrl}` : '';
+    const linkSection = shareUrl ? `\n\nVerify my pass here: ${shareUrl}${shareUrl.includes('?') ? '&' : '?'}t=${Date.now()}` : '';
     return `Ready for HH Goa 2026!\n\nJust generated my official ${item}.${linkSection}\n\n#FrameInGoa`;
   };
 

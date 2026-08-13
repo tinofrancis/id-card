@@ -13,7 +13,21 @@ export async function GET(request: Request) {
     await dbConnect();
     const submission = await Submission.findOne({ id });
     if (!submission || !submission.cardImageUrl) {
-      return new NextResponse('Card image not found', { status: 404 });
+      if (submission && submission.imageUrl) {
+        try {
+          const base64Data = submission.imageUrl.replace(/^data:image\/\w+;base64,/, '');
+          const buffer = Buffer.from(base64Data, 'base64');
+          return new NextResponse(buffer, {
+            headers: {
+              'Content-Type': 'image/png',
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+            },
+          });
+        } catch (err) {
+          console.error('Failed to parse avatar fallback image:', err);
+        }
+      }
+      return NextResponse.redirect(new URL('/goa-beach-frame-cropped.jpg', request.url));
     }
 
     // cardImageUrl is a base64 Data URL, e.g.: "data:image/png;base64,iVBORw0KG..."

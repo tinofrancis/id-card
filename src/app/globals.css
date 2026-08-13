@@ -247,8 +247,6 @@ body {
 
 /* Canvas badge template sizes */
 .badge-canvas-container {
-  width: 1080px;
-  height: 1350px;
   position: absolute;
   left: -9999px;
   top: -9999px;
